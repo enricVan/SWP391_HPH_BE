@@ -1,154 +1,89 @@
--- MySQL Workbench Forward Engineering
+CREATE DATABASE hph_db;
+USE hph_db;
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+-- drop database hph_db;
+CREATE TABLE `user` (
+	created_at datetime,
+    updated_at datetime,
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(20) NOT NULL,
+    password_hash VARCHAR(32) NOT NULL,
+    full_name varchar(100),
+    email varchar(100),
+    gender varchar(20),
+    phone varchar(20),
+    address varchar(100),
+    `status` varchar(50)
+);
+CREATE TABLE `role` (
+	created_at datetime,
+    updated_at datetime,
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(20) not null,
+    `description` text(200)
+);
+CREATE TABLE `feature`(
+	created_at datetime,
+    updated_at datetime,
+	feature_id INT AUTO_INCREMENT PRIMARY KEY,
+	feature_name VARCHAR(50) NOT NULL,
+	url VARCHAR(300) NOT NULL
+);
+CREATE TABLE `user_role` (
+	created_at datetime,
+    updated_at datetime,
+    user_id INT not null,
+    role_id INT not null,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES `user`(user_id),
+    FOREIGN KEY (role_id) REFERENCES `role`(role_id)
+);
+CREATE TABLE `role_feature` (
+	created_at datetime,
+    updated_at datetime,
+    role_id INT not null,
+    feature_id INT not null,
+    PRIMARY KEY (feature_id, role_id),
+    FOREIGN KEY (feature_id) REFERENCES feature(feature_id),
+    FOREIGN KEY (role_id) REFERENCES `role`(role_id)
+);
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema hph_db
--- -----------------------------------------------------
+CREATE TABLE student (
+	created_at datetime,
+    updated_at datetime,
+	student_id int AUTO_INCREMENT PRIMARY KEY,
+    user_id int not null unique,
+	FOREIGN KEY (user_id) REFERENCES `user`(user_id),
+	`description` text(200)
+);
 
--- -----------------------------------------------------
--- Schema hph_db
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `hph_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `hph_db` ;
+create table `manager`(
+	created_at datetime,
+    updated_at datetime,
+	manager_id int AUTO_INCREMENT PRIMARY KEY,
+    user_id int not null unique,
+	FOREIGN KEY (user_id) REFERENCES `user`(user_id),
+	`description` text(200)
+);
 
--- -----------------------------------------------------
--- Table `hph_db`.`feature`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hph_db`.`feature` (
-  `createdAt` DATETIME NULL DEFAULT NULL,
-  `updateAt` DATETIME NULL DEFAULT NULL,
-  `featureId` INT NOT NULL AUTO_INCREMENT,
-  `featureName` VARCHAR(50) NOT NULL,
-  `url` VARCHAR(300) NOT NULL,
-  PRIMARY KEY (`featureId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+-- Inserting Sample Data into the "user" table
 
+-- Sample User 1
+INSERT INTO `user` (created_at, updated_at, user_name, password_hash, full_name, email, gender, phone, address, `status`)
+VALUES
+    ('2023-09-15 12:00:00', '2023-09-15 12:00:00', 'user1', 'password_hash1', 'John Doe', 'john.doe@example.com', 'Male', '1234567890', '123 Main St', 'Active');
 
--- -----------------------------------------------------
--- Table `hph_db`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hph_db`.`user` (
-  `createdAt` DATETIME NULL DEFAULT NULL,
-  `updateAt` DATETIME NULL DEFAULT NULL,
-  `userId` INT NOT NULL AUTO_INCREMENT,
-  `userName` VARCHAR(20) NOT NULL,
-  `passwordHash` VARCHAR(32) NOT NULL,
-  `fullName` VARCHAR(100) NULL DEFAULT NULL,
-  `email` VARCHAR(50) NULL DEFAULT NULL,
-  `gender` VARCHAR(20) NULL DEFAULT NULL,
-  `phone` VARCHAR(20) NULL DEFAULT NULL,
-  `address` VARCHAR(100) NULL DEFAULT NULL,
-  `avatarLink` TEXT NULL DEFAULT NULL,
-  `status` VARCHAR(50) NULL DEFAULT NULL,
-  PRIMARY KEY (`userId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+-- Sample User 2
+INSERT INTO `user` (created_at, updated_at, user_name, password_hash, full_name, email, gender, phone, address, `status`)
+VALUES
+    ('2023-09-15 12:00:00', '2023-09-15 12:00:00', 'user2', 'password_hash2', 'Jane Smith', 'jane.smith@example.com', 'Female', '9876543210', '456 Elm St', 'Active');
 
-
--- -----------------------------------------------------
--- Table `hph_db`.`manager`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hph_db`.`manager` (
-  `createdAt` DATETIME NULL DEFAULT NULL,
-  `updateAt` DATETIME NULL DEFAULT NULL,
-  `managerId` INT NOT NULL AUTO_INCREMENT,
-  `userId` INT NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`managerId`),
-  UNIQUE INDEX `userId` (`userId` ASC) VISIBLE,
-  CONSTRAINT `manager_ibfk_1`
-    FOREIGN KEY (`userId`)
-    REFERENCES `hph_db`.`user` (`userId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `hph_db`.`role`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hph_db`.`role` (
-  `createdAt` DATETIME NULL DEFAULT NULL,
-  `updateAt` DATETIME NULL DEFAULT NULL,
-  `roleId` INT NOT NULL AUTO_INCREMENT,
-  `roleName` VARCHAR(20) NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`roleId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+-- Sample User 3
+INSERT INTO `user` (created_at, updated_at, user_name, password_hash, full_name, email, gender, phone, address, `status`)
+VALUES
+    ('2023-09-15 12:00:00', '2023-09-15 12:00:00', 'user3', 'password_hash3', 'Bob Johnson', 'bob.johnson@example.com', 'Male', '5555555555', '789 Oak St', 'Inactive');
 
 
--- -----------------------------------------------------
--- Table `hph_db`.`role_feature`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hph_db`.`role_feature` (
-  `createdAt` DATETIME NULL DEFAULT NULL,
-  `updateAt` DATETIME NULL DEFAULT NULL,
-  `roleId` INT NOT NULL,
-  `featureId` INT NOT NULL,
-  PRIMARY KEY (`featureId`, `roleId`),
-  INDEX `roleId` (`roleId` ASC) VISIBLE,
-  CONSTRAINT `role_feature_ibfk_1`
-    FOREIGN KEY (`featureId`)
-    REFERENCES `hph_db`.`feature` (`featureId`),
-  CONSTRAINT `role_feature_ibfk_2`
-    FOREIGN KEY (`roleId`)
-    REFERENCES `hph_db`.`role` (`roleId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+select * from `user`;
 
-
--- -----------------------------------------------------
--- Table `hph_db`.`student`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hph_db`.`student` (
-  `createdAt` DATETIME NULL DEFAULT NULL,
-  `updateAt` DATETIME NULL DEFAULT NULL,
-  `studentId` INT NOT NULL AUTO_INCREMENT,
-  `userId` INT NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`studentId`),
-  UNIQUE INDEX `userId` (`userId` ASC) VISIBLE,
-  CONSTRAINT `student_ibfk_1`
-    FOREIGN KEY (`userId`)
-    REFERENCES `hph_db`.`user` (`userId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `hph_db`.`user_role`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hph_db`.`user_role` (
-  `createdAt` DATETIME NULL DEFAULT NULL,
-  `updateAt` DATETIME NULL DEFAULT NULL,
-  `userId` INT NOT NULL,
-  `roleId` INT NOT NULL,
-  PRIMARY KEY (`userId`, `roleId`),
-  INDEX `roleId` (`roleId` ASC) VISIBLE,
-  CONSTRAINT `user_role_ibfk_1`
-    FOREIGN KEY (`userId`)
-    REFERENCES `hph_db`.`user` (`userId`),
-  CONSTRAINT `user_role_ibfk_2`
-    FOREIGN KEY (`roleId`)
-    REFERENCES `hph_db`.`role` (`roleId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+	

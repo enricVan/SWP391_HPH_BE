@@ -1,6 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,22 +18,22 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId")
-    private int userId;
+    @Column(name = "user_id")
+    private int user_id;
 
-    @Column(name = "createdAt")
-    private LocalDate createdAt;
+    @Column(name = "created_at")
+    private LocalDateTime created_at;
 
-    @Column(name = "updatedAt")
-    private LocalDate updatedAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updated_at;
 
-    @Column(name = "fullName")
-    private String fullName;
+    @Column(name = "full_name")
+    private String full_name;
 
-    @Column(name = "userName")
-    private String userName;
+    @Column(name = "username")
+    private String username;
 
-    @Column(name = "passwordHash")
-    private String passwordHash;
+    @Column(name = "password_hash")
+    private String password_hash;
 
 }
