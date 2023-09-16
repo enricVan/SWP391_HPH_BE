@@ -19,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int user_id;
+    private Long user_id;
 
     @Column(name = "created_at")
     private LocalDateTime created_at;

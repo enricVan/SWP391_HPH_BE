@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import fu.swp.dorm_mnm.model.User;
@@ -44,7 +45,8 @@ public class UserController {
 	@GetMapping("/user/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable Long id) {
 		User user = userRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
+				.orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" +
+						id));
 		return ResponseEntity.ok(user);
 	}
 
