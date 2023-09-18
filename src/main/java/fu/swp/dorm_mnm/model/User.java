@@ -36,4 +36,6 @@ public class User {
     @Column(name = "password_hash")
     private String password_hash;
 
+    
+
 }

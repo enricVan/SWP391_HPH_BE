@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.UserRepository;
+import fu.swp.dorm_mnm.service.UserService;
 import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 
 
@@ -30,7 +32,7 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 public class AuthenticationController {
 
     @Autowired
-    private AccountService accountService;
+    private UserService accountService;
 
     @GetMapping("/")
     public String loginPage() {
@@ -47,10 +49,11 @@ public class AuthenticationController {
     public String submitLogin(HttpServletRequest req, Model model) {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        Account account = accountService.accountAuthentication(username, password);
+        User account = accountService.accountAuthentication(username, password);
         req.getSession().setAttribute("account", account);
         if (account != null) {
-            String role = account.getRoles().get(0).getRoleName().toLowerCase(); // student -- teacher
+            String role = "";
+            // account.getRoles().get(0).getRoleName().toLowerCase(); // student -- teacher
             return "redirect: " + role + "/home";
         } else {
             model.addAttribute("error", "Invalid username or password");

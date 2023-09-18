@@ -5,7 +5,7 @@ CREATE TABLE `user` (
     created_at datetime,
     updated_at datetime,
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_name VARCHAR(20) NOT NULL,
+    username VARCHAR(20) NOT NULL,
     password_hash VARCHAR(32) NOT NULL,
     full_name varchar(100),
     email varchar(100),
@@ -67,7 +67,7 @@ create table `manager`(
 INSERT INTO `user` (
         created_at,
         updated_at,
-        user_name,
+        username,
         password_hash,
         full_name,
         email,
@@ -92,7 +92,7 @@ VALUES (
 INSERT INTO `user` (
         created_at,
         updated_at,
-        user_name,
+        username,
         password_hash,
         full_name,
         email,
@@ -117,7 +117,7 @@ VALUES (
 INSERT INTO `user` (
         created_at,
         updated_at,
-        user_name,
+        username,
         password_hash,
         full_name,
         email,
