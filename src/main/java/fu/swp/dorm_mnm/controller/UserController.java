@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import fu.swp.dorm_mnm.model.User;
@@ -59,7 +58,7 @@ public class UserController {
 
 		user.setFull_name(userDetails.getFull_name());
 		user.setUsername(userDetails.getUsername());
-		user.setPassword_hash(userDetails.getPassword_hash());
+		user.setPassword(userDetails.getPassword());
 
 		User updatedUser = userRepository.save(user);
 		return ResponseEntity.ok(updatedUser);
