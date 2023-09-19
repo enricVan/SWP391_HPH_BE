@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import fu.swp.dorm_mnm.config.JwtService;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.RoleRepository;
 import fu.swp.dorm_mnm.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +17,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
+
+    private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -30,7 +33,7 @@ public class AuthenticationService {
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()));
-        var user = repository.findByUsername(request.getUsername())
+        var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow();
 
         var jwtToken = jwtService.generateToken(user);
@@ -41,12 +44,14 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
+        Role role = roleRepository.findByRoleName(request.getRole());
+
         var user = User.builder()
         .username(request.getUsername())
         .password(passwordEncoder.encode(request.getPassword()))
-        .role(Role.ADMIN)
+        .role(role)
         .build();
-        repository.save(user);
+        userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
