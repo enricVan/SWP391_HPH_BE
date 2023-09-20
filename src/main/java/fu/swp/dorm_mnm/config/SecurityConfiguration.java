@@ -27,7 +27,7 @@ public class SecurityConfiguration {
         .disable()
         .cors().and()
         .authorizeHttpRequests()
-        .antMatchers("/api/v1/auth/authenticate", "/api/v1/public/**").permitAll()
+        .antMatchers("/api/v1/auth/**", "/api/v1/public/**").permitAll()
         .antMatchers("/api/v1/admin", "/api/v1/auth/register").hasAuthority("ADMIN")
         .antMatchers("/api/v1/student").hasAuthority("STUDENT")
         .antMatchers("/api/v1/security").hasAuthority("SECURITY")
