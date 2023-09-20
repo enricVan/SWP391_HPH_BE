@@ -1,17 +1,11 @@
 package fu.swp.dorm_mnm.model;
 
+import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,26 +28,46 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long user_id;
-
-    @Column(name = "created_at")
-    private LocalDateTime created_at;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updated_at;
-
-    @Column(name = "full_name")
-    private String full_name;
-
-    @Column(name = "username", unique = true)
-    private String username;
-
-    @Column(name = "password")
-    private String password;
+    private int userId;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @Column(name = "username", length = 20, unique = true, nullable = false)
+    private String username;
+
+    @Column(name = "password", length = 32, nullable = false)
+    private String password;
+
+    @Column(name = "full_name", length = 100)
+    private String fullName;
+
+    @Column(name = "email", length = 100)
+    private String email;
+
+    @Column(name = "gender", length = 20)
+    private String gender;
+
+    @Column(name = "phone", length = 20)
+    private String phone;
+
+    @Column(name = "address", length = 100)
+    private String address;
+
+    @Column(name = "avatar_image", length = 255)
+    private String avatarImage;
+
+    @Column(name = "status", length = 50)
+    private String status;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
