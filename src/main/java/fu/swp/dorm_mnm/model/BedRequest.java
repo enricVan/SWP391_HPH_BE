@@ -26,12 +26,13 @@ public class BedRequest {
     @JoinColumn(name = "bed_id")
     private Bed bed;
 
+    @OneToOne
+    @JoinColumn(name = "semester_id")
+    private Semester semester;
+
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
-
-    @Column(name = "semester", length = 20)
-    private String semester;
 
     @Column(name = "status", length = 20)
     private String status;
