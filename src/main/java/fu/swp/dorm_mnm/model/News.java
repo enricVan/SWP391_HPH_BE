@@ -20,7 +20,7 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "news_id")
-    private int newsId;
+    private Long newsId;
 
     @ManyToOne
     @JoinColumn(name = "manager_id")

@@ -9,7 +9,7 @@ public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feedback_id")
-    private int feedbackId;
+    private Long feedbackId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

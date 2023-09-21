@@ -20,7 +20,7 @@ public class BedRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bed_request_id")
-    private int bedRequestId;
+    private Long bedRequestId;
 
     @ManyToOne
     @JoinColumn(name = "bed_id")

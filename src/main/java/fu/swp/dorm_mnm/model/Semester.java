@@ -21,7 +21,7 @@ public class Semester {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "semester_id")
-    private int semesterId;
+    private Long semesterId;
 
     @Column(name = "created_at")
     private Date createdAt;
