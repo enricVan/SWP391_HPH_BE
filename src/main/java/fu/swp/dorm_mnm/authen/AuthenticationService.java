@@ -40,6 +40,7 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder()
         .token(jwtToken)
+        .role(user.getRole().getRoleName())
         .build();
     }
 
@@ -56,6 +57,7 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder()
         .token(jwtToken)
+        .role(role.getRoleName())
         .build();
     }
 
