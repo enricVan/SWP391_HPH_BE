@@ -31,6 +31,9 @@ public class Room {
     @Column(name = "belong_dom", length = 20)
     private String belongDom;
 
+    @Column(name = "floor")
+    private int floor;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
