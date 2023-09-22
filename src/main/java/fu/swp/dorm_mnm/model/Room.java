@@ -32,7 +32,7 @@ public class Room {
     private String belongDom;
 
     @Column(name = "floor")
-    private int floor;
+    private Integer floor;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
