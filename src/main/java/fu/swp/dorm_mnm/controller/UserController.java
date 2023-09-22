@@ -22,9 +22,9 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
+
 @RequestMapping("/api/v1/")
 public class UserController {
-
 	@Autowired
 	private UserRepository userRepository;
 

@@ -15,27 +15,32 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "manager")
-public class Manager {
+@Table(name = "semester")
+public class Semester {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "manager_id")
-    private int managerId;
+    @Column(name = "semester_id")
+    private Long semesterId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id",unique = true)
-    private User user;
-
-    @Column(name = "description", length = 200)
-    private String description;
-
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    // Constructors, getters, and setters
+    @Column(name = "semester_name")
+    private String semesterName;
+
+    @Column(name = "start_date")
+    private Date startDate;
+
+    @Column(name = "end_date")
+    private Date endDate;
+
+    @OneToOne(mappedBy = "semester")
+    private BedRequest bedRequest;
+
 }
+
+

@@ -19,7 +19,7 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
 
     private final AuthenticationProvider authenticationProvider;
-    
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
@@ -27,10 +27,11 @@ public class SecurityConfiguration {
         .disable()
         .cors().and()
         .authorizeHttpRequests()
-        .antMatchers("/api/v1/auth/**", "/api/v1/public/**").permitAll()
-        .antMatchers("/api/v1/admin", "/api/v1/auth/register").hasAuthority("ADMIN")
-        .antMatchers("/api/v1/student").hasAuthority("STUDENT")
-        .antMatchers("/api/v1/security").hasAuthority("SECURITY")
+        .antMatchers("/api/v1/**").permitAll() //config that to test all API
+//        .antMatchers("/api/v1/auth/**", "/api/v1/public/**").permitAll()
+//        .antMatchers("/api/v1/admin/**", "/api/v1/auth/register").hasAuthority("ADMIN")
+//        .antMatchers("/api/v1/student/**").hasAuthority("STUDENT")
+//        .antMatchers("/api/v1/security/**").hasAuthority("SECURITY")
         .anyRequest()
         .authenticated()
         .and()
@@ -39,7 +40,7 @@ public class SecurityConfiguration {
         .and()
         .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-        
+
         return http.build();
     }
 }

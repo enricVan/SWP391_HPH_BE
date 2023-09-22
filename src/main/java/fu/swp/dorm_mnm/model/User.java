@@ -28,16 +28,25 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private long userId;
+
+    private Long userId;
+
+
 
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @OneToOne(mappedBy = "user")
+    private Manager manager;
+
+    @OneToOne(mappedBy = "user")
+    private Student student;
+
     @Column(name = "username", length = 20, unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password", length = 32, nullable = false)
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
 
     @Column(name = "full_name", length = 100)
