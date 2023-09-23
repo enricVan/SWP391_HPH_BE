@@ -2,6 +2,7 @@ package fu.swp.dorm_mnm.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 import lombok.AllArgsConstructor;
@@ -23,11 +24,14 @@ public class Student {
     @Column(name = "student_id")
     private Long studentId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "parent_name", length = 100, nullable = false)
+    // @OneToMany(mappedBy = "student")
+    // private List<BedRequest> bedRequests;
+
+    @Column(name = "parent_name", nullable = false, length = 100)
     private String parentName;
 
     @Column(name = "description", length = 200)

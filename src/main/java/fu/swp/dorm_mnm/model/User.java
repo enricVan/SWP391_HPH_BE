@@ -24,28 +24,27 @@ import lombok.Setter;
 @Builder
 @Table(name = "`user`")
 public class User implements UserDetails {
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-
     private Long userId;
 
-
-
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @OneToOne(mappedBy = "user")
-    private Manager manager;
-
-    @OneToOne(mappedBy = "user")
-    private Student student;
-
-    @Column(name = "username", length = 20, unique = true, nullable = false)
+    @Column(name = "username", nullable = false, unique = true, length = 20)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 255)
+    @Column(name = "password", nullable = false, length = 32)
     private String password;
 
     @Column(name = "full_name", length = 100)
@@ -63,19 +62,20 @@ public class User implements UserDetails {
     @Column(name = "address", length = 100)
     private String address;
 
-    @Column(name = "avatar_image", length = 255)
+    @Column(name = "avatar_image", length = 300)
     private String avatarImage;
 
     @Column(name = "status", length = 50)
     private String status;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
+    // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // private Student student;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // private Manager manager;
+
+    // @OneToMany(mappedBy = "user")
+    // private List<Feedback> feedbacks;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

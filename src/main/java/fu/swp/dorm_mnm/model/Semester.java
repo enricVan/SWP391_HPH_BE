@@ -18,16 +18,18 @@ import lombok.Setter;
 @Table(name = "semester")
 public class Semester {
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "semester_id")
     private Long semesterId;
-
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @Column(name = "updated_at")
-    private Date updatedAt;
 
     @Column(name = "semester_name")
     private String semesterName;
@@ -37,9 +39,6 @@ public class Semester {
 
     @Column(name = "end_date")
     private Date endDate;
-
-    @OneToOne(mappedBy = "semester")
-    private BedRequest bedRequest;
 
 }
 

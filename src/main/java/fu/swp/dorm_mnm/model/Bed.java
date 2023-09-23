@@ -2,6 +2,7 @@ package fu.swp.dorm_mnm.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +21,7 @@ public class Bed {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bed_id")
-    private int bedId;
+    private Long bedId;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
@@ -29,8 +30,14 @@ public class Bed {
     @Column(name = "bed_name", length = 20)
     private String bedName;
 
-    @Column(name = "status", length = 20)
+    @Column(name = "price")
+    private Float price;
+
+    @Column(name = "status", length = 50)
     private String status;
+
+    // @OneToMany(mappedBy = "bed")
+    // private List<BedRequest> bedRequest;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -39,7 +46,6 @@ public class Bed {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
     // Constructors, getters, and setters
 }
 

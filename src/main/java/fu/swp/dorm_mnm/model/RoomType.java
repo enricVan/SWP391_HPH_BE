@@ -2,6 +2,7 @@ package fu.swp.dorm_mnm.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,10 +21,13 @@ public class RoomType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_type_id")
-    private int roomTypeId;
+    private Long roomTypeId;
 
     @Column(name = "room_type_name", length = 20)
     private String roomTypeName;
+
+    // @OneToMany(mappedBy = "roomType")
+    // private List<Room> rooms;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -32,6 +36,7 @@ public class RoomType {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
+
 
     // Constructors, getters, and setters
 }

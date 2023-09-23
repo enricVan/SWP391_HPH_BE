@@ -19,7 +19,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
-    private int roleId;
+    private Long roleId;
 
     @Column(name = "role_name", length = 20, nullable = false)
     private String roleName;
@@ -35,15 +35,15 @@ public class Role {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "role")
-    private List<User> users;
+    // @OneToMany(mappedBy = "role")
+    // private List<User> users;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "role_feature",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "feature_id")
-    )
-    private List<Feature> features;
+    // @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // @JoinTable(
+    //         name = "role_feature",
+    //         joinColumns = @JoinColumn(name = "role_id"),
+    //         inverseJoinColumns = @JoinColumn(name = "feature_id")
+    // )
+    // private List<Feature> features;
 
 }

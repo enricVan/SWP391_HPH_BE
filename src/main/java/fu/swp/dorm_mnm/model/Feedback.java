@@ -15,12 +15,11 @@ public class Feedback {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "title", columnDefinition = "text")
+    @Column(name = "title", columnDefinition = "TEXT")
     private String title;
 
-    @Column(name = "content", columnDefinition = "text")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;

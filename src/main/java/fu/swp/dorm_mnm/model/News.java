@@ -23,7 +23,7 @@ public class News {
     private Long newsId;
 
     @ManyToOne
-    @JoinColumn(name = "manager_id")
+    @JoinColumn(name = "manager_id", nullable = false)
     private Manager manager;
 
     @Column(name = "category", length = 50)
@@ -32,10 +32,10 @@ public class News {
     @Column(name = "title", length = 50)
     private String title;
 
-    @Column(name = "content", columnDefinition = "text")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "image", length = 255)
+    @Column(name = "image", columnDefinition = "TEXT")
     private String image;
 
     @Temporal(TemporalType.TIMESTAMP)

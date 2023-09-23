@@ -20,7 +20,7 @@ public class RoleFeature {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_feature_id")
-    private int roleFeatureId;
+    private Long roleFeatureId;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

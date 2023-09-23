@@ -2,6 +2,7 @@ package fu.swp.dorm_mnm.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,14 +21,17 @@ public class Manager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "manager_id")
-    private int managerId;
+    private Long managerId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id",unique = true)
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
     private User user;
 
     @Column(name = "description", length = 200)
     private String description;
+
+    // @OneToMany(mappedBy = "manager")
+    // private List<News> newsList;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")

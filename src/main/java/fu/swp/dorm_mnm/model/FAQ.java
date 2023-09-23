@@ -20,15 +20,15 @@ public class FAQ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "faq_id")
-    private int faqId;
+    private Long faqId;
 
-    @Column(name = "title", columnDefinition = "text")
+    @Column(name = "title", columnDefinition = "TEXT")
     private String title;
 
-    @Column(name = "sub_title", columnDefinition = "text")
+    @Column(name = "sub_title", columnDefinition = "TEXT")
     private String subTitle;
 
-    @Column(name = "content", columnDefinition = "text")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -18,17 +18,6 @@ import java.util.List;
 @Entity
 @Table(name = "feature")
 public class Feature {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "feature_id")
-    private int featureId;
-
-    @Column(name = "feature_name", length = 50, nullable = false)
-    private String featureName;
-
-    @Column(name = "url", length = 300, nullable = false)
-    private String url;
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
@@ -37,8 +26,18 @@ public class Feature {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @ManyToMany(mappedBy = "features")
-    private List<Role> roles;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "feature_id")
+    private Long featureId;
 
+    @Column(name = "feature_name", nullable = false, length = 50)
+    private String featureName;
+
+    @Column(name = "url", nullable = false, length = 300)
+    private String url;
+
+    // @ManyToMany(mappedBy = "features")
+    // private List<Role> roles;
     // Constructors, getters, and setters
 }
