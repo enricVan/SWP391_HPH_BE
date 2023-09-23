@@ -1,11 +1,9 @@
 package fu.swp.dorm_mnm.controller;
 
 
-import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.model.RoomType;
 import fu.swp.dorm_mnm.repository.RoomTypeRepository;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

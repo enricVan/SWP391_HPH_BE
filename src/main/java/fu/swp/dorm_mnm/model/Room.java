@@ -2,7 +2,6 @@ package fu.swp.dorm_mnm.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
