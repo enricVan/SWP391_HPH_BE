@@ -21,25 +21,26 @@ public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        .csrf()
-        .disable()
-        .cors().and()
-        .authorizeHttpRequests()
-        .antMatchers("/api/v1/**").permitAll() //config that to test all API
-//        .antMatchers("/api/v1/auth/**", "/api/v1/public/**").permitAll()
-//        .antMatchers("/api/v1/admin/**", "/api/v1/auth/register").hasAuthority("ADMIN")
-//        .antMatchers("/api/v1/student/**").hasAuthority("STUDENT")
-//        .antMatchers("/api/v1/security/**").hasAuthority("SECURITY")
-        .anyRequest()
-        .authenticated()
-        .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .authenticationProvider(authenticationProvider)
-        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .csrf()
+                .disable()
+                .cors().and()
+                .authorizeHttpRequests()
+                .antMatchers("/api/v1/**").permitAll() //config that to test all API
+                // .antMatchers("/api/v1/auth/authenticate", "/api/v1/public/**").permitAll()
+                                // .antMatchers("/api/v1/admin/roomtype").hasAuthority("ADMIN")
+                // .antMatchers("/api/v1/admin/**", "/api/v1/auth/register").hasAuthority("ROLE_ADMIN")
+                // .antMatchers("/api/v1/student/**").hasAuthority("STUDENT")
+                // .antMatchers("/api/v1/security/**").hasAuthority("SECURITY")
+                .anyRequest()
+                .authenticated()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

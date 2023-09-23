@@ -15,4 +15,9 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     public void save(RoomType roomType) {
         roomTypeRepository.save(roomType);
     }
+
+    @Override
+    public Iterable<RoomType> findAll() {
+        return roomTypeRepository.findAll();
+    }
 }

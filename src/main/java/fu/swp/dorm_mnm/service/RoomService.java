@@ -2,7 +2,6 @@ package fu.swp.dorm_mnm.service;
 
 import fu.swp.dorm_mnm.model.Room;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface RoomService {
