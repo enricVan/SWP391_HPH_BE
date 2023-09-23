@@ -1,7 +1,5 @@
-CREATE
-DATABASE hph_db;
-USE
-hph_db;
+CREATE DATABASE hph_db;
+USE hph_db;
 -- drop database hph_db;
 
 CREATE TABLE `role`
@@ -44,9 +42,9 @@ CREATE TABLE `role_feature`
 (
     created_at datetime,
     updated_at datetime,
+    role_feature_id int auto_increment primary key,
     role_id    INT not null,
     feature_id INT not null,
-    PRIMARY KEY (feature_id, role_id),
     FOREIGN KEY (feature_id) REFERENCES feature (feature_id),
     FOREIGN KEY (role_id) REFERENCES `role` (role_id)
 );
@@ -132,6 +130,7 @@ create table bed
     room_id    int,
     foreign key (room_id) references `room` (room_id),
     bed_name   varchar(20),
+    price float,
     `status`   varchar(20) -- available/ not allow
 );
 
@@ -155,52 +154,118 @@ create table bed_request
     student_id     int,
     foreign key (student_id) references `student` (student_id),
     semester_id    int,
-    foreign key (semester_id) references `semester` (semester_id),
     `status`       varchar(20)
 );
 
 
 -- Insert data demo
-INSERT INTO `role` (created_at, updated_at, role_name, `description`)
+INSERT INTO `role` (created_at, updated_at , role_name, `description`)
 VALUES (NOW(), NOW(), 'ADMIN', 'Administrator Role'),
        (NOW(), NOW(), 'STUDENT', 'Student Role'),
-       (NOW(), NOW(), 'SECURITY', 'Security Role');
-
-
+       (NOW(), NOW(), 'MANAGER', 'Manager Role');
 
 -- Insert records into the room_type table
--- Insert records into the room_type table
-INSERT INTO `room_type` (created_at, updated_at, room_type_id, room_type_name)
-VALUES (NOW(), NOW(), 1, '8 male'),
-       (NOW(), NOW(), 2, '6 male'),
-       (NOW(), NOW(), 3, '8 female'),
-       (NOW(), NOW(), 4, '6 female');
+INSERT INTO `room_type` (created_at, updated_at, room_type_name)
+VALUES (NOW(), NOW(), '8 male'),
+       (NOW(), NOW(), '6 male'),
+       (NOW(), NOW(), '8 female'),
+       (NOW(), NOW(), '6 female');
 
 -- Insert records into the room table
-INSERT INTO room (created_at, updated_at, room_id, room_type_id, room_name, belong_Dom, `floor`)
-VALUES (NOW(), NOW(), 1, 1, 'Room 101', 'Alpha', 1),
-       (NOW(), NOW(), 2, 2, 'Room 102', 'Beta', 2),
-       (NOW(), NOW(), 3, 3, 'Room 201', 'Alpha', 3),
-       (NOW(), NOW(), 4, 4, 'Room 202', 'Beta', 4);
+INSERT INTO room (created_at, updated_at, room_type_id, room_name, belong_Dom, `floor`)
+VALUES (NOW(), NOW(), 1, 'A101', 'A', 1),
+       (NOW(), NOW(), 1, 'A102', 'A', 1),
+       (NOW(), NOW(), 1, 'A103', 'A', 1),
+       (NOW(), NOW(), 1, 'A104', 'A', 1),
+       (NOW(), NOW(), 1, 'A105', 'A', 1),
+       (NOW(), NOW(), 2, 'B202', 'B', 2),
+       (NOW(), NOW(), 3, 'F321', 'F', 3),
+       (NOW(), NOW(), 4, 'F412', 'F', 4);
+       
 
+
+
+--
 -- Insert records into semester table
 INSERT INTO semester (created_at, updated_at, semester_name, start_date, end_date)
-VALUES (NOW(), NOW(), 'Spring - 23', '2023-01-05', '2023-04-29'),
-       (NOW(), NOW(), 'Summer - 23', '2023-05-15', '2023-08-10'),
-       (NOW(), NOW(), 'Fall - 23', '2023-09-01', '2023-12-20'),
-       (NOW(), NOW(), 'Winter - 24', '2024-01-10', '2024-04-05'),
-       (NOW(), NOW(), 'Spring - 24', '2024-04-20', '2024-07-15');
+VALUES (NOW(), NOW(), 'Spring2023', DATE_FORMAT(STR_TO_DATE('02-01-2023', '%d-%m-%Y'), '%Y/%m/%d'),
+        DATE_FORMAT(STR_TO_DATE('06-05-2023', '%d-%m-%Y'), '%Y/%m/%d')),
+       (NOW(), NOW(), 'Summer2023', DATE_FORMAT(STR_TO_DATE('08-05-2023', '%d-%m-%Y'), '%Y/%m/%d'),
+        DATE_FORMAT(STR_TO_DATE('02-09-2023', '%d-%m-%Y'), '%Y/%m/%d')),
+       (NOW(), NOW(), 'Fall2023', DATE_FORMAT(STR_TO_DATE('04-09-2023', '%d-%m-%Y'), '%Y/%m/%d'),
+        DATE_FORMAT(STR_TO_DATE('23-12-2023', '%d-%m-%Y'), '%Y/%m/%d')),
+       (NOW(), NOW(), 'Spring2024', DATE_FORMAT(STR_TO_DATE('04-01-2024', '%d-%m-%Y'), '%Y/%m/%d'),
+        DATE_FORMAT(STR_TO_DATE('08-05-2024', '%d-%m-%Y'), '%Y/%m/%d')),
+       (NOW(), NOW(), 'Summer2024', DATE_FORMAT(STR_TO_DATE('11-05-2024', '%d-%m-%Y'), '%Y/%m/%d'),
+        DATE_FORMAT(STR_TO_DATE('04-09-2024', '%d-%m-%Y'), '%Y/%m/%d'));
+
+INSERT INTO `user` (created_at, updated_at, role_id, username, `password`, full_name, email, gender, phone, address, avatar_image, `status`)
+VALUES (NOW(), NOW(), 1, 'admin', 'admin', 'Admin User', 'admin@example.com', 'Male', '1234567890',
+        'Admin Address', 'admin.jpg', 'Active'),
+       (NOW(), NOW(), 2, 'student1', 'hashed_password_2', 'Student User 1', 'student1@example.com', 'Female',
+        '9876543210', 'Student Address 1', 'student1.jpg', 'Active'),
+       (NOW(), NOW(), 2, 'student2', 'hashed_password_3', 'Student User 2', 'student2@example.com', 'Male',
+        '5555555555', 'Student Address 2', 'student2.jpg', 'Active');
+
+INSERT INTO `feature` (created_at, updated_at, feature_name, url)
+VALUES (NOW(), NOW(), 'Feature 1', 'URL 1'),
+       (NOW(), NOW(), 'Feature 2', 'URL 2'),
+       (NOW(), NOW(), 'Feature 3', 'URL 3');
+
+INSERT INTO `role_feature` (created_at, updated_at, role_id, feature_id)
+VALUES (NOW(), NOW(), 1, 1),
+       (NOW(), NOW(), 2, 2),
+       (NOW(), NOW(), 3, 3);
+
+INSERT INTO `student` (created_at, updated_at, user_id, parent_name, `description`)
+VALUES (NOW(), NOW(), 1, 'Parent 1', 'Description 1'),
+       (NOW(), NOW(), 2, 'Parent 2', 'Description 2'),
+       (NOW(), NOW(), 3, 'Parent 3', 'Description 3');
+
+INSERT INTO `manager` (created_at, updated_at, user_id, `description`)
+VALUES (NOW(), NOW(), 1, 'Manager 1 Description');
+
+INSERT INTO `news` (created_at, updated_at, manager_id, category, title, content, image)
+VALUES (NOW(), NOW(), 1, 'Category 1', 'News Title 1', 'News Content 1', 'Image URL 1'),
+       (NOW(), NOW(), 1, 'Category 2', 'News Title 2', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Category 3', 'News Title 3', 'News Content 3', 'Image URL 3');
+
+INSERT INTO `faq` (created_at, updated_at, title, sub_title, content)
+VALUES (NOW(), NOW(), 'FAQ Title 1', 'FAQ Subtitle 1', 'FAQ Content 1'),
+       (NOW(), NOW(), 'FAQ Title 2', 'FAQ Subtitle 2', 'FAQ Content 2'),
+       (NOW(), NOW(), 'FAQ Title 3', 'FAQ Subtitle 3', 'FAQ Content 3');
+
+INSERT INTO `feedback` (created_at, updated_at, user_id, title, content)
+VALUES (NOW(), NOW(), 1, 'Feedback Title 1', 'Feedback Content 1'),
+       (NOW(), NOW(), 2, 'Feedback Title 2', 'Feedback Content 2'),
+       (NOW(), NOW(), 3, 'Feedback Title 3', 'Feedback Content 3');
+       
+INSERT INTO `bed` (created_at, updated_at, room_id, bed_name, price, `status`)
+VALUES (NOW(), NOW(), 1, 'Bed 1', 4200000, 'available'),
+       (NOW(), NOW(), 2, 'Bed 2', 4400000, 'not allow'),
+       (NOW(), NOW(), 3, 'Bed 3', 4600000, 'available');
+
+INSERT INTO `bed_request` (created_at, updated_at, bed_id, student_id, semester_id, `status`)
+VALUES (NOW(), NOW(), 1, 1, 1, 'pending'),
+       (NOW(), NOW(), 2, 2, 2, 'approved'),
+       (NOW(), NOW(), 3, 3, 3, 'denied');
+       
+      
+       
+       
+       
 
 -- check data
-select *
-from room;
-select *
-from room_type;
-select *
-from user;
-select *
-from semester
+-- select *
+-- from room;
+-- select *
+-- from room_type;
+-- select *
+-- from user;
+-- select *
+-- from semester;
 
+-- delete from bed_request where bed_request_id != 0;
 
 
 
