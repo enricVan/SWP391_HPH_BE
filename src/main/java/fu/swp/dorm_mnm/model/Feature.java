@@ -17,13 +17,6 @@ import java.util.Date;
 @Entity
 @Table(name = "feature")
 public class Feature {
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Date updatedAt;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +28,14 @@ public class Feature {
 
     @Column(name = "url", nullable = false, length = 300)
     private String url;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
     // @ManyToMany(mappedBy = "features")
     // private List<Role> roles;

@@ -43,7 +43,6 @@ public class Student {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
     // Constructors, getters, and setters
 }
 

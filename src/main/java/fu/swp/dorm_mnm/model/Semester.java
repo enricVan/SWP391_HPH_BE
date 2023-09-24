@@ -17,15 +17,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "semester")
 public class Semester {
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "updated_at")
-    private Date updatedAt;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "semester_id")
@@ -34,11 +25,21 @@ public class Semester {
     @Column(name = "semester_name")
     private String semesterName;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
     private Date startDate;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "end_date")
     private Date endDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
 }
 
