@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.authen;
+package fu.swp.dorm_mnm.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import fu.swp.dorm_mnm.model.AuthenticationRequest;
+import fu.swp.dorm_mnm.model.AuthenticationResponse;
+import fu.swp.dorm_mnm.model.RegisterRequest;
+import fu.swp.dorm_mnm.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
 @CrossOrigin(origins = "http://localhost:5173")

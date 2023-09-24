@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.authen;
+package fu.swp.dorm_mnm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -6,11 +6,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import fu.swp.dorm_mnm.config.JwtService;
+import fu.swp.dorm_mnm.model.AuthenticationRequest;
+import fu.swp.dorm_mnm.model.AuthenticationResponse;
+import fu.swp.dorm_mnm.model.RegisterRequest;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.RoleRepository;
 import fu.swp.dorm_mnm.repository.UserRepository;
+import fu.swp.dorm_mnm.security.JwtService;
 import lombok.RequiredArgsConstructor;
 
 @Service
