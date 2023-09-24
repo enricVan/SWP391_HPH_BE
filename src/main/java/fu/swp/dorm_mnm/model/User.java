@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Collection;
 import java.util.List;
