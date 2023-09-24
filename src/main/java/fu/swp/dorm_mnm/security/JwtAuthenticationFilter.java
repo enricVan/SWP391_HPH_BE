@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.config;
+package fu.swp.dorm_mnm.security;
 
 import java.io.IOException;
 
