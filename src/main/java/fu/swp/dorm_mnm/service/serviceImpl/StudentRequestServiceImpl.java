@@ -50,7 +50,7 @@ public class StudentRequestServiceImpl implements StudentRequestService {
             studentRequest.setStudent(student);
             studentRequest.setStatus("pending");
             studentRequest.setStudentRequestType(studentRequestType);
-            studentRequest.setRequestContent(studentRequest.getRequestContent());
+            studentRequest.setRequestContent(studentRequestReq.getRequestContent());
 
             return studentRequestRepository.save(studentRequest);
         } else {
