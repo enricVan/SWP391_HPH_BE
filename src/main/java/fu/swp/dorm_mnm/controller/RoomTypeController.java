@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/v1/admin/roomtype")
@@ -24,33 +26,13 @@ public class RoomTypeController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<RoomType>> getAllBedRequest() {
+    public ResponseEntity<Iterable<RoomType>> getAllRoomTypes() {
         return new ResponseEntity<>(roomTypeRepository.findAll(), HttpStatus.OK);
     }
 
-    // @GetMapping("/{id}")
-    // public ResponseEntity<BedRequest> getRoomById(@PathVariable Long id) {
-    //     Optional<BedRequest> bedRequestOptional = bedRequestService.findById(id);
-    //     return bedRequestOptional.map(bedRequest -> new ResponseEntity<>(bedRequest, HttpStatus.OK))
-    //             .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    // }
-
-    // @PutMapping("/{id}")
-    // public ResponseEntity<BedRequest> updateBedRequest(@PathVariable Long id, @RequestBody BedRequest bedRequest) {
-    //     Optional<BedRequest> bedRequestOptional = bedRequestService.findById(id);
-    //     return bedRequestOptional.map(bedRequest1 -> {
-    //         bedRequest.setStatus(bedRequest1.getStatus());
-    //         return new ResponseEntity<>(bedRequestService.save(bedRequest), HttpStatus.OK);
-    //     }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    // }
-
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<BedRequest> deleteBedRequestById(@PathVariable Long id) {
-    //     Optional<BedRequest> bedRequestOptional = bedRequestService.findById(id);
-    //     return bedRequestOptional.map(bedRequest -> {
-    //         bedRequestService.remove(id);
-    //         return new ResponseEntity<>(bedRequest, HttpStatus.OK);
-    //     }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    // }
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<RoomType>> getRoomTypeById(@PathVariable Long id) {
+        return new ResponseEntity<>(roomTypeRepository.findById(id), HttpStatus.OK);
+    }
 
 }
