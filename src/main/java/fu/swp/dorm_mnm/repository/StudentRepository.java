@@ -7,5 +7,5 @@ import fu.swp.dorm_mnm.model.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long>{
-    
+    // Student findByUserId(Long userId);
 }
