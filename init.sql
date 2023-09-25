@@ -157,33 +157,24 @@ create table bed_request
     `status`       varchar(20)
 );
 
-create table request_type
+create table student_request_type
 (
     created_at     datetime,
     updated_at     datetime,
-    request_type_id	   int auto_increment primary key,
-    request_type_name nvarchar(300)
+    student_request_type_id	   int auto_increment primary key,
+    student_request_type_name nvarchar(300)
 );
 
-create table `request`
+create table `student_request`
 (
     created_at     datetime,
     updated_at     datetime,
-    request_id	   int auto_increment primary key,
+    student_request_id	   int auto_increment primary key,
     student_id     int,
     foreign key (student_id) references `student` (student_id),
-    request_type_id int,
+    student_request_type_id int,
     foreign key (request_type_id) references request_type(request_type_id),
-    request_content text
-
+    request_content text,
+    `status` varchar(20)
 );
-
 -- Insert data demo
-
-
-
-
-
-
-
-

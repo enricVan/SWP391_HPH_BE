@@ -14,8 +14,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "request")
-public class Request {
+@Table(name = "student_request")
+public class StudentRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +27,8 @@ public class Request {
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "request_type_id")
-    private RequestType requestType;
+    @JoinColumn(name = "student_request_type_id")
+    private StudentRequestType studentRequestType;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -39,6 +39,8 @@ public class Request {
     @Column(name = "request_content", columnDefinition = "text")
     private String requestContent;
 
+    @Column(name = "status")
+    private String status;
     // Constructors, getters, and setters
 }
 

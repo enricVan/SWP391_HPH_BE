@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/v1/admin/roomtype")
+@RequestMapping("/api/v1/admin/roomType")
 public class RoomTypeController {
 
     @Autowired
