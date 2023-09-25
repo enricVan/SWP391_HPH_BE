@@ -8,7 +8,7 @@ CREATE TABLE `role`
     updated_at    datetime,
     role_id       INT AUTO_INCREMENT PRIMARY KEY,
     role_name     VARCHAR(20) not null,
-    `description` text(200)
+    `description` text
 );
 
 CREATE TABLE `user`
@@ -19,7 +19,7 @@ CREATE TABLE `user`
     role_id      INT         NOT NULL,
     foreign key (role_id) references `role` (role_id),
     username     VARCHAR(20) NOT NULL UNIQUE,
-    `password`   VARCHAR(32) NOT NULL,
+    `password`   VARCHAR(255) NOT NULL,
     full_name    varchar(100),
     email        varchar(100),
     gender       varchar(20),
