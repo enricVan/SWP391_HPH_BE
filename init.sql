@@ -19,7 +19,7 @@ CREATE TABLE `user`
     role_id      INT         NOT NULL,
     foreign key (role_id) references `role` (role_id),
     username     VARCHAR(20) NOT NULL UNIQUE,
-    `password`   VARCHAR(255) NOT NULL,
+    `password`   VARCHAR(32) NOT NULL,
     full_name    varchar(100),
     email        varchar(100),
     gender       varchar(20),
@@ -159,7 +159,9 @@ create table bed_request
 
 
 -- Insert data demo
-INSERT INTO `role` (created_at, updated_at , role_name, `description`)
+USE hph_db;
+-- Insert records into semester table
+INSERT INTO `role` (created_at, updated_at, role_name, `description`)
 VALUES (NOW(), NOW(), 'ADMIN', 'Administrator Role'),
        (NOW(), NOW(), 'STUDENT', 'Student Role'),
        (NOW(), NOW(), 'MANAGER', 'Manager Role');
@@ -181,23 +183,15 @@ VALUES (NOW(), NOW(), 1, 'A101', 'A', 1),
        (NOW(), NOW(), 2, 'B202', 'B', 2),
        (NOW(), NOW(), 3, 'F321', 'F', 3),
        (NOW(), NOW(), 4, 'F412', 'F', 4);
-       
 
-
-
---
--- Insert records into semester table
 INSERT INTO semester (created_at, updated_at, semester_name, start_date, end_date)
-VALUES (NOW(), NOW(), 'Spring2023', DATE_FORMAT(STR_TO_DATE('02-01-2023', '%d-%m-%Y'), '%Y/%m/%d'),
-        DATE_FORMAT(STR_TO_DATE('06-05-2023', '%d-%m-%Y'), '%Y/%m/%d')),
-       (NOW(), NOW(), 'Summer2023', DATE_FORMAT(STR_TO_DATE('08-05-2023', '%d-%m-%Y'), '%Y/%m/%d'),
-        DATE_FORMAT(STR_TO_DATE('02-09-2023', '%d-%m-%Y'), '%Y/%m/%d')),
-       (NOW(), NOW(), 'Fall2023', DATE_FORMAT(STR_TO_DATE('04-09-2023', '%d-%m-%Y'), '%Y/%m/%d'),
-        DATE_FORMAT(STR_TO_DATE('23-12-2023', '%d-%m-%Y'), '%Y/%m/%d')),
-       (NOW(), NOW(), 'Spring2024', DATE_FORMAT(STR_TO_DATE('04-01-2024', '%d-%m-%Y'), '%Y/%m/%d'),
-        DATE_FORMAT(STR_TO_DATE('08-05-2024', '%d-%m-%Y'), '%Y/%m/%d')),
-       (NOW(), NOW(), 'Summer2024', DATE_FORMAT(STR_TO_DATE('11-05-2024', '%d-%m-%Y'), '%Y/%m/%d'),
-        DATE_FORMAT(STR_TO_DATE('04-09-2024', '%d-%m-%Y'), '%Y/%m/%d'));
+VALUES
+    (NOW(), NOW(), 'Spring23', '2023-01-02', '2023-05-06'),
+    (NOW(), NOW(), 'Summer23', '2023-05-08', '2023-09-02'),
+    (NOW(), NOW(), 'Fall23', '2023-09-04', '2023-12-23'),
+    (NOW(), NOW(), 'Spring24', '2024-01-04', '2024-05-08'),
+    (NOW(), NOW(), 'Summer24', '2024-05-11', '2024-09-04');
+
 
 INSERT INTO `user` (created_at, updated_at, role_id, username, `password`, full_name, email, gender, phone, address, avatar_image, `status`)
 VALUES (NOW(), NOW(), 1, 'admin', 'admin', 'Admin User', 'admin@example.com', 'Male', '1234567890',
@@ -239,7 +233,7 @@ INSERT INTO `feedback` (created_at, updated_at, user_id, title, content)
 VALUES (NOW(), NOW(), 1, 'Feedback Title 1', 'Feedback Content 1'),
        (NOW(), NOW(), 2, 'Feedback Title 2', 'Feedback Content 2'),
        (NOW(), NOW(), 3, 'Feedback Title 3', 'Feedback Content 3');
-       
+
 INSERT INTO `bed` (created_at, updated_at, room_id, bed_name, price, `status`)
 VALUES (NOW(), NOW(), 1, 'Bed 1', 4200000, 'available'),
        (NOW(), NOW(), 2, 'Bed 2', 4400000, 'not allow'),
@@ -249,23 +243,17 @@ INSERT INTO `bed_request` (created_at, updated_at, bed_id, student_id, semester_
 VALUES (NOW(), NOW(), 1, 1, 1, 'pending'),
        (NOW(), NOW(), 2, 2, 2, 'approved'),
        (NOW(), NOW(), 3, 3, 3, 'denied');
-       
-      
-       
-       
-       
 
 -- check data
--- select *
--- from room;
--- select *
--- from room_type;
--- select *
--- from user;
--- select *
--- from semester;
+-- select * from room;
+-- select * from room_type;
+-- select * from user;
+-- select * from semester;
 
--- delete from bed_request where bed_request_id != 0;
+
+
+
+
 
 
 

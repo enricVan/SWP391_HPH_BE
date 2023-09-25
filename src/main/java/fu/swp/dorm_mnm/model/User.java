@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Collection;
 import java.util.List;
@@ -24,13 +25,6 @@ import lombok.Setter;
 @Builder
 @Table(name = "`user`")
 public class User implements UserDetails {
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Date updatedAt;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +50,10 @@ public class User implements UserDetails {
     @Column(name = "gender", length = 20)
     private String gender;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
+
     @Column(name = "phone", length = 20)
     private String phone;
 
@@ -67,6 +65,14 @@ public class User implements UserDetails {
 
     @Column(name = "status", length = 50)
     private String status;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
     // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     // private Student student;

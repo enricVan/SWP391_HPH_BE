@@ -1,6 +1,7 @@
 package fu.swp.dorm_mnm.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -43,7 +44,6 @@ public class Student {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
     // Constructors, getters, and setters
 }
 
