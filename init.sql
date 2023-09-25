@@ -8,7 +8,7 @@ CREATE TABLE `role`
     updated_at    datetime,
     role_id       INT AUTO_INCREMENT PRIMARY KEY,
     role_name     VARCHAR(20) not null,
-    `description` text
+    `description` text(200)
 );
 
 CREATE TABLE `user`
@@ -19,7 +19,7 @@ CREATE TABLE `user`
     role_id      INT         NOT NULL,
     foreign key (role_id) references `role` (role_id),
     username     VARCHAR(20) NOT NULL UNIQUE,
-    `password`   VARCHAR(255) NOT NULL,
+    `password`   VARCHAR(32) NOT NULL,
     full_name    varchar(100),
     email        varchar(100),
     gender       varchar(20),
@@ -91,16 +91,16 @@ create table faq
     content    text
 );
 
-create table feedback
-(
-    created_at  datetime,
-    updated_at  datetime,
-    feedback_id int auto_increment primary key,
-    user_id     int,
-    foreign key (user_id) references `user` (user_id),
-    title       text,
-    content     text
-);
+-- create table feedback
+-- (
+--     created_at  datetime,
+--     updated_at  datetime,
+--     feedback_id int auto_increment primary key,
+--     user_id     int,
+--     foreign key (user_id) references `user` (user_id),
+--     title       text,
+--     content     text
+-- );
 
 create table `room_type`
 (
@@ -156,6 +156,33 @@ create table bed_request
     semester_id    int,
     `status`       varchar(20)
 );
+
+create table request_type
+(
+    created_at     datetime,
+    updated_at     datetime,
+    request_type_id	   int auto_increment primary key,
+    request_type_name nvarchar(300)
+);
+
+create table `request`
+(
+    created_at     datetime,
+    updated_at     datetime,
+    request_id	   int auto_increment primary key,
+    student_id     int,
+    foreign key (student_id) references `student` (student_id),
+    request_type_id int,
+    foreign key (request_type_id) references request_type(request_type_id),
+    request_content text
+
+);
+
+-- Insert data demo
+
+
+
+
 
 
 
