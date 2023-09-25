@@ -132,10 +132,22 @@ VALUES (NOW(), NOW(), 1, 1, 1, 'pending'),
        (NOW(), NOW(), 2, 2, 2, 'approved'),
        (NOW(), NOW(), 3, 3, 3, 'denied');
 
+INSERT INTO `request_type` (created_at, updated_at, request_type_name)
+VALUES (NOW(), NOW(), 'Skill issues'),
+       (NOW(), NOW(), 'Fix devices')
+;
+
+INSERT INTO `request` (created_at, updated_at, student_id, request_type_id, request_content)
+VALUES (NOW(), NOW(), 1, 1, 'Skill issues'),
+       (NOW(), NOW(), 1, 2, 'Fix devices')
+;
+
+
 -- check data
 -- select * from room;
 -- select * from room_type;
 -- select * from user;
 -- select * from semester;
 -- select * from bed_request;
-
+-- select * from request_type;
+-- select * from request;
