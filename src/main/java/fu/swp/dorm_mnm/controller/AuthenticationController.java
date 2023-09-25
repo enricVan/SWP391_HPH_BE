@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +34,13 @@ public class AuthenticationController {
         @RequestBody AuthenticationRequest request
     ){
         return ResponseEntity.ok(service.authenticate(request));
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<String> changePassword(
+        @RequestBody RegisterRequest request
+    ){
+        service.changePassword(request);
+        return ResponseEntity.ok("ok");
     }
 }

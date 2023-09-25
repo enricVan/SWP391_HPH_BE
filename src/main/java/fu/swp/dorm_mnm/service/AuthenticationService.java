@@ -42,26 +42,32 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
-        .token(jwtToken)
-        .role(user.getRole().getRoleName())
-        .build();
+                .token(jwtToken)
+                .role(user.getRole().getRoleName())
+                .build();
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
         Role role = roleRepository.findByRoleName(request.getRole());
 
         var user = User.builder()
-        .username(request.getUsername())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(role)
-        .build();
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(role)
+                .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
-        .token(jwtToken)
-        .role(role.getRoleName())
-        .build();
+                .token(jwtToken)
+                .role(role.getRoleName())
+                .build();
+    }
+
+    public void changePassword(RegisterRequest request) {
+        User user = userRepository.findByUsername(request.getUsername()).get();
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        userRepository.save(user);
     }
 
 }
