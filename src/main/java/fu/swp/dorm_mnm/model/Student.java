@@ -24,9 +24,9 @@ public class Student {
     @Column(name = "student_id")
     private Long studentId;
 
-    // @OneToOne
-    // @JoinColumn(name = "user_id", nullable = false)
-    // private User user;
+     @OneToOne
+     @JoinColumn(name = "user_id", nullable = false)
+     private User user;
 
     // @OneToMany(mappedBy = "student")
     // private List<BedRequest> bedRequests;

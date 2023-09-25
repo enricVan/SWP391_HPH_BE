@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/admin/bed-request")
+@RequestMapping("/api/v1/admin/bedRequest")
 public class BedRequestController {
     @Autowired
     private BedRequestService bedRequestService;

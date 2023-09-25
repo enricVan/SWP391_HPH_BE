@@ -13,13 +13,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "request_type")
-public class RequestType {
+@Table(name = "student_request_type")
+public class StudentRequestType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "request_type_id")
-    private Long requestTypeId;
+    @Column(name = "student_request_type_id")
+    private Long studentRequestTypeId;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -27,7 +27,7 @@ public class RequestType {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @Column(name = "request_type_name", length = 300)
+    @Column(name = "student_request_type_name", length = 300)
     private String requestTypeName;
 
     // Constructors, getters, and setters
