@@ -15,30 +15,30 @@ import java.util.Optional;
 @RequestMapping("/api/v1/admin/bed")
 public class BedController {
     @Autowired
-    private BedService bedRequest;
+    private BedService bedService;
 
     @PostMapping
     public ResponseEntity<Bed> createNewBed(@RequestBody Bed bed) {
-        return new ResponseEntity<>(bedRequest.save(bed), HttpStatus.OK);
+        return new ResponseEntity<>(bedService.save(bed), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<Iterable<Bed>> getAllBed() {
-        return new ResponseEntity<>(bedRequest.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(bedService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Bed> getBedById(@PathVariable Long id) {
-        Optional<Bed> bedOptional = bedRequest.findById(id);
+        Optional<Bed> bedOptional = bedService.findById(id);
         return bedOptional.map(bed -> new ResponseEntity<>(bed, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Bed> deleteBedById(@PathVariable Long id) {
-        Optional<Bed> bedOptional = bedRequest.findById(id);
+        Optional<Bed> bedOptional = bedService.findById(id);
         return bedOptional.map(bed -> {
-            bedRequest.remove(id);
+            bedService.remove(id);
             return new ResponseEntity<>(bed, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

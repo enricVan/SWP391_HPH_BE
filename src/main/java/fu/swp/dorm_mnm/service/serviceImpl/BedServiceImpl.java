@@ -16,7 +16,7 @@ public class BedServiceImpl implements BedService {
 
     @Override
     public Iterable<Bed> findAll() {
-        return bedRepository.findAllBed();
+        return bedRepository.findAll();
     }
 
     @Override
