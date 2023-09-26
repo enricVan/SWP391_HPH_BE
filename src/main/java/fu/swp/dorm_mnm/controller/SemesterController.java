@@ -45,7 +45,7 @@ public class SemesterController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/next-semester")
+    @GetMapping("/nextSemester")
     public ResponseEntity<Semester> getNextSemester() {
         Date currentDate = new Date();
         return new ResponseEntity<>(semesterService.getNextSemester(currentDate), HttpStatus.OK);
