@@ -46,9 +46,22 @@ INSERT INTO `manager` (created_at, updated_at, user_id, `description`)
 VALUES (NOW(), NOW(), 1, 'Manager 1 Description');
 
 INSERT INTO `news` (created_at, updated_at, manager_id, category, title, content, image)
-VALUES (NOW(), NOW(), 1, 'Category 1', 'News Title 1', 'News Content 1', 'Image URL 1'),
-       (NOW(), NOW(), 1, 'Category 2', 'News Title 2', 'News Content 2', 'Image URL 2'),
-       (NOW(), NOW(), 1, 'Category 3', 'News Title 3', 'News Content 3', 'Image URL 3');
+VALUES (NOW(), NOW(), 1, 'Notice', 'Renewal of dormitory registration for Fall 2023 term', 'News Content 1', 'Image URL 1'),
+       (NOW(), NOW(), 1, 'Tips', 'MANUAL FOR PREVENTION OF DENGUE FEVER EPIDEMIC', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', 'POWER LOSS ON August 6, 2023', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', 'DECISION 139/QD-CTGDFPT DATED DECEMBER 20, 2022 ON THE ISSUANCE OF FINANCIAL REGULATIONS FOR SCHOOL YEAR 2023-2024 FOR STUDENTS OF TRAINING SYSTEMS UNDER THE FPT EDUCATION SYSTEM', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Notice', 'REGISTRATION/CANCELLATION OF KTX FALL 2023 Dormitory Rooms', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Notice', 'Regarding the second spraying of mosquito and insecticides to prevent epidemics in 2023', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', 'CUT WATER TO CLEAN STORAGE TANKS', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', '[Important]ANNOUNCEMENT REGARDING CHANGE IN TIME FOR NEW REGISTRATION IN KY SU23 Dormitory Room', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', 'REGISTRATION/CANCELLATION OF SUMMER 2023 Dormitory', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', 'Dormitory air conditioning maintenance schedule for phase 1 of 2023', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', 'Plan to receive dormitory registration at Hoa Lac campus from Fall 2023', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', '1st SPRAYING OF MOSQUITOES AND INSECTS TO PREVENT DISEASES IN 2023', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', 'Dormitory air conditioning maintenance schedule, phase 1 of 2023', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', 'Dormitory air conditioning maintenance schedule, phase 2 of 2023', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Announcement', 'New Dorm Buiding Open', 'News Content 2', 'Image URL 2'),
+       (NOW(), NOW(), 1, 'Tip', 'News Title 3', 'Where to go when having missing items', 'Image URL 3');
 
 INSERT INTO `faq` (created_at, updated_at, title, sub_title, content)
 VALUES (NOW(), NOW(), 'FAQ Title 1', 'FAQ Subtitle 1', 'FAQ Content 1'),
