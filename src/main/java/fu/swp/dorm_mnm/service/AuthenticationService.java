@@ -1,5 +1,7 @@
 package fu.swp.dorm_mnm.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +30,9 @@ public class AuthenticationService {
         private final PasswordEncoder passwordEncoder;
 
         private final AuthenticationManager authenticationManager;
+
+        @Autowired
+        private EmailService emailService;
 
         @Autowired
         private JwtService jwtService;
@@ -65,12 +70,6 @@ public class AuthenticationService {
                                 .build();
         }
 
-        public void changePassword1(RegisterRequest request) {
-                User user = userRepository.findByUsername(request.getUsername()).get();
-                user.setPassword(passwordEncoder.encode(request.getPassword()));
-                userRepository.save(user);
-        }
-
         public boolean changePassword(ChangePasswordRequest request) {
                 User user = userRepository.findByUsername(request.getUsername()).get();
                 if (passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
@@ -79,6 +78,22 @@ public class AuthenticationService {
                         return true;
                 }
                 return false;
+        }
+
+        public boolean forgetPassword(User request) {
+                User user = userRepository.findByUsername(request.getUsername()).get();
+                if (!request.getEmail().equals(user.getEmail()))
+                        return false;
+                UUID uuid = UUID.randomUUID();
+                String newPass = uuid.toString().replace("-", "");
+                String from = "nguyenquangloi2704@gmail.com";
+                String to = "loinq2704@gmail.com";
+                String subject = "Reset Password";
+                String text = "Your new password is: " + newPass;
+                user.setPassword(passwordEncoder.encode(newPass));
+                emailService.sendSimpleMessage(from, to, subject, text);
+                userRepository.save(user);
+                return true;
         }
 
 }

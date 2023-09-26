@@ -13,6 +13,7 @@ import fu.swp.dorm_mnm.model.AuthenticationRequest;
 import fu.swp.dorm_mnm.model.AuthenticationResponse;
 import fu.swp.dorm_mnm.model.ChangePasswordRequest;
 import fu.swp.dorm_mnm.model.RegisterRequest;
+import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
@@ -44,6 +45,16 @@ public class AuthenticationController {
     ){
         if(!service.changePassword(request)){
             throw new ResourceNotFoundException("Invalid old password");
+        }
+        return ResponseEntity.ok("ok");
+    }
+
+    @PutMapping("/forgetPassword")
+    public ResponseEntity<String> forgetPass(
+        @RequestBody User request
+    ){
+        if(!service.forgetPassword(request)){
+            throw new ResourceNotFoundException("Wrong email or username");
         }
         return ResponseEntity.ok("ok");
     }
