@@ -37,10 +37,10 @@ VALUES (NOW(), NOW(), 1, 1),
        (NOW(), NOW(), 2, 2),
        (NOW(), NOW(), 3, 3);
 
-INSERT INTO `student` (created_at, updated_at, user_id, parent_name, `description`)
-VALUES (NOW(), NOW(), 1, 'Parent 1', 'Description 1'),
-       (NOW(), NOW(), 2, 'Parent 2', 'Description 2'),
-       (NOW(), NOW(), 3, 'Parent 3', 'Description 3');
+INSERT INTO `student` (created_at, updated_at, roll_number, user_id, parent_name, `description`)
+VALUES (NOW(), NOW(), 'HE173334', 1, 'Parent 1', 'Description 1'),
+       (NOW(), NOW(), 'HE123456', 2, 'Parent 2', 'Description 2'),
+       (NOW(), NOW(), 'HE111111', 3, 'Parent 3', 'Description 3');
 
 INSERT INTO `manager` (created_at, updated_at, user_id, `description`)
 VALUES (NOW(), NOW(), 1, 'Manager 1 Description');

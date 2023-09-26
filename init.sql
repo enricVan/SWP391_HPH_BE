@@ -53,6 +53,7 @@ CREATE TABLE student
     created_at    datetime,
     updated_at    datetime,
     student_id    int AUTO_INCREMENT PRIMARY KEY,
+    roll_number   varchar(6) unique,
     user_id       int          not null,
     FOREIGN KEY (user_id) REFERENCES `user` (user_id),
     parent_name   varchar(100) not null,
@@ -177,4 +178,13 @@ create table `student_request`
     request_content text,
     `status` varchar(20)
 );
+
 -- Insert data demo
+
+
+
+
+
+
+
+
