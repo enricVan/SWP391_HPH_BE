@@ -53,21 +53,27 @@ public class AuthenticationService {
                                 .build();
         }
 
-        public AuthenticationResponse register(RegisterRequest request) {
+        public boolean register(User request) {
                 Role role = roleRepository.findByRoleName("STUDENT");
 
-                var user = User.builder()
-                                .username(request.getUsername())
-                                .password(passwordEncoder.encode(request.getPassword()))
-                                .role(role)
-                                .build();
+                if (!userRepository.findByUsername(request.getUsername()).isEmpty()) {
+                        return false;
+                }
+                // var jwtToken = jwtService.generateToken(user);
+                UUID uuid = UUID.randomUUID();
+                String newPass = uuid.toString().replace("-", "");
+                String from = "nguyenquangloi2704@gmail.com";
+                String to = "loinq2704@gmail.com";
+                String subject = "Reset Password";
+                String text = "Your new password is: " + newPass;
+                User user = new User();
+                user.setPassword(passwordEncoder.encode(newPass));
+                emailService.sendSimpleMessage(from, to, subject, text);
+                user.setUsername(request.getUsername());
+                user.setEmail(request.getEmail());
+                user.setRole(role);
                 userRepository.save(user);
-                var jwtToken = jwtService.generateToken(user);
-
-                return AuthenticationResponse.builder()
-                                .token(jwtToken)
-                                .role(role.getRoleName())
-                                .build();
+                return true;
         }
 
         public boolean changePassword(ChangePasswordRequest request) {
