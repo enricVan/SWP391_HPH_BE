@@ -30,7 +30,7 @@ public class News {
     @Column(name = "category", length = 50)
     private String category;
 
-    @Column(name = "title", length = 50)
+    @Column(name = "title", length = 255)
     private String title;
 
     @Column(name = "content", columnDefinition = "TEXT")
