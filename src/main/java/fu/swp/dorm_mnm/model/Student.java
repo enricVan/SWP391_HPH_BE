@@ -37,6 +37,9 @@ public class Student {
     @Column(name = "description", length = 200)
     private String description;
 
+    @Column(name = "roll_number", unique = true, columnDefinition = "VARCHAR(6)")
+    private String rollNumber;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
