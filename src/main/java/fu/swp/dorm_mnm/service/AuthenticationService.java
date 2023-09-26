@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import fu.swp.dorm_mnm.model.AuthenticationRequest;
 import fu.swp.dorm_mnm.model.AuthenticationResponse;
+import fu.swp.dorm_mnm.model.ChangePasswordRequest;
 import fu.swp.dorm_mnm.model.RegisterRequest;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
@@ -20,54 +21,64 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UserRepository userRepository;
+        private final UserRepository userRepository;
 
-    private final RoleRepository roleRepository;
+        private final RoleRepository roleRepository;
 
-    private final PasswordEncoder passwordEncoder;
+        private final PasswordEncoder passwordEncoder;
 
-    private final AuthenticationManager authenticationManager;
+        private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtService jwtService;
+        @Autowired
+        private JwtService jwtService;
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()));
-        var user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow();
+        public AuthenticationResponse authenticate(AuthenticationRequest request) {
+                authenticationManager.authenticate(
+                                new UsernamePasswordAuthenticationToken(
+                                                request.getUsername(),
+                                                request.getPassword()));
+                var user = userRepository.findByUsername(request.getUsername())
+                                .orElseThrow();
 
-        var jwtToken = jwtService.generateToken(user);
+                var jwtToken = jwtService.generateToken(user);
 
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .role(user.getRole().getRoleName())
-                .build();
-    }
+                return AuthenticationResponse.builder()
+                                .token(jwtToken)
+                                .role(user.getRole().getRoleName())
+                                .build();
+        }
 
-    public AuthenticationResponse register(RegisterRequest request) {
-        Role role = roleRepository.findByRoleName(request.getRole());
+        public AuthenticationResponse register(RegisterRequest request) {
+                Role role = roleRepository.findByRoleName(request.getRole());
 
-        var user = User.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(role)
-                .build();
-        userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+                var user = User.builder()
+                                .username(request.getUsername())
+                                .password(passwordEncoder.encode(request.getPassword()))
+                                .role(role)
+                                .build();
+                userRepository.save(user);
+                var jwtToken = jwtService.generateToken(user);
 
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .role(role.getRoleName())
-                .build();
-    }
+                return AuthenticationResponse.builder()
+                                .token(jwtToken)
+                                .role(role.getRoleName())
+                                .build();
+        }
 
-    public void changePassword(RegisterRequest request) {
-        User user = userRepository.findByUsername(request.getUsername()).get();
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        userRepository.save(user);
-    }
+        public void changePassword1(RegisterRequest request) {
+                User user = userRepository.findByUsername(request.getUsername()).get();
+                user.setPassword(passwordEncoder.encode(request.getPassword()));
+                userRepository.save(user);
+        }
+
+        public boolean changePassword(ChangePasswordRequest request) {
+                User user = userRepository.findByUsername(request.getUsername()).get();
+                if (passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+                        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+                        userRepository.save(user);
+                        return true;
+                }
+                return false;
+        }
 
 }
