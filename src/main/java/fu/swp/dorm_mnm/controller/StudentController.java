@@ -33,6 +33,7 @@ public class StudentController {
         user.setFullName(studentRequest.getFullName());
         user.setDateOfBirth(studentRequest.getDateOfBirth());
         user.setGender(studentRequest.getGender());
+        user.setEmail(studentRequest.getEmail());
         Date date = new Date();
         if(user.getCreatedAt()==null){
             user.setCreatedAt(date);
