@@ -49,6 +49,7 @@ public class AuthenticationService {
 
                 return AuthenticationResponse.builder()
                                 .token(jwtToken)
+                                .username(request.getUsername())
                                 .role(user.getRole().getRoleName())
                                 .build();
         }
@@ -63,7 +64,7 @@ public class AuthenticationService {
                 UUID uuid = UUID.randomUUID();
                 String newPass = uuid.toString().replace("-", "");
                 String from = "nguyenquangloi2704@gmail.com";
-                String to = "loinq2704@gmail.com";
+                String to = request.getEmail();
                 String subject = "Reset Password";
                 String text = "Your new password is: " + newPass;
                 User user = new User();
@@ -93,7 +94,7 @@ public class AuthenticationService {
                 UUID uuid = UUID.randomUUID();
                 String newPass = uuid.toString().replace("-", "");
                 String from = "nguyenquangloi2704@gmail.com";
-                String to = "loinq2704@gmail.com";
+                String to = request.getEmail();
                 String subject = "Reset Password";
                 String text = "Your new password is: " + newPass;
                 user.setPassword(passwordEncoder.encode(newPass));
