@@ -49,7 +49,7 @@ public class AuthenticationService {
         }
 
         public AuthenticationResponse register(RegisterRequest request) {
-                Role role = roleRepository.findByRoleName(request.getRole());
+                Role role = roleRepository.findByRoleName("STUDENT");
 
                 var user = User.builder()
                                 .username(request.getUsername())
