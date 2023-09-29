@@ -61,7 +61,7 @@ VALUES (NOW(), NOW(), 1, 'Notice', 'Renewal of dormitory registration for Fall 2
        (NOW(), NOW(), 1, 'Announcement', 'Dormitory air conditioning maintenance schedule, phase 1 of 2023', 'News Content 2', 'Image URL 2'),
        (NOW(), NOW(), 1, 'Announcement', 'Dormitory air conditioning maintenance schedule, phase 2 of 2023', 'News Content 2', 'Image URL 2'),
        (NOW(), NOW(), 1, 'Announcement', 'New Dorm Buiding Open', 'News Content 2', 'Image URL 2'),
-       (NOW(), NOW(), 1, 'Tip', 'News Title 3', 'Where to go when having missing items', 'Image URL 3');
+       (NOW(), NOW(), 1, 'Tip', 'Where to go when having missing items', 'News Content 1', 'Image URL 3');
 
 INSERT INTO `faq` (created_at, updated_at, title, sub_title, content)
 VALUES (NOW(), NOW(), 'FAQ Title 1', 'FAQ Subtitle 1', 'FAQ Content 1'),

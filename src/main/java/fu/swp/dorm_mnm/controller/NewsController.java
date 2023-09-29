@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -38,5 +39,11 @@ public class NewsController {
         catch (Exception e){
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<News> getNewsById(@PathVariable(required = true) Long id){
+        Optional<News> newsOptional=newsService.findById(id);
+        return newsOptional.map(newsRequest-> new ResponseEntity<>(newsRequest,HttpStatus.OK))
+                .orElseGet(()->new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
