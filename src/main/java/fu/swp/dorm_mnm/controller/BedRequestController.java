@@ -28,7 +28,7 @@ public class BedRequestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BedRequest> getRoomById(@PathVariable Long id) {
+    public ResponseEntity<BedRequest> getBedRequestById(@PathVariable Long id) {
         Optional<BedRequest> bedRequestOptional = bedRequestService.findById(id);
         return bedRequestOptional.map(bedRequest -> new ResponseEntity<>(bedRequest, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
