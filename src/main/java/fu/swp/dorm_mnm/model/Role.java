@@ -1,6 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Entity
 @AllArgsConstructor
@@ -46,4 +50,14 @@ public class Role {
     // )
     // private List<Feature> features;
 
+    public List<SimpleGrantedAuthority> getAuthorities() {
+                // var authorities = getPermissions()
+                // .stream()
+                // .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+                // .collect(Collectors.toList());
+                List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + roleName));
+                authorities.add(new SimpleGrantedAuthority("admin:read"));
+                return authorities;
+        }
 }

@@ -1,17 +1,16 @@
-package fu.swp.dorm_mnm.model;
+package fu.swp.dorm_mnm.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthenticationRequest {
-    private String username;
-    private String password;
+
+  private String email;
+  String password;
 }

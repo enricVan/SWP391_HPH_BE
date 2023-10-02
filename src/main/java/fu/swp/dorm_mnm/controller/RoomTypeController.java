@@ -8,6 +8,7 @@ import fu.swp.dorm_mnm.repository.RoomTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/v1/admin/roomType")
+@PreAuthorize("hasRole('ADMIN')")
 public class RoomTypeController {
 
     @Autowired
