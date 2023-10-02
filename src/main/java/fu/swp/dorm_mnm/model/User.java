@@ -1,116 +1,74 @@
 package fu.swp.dorm_mnm.model;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import fu.swp.dorm_mnm.token.Token;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.util.Collection;
 import java.util.List;
-
-import jakarta.persistence.*;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Getter
-@Setter
-@Entity
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "`user`")
+@Entity
+@Table(name = "_user")
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+  private String username;
+  private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+  // @Enumerated(EnumType.STRING)
+  @OneToOne
+  @JoinColumn(name = "role_id")
+  private Role role;
 
-    @Column(name = "username", nullable = false, unique = true, length = 20)
-    private String username;
+  @OneToMany(mappedBy = "user")
+  private List<Token> tokens;
 
-    @Column(name = "password", nullable = false, length = 255)
-    private String password;
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return role.getAuthorities();
+  }
 
-    @Column(name = "full_name", length = 100)
-    private String fullName;
+  @Override
+  public String getPassword() {
+    return password;
+  }
 
-    @Column(name = "email", length = 100)
-    private String email;
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
-    @Column(name = "gender", length = 20)
-    private String gender;
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
 
-    @Column(name = "phone", length = 20)
-    private String phone;
-
-    @Column(name = "address", length = 100)
-    private String address;
-
-    @Column(name = "avatar_image", length = 300)
-    private String avatarImage;
-
-    @Column(name = "status", length = 50)
-    private String status;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Date updatedAt;
-
-    // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // private Student student;
-
-    // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // private Manager manager;
-
-    // @OneToMany(mappedBy = "user")
-    // private List<Feedback> feedbacks;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthorities();
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 }

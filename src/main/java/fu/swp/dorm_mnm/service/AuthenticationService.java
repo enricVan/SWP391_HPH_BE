@@ -1,13 +1,17 @@
-package fu.swp.dorm_mnm.auth;
+package fu.swp.dorm_mnm.service;
 
 import fu.swp.dorm_mnm.config.JwtService;
+import fu.swp.dorm_mnm.model.AuthenticationRequest;
+import fu.swp.dorm_mnm.model.AuthenticationResponse;
+import fu.swp.dorm_mnm.model.RegisterRequest;
+import fu.swp.dorm_mnm.model.Role;
+import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.RoleRepository;
+import fu.swp.dorm_mnm.repository.UserRepository;
 import fu.swp.dorm_mnm.token.Token;
 import fu.swp.dorm_mnm.token.TokenRepository;
 import fu.swp.dorm_mnm.token.TokenType;
-import fu.swp.dorm_mnm.user.Role;
-import fu.swp.dorm_mnm.user.RoleRepository;
-import fu.swp.dorm_mnm.user.User;
-import fu.swp.dorm_mnm.user.UserRepository;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,9 +37,7 @@ public class AuthenticationService {
   public AuthenticationResponse register(RegisterRequest request) {
     Role role = roleRepository.findByRoleName(request.getRole());
     var user = User.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
-        .email(request.getEmail())
+        .username(request.getUsername())
         .password(passwordEncoder.encode(request.getPassword()))
         .role(role)
         .build();
@@ -52,11 +54,11 @@ public class AuthenticationService {
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
-            request.getEmail(),
+            request.getUsername(),
             request.getPassword()
         )
     );
-    var user = repository.findByEmail(request.getEmail())
+    var user = repository.findByUsername(request.getUsername())
         .orElseThrow();
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
@@ -103,7 +105,7 @@ public class AuthenticationService {
     refreshToken = authHeader.substring(7);
     userEmail = jwtService.extractUsername(refreshToken);
     if (userEmail != null) {
-      var user = this.repository.findByEmail(userEmail)
+      var user = this.repository.findByUsername(userEmail)
               .orElseThrow();
       if (jwtService.isTokenValid(refreshToken, user)) {
         var accessToken = jwtService.generateToken(user);

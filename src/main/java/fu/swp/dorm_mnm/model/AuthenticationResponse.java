@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.auth;
+package fu.swp.dorm_mnm.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

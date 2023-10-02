@@ -1,6 +1,5 @@
-package fu.swp.dorm_mnm.auth;
+package fu.swp.dorm_mnm.model;
 
-import fu.swp.dorm_mnm.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-
-  private String firstname;
-  private String lastname;
-  private String email;
+  private String username;
   private String password;
   private String role;
 }

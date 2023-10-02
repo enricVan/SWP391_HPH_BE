@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.auth;
+package fu.swp.dorm_mnm.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationRequest {
 
-  private String email;
+  private String username;
   String password;
 }

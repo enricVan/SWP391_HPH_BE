@@ -1,6 +1,6 @@
 package fu.swp.dorm_mnm.token;
 
-import fu.swp.dorm_mnm.user.User;
+import fu.swp.dorm_mnm.model.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

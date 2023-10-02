@@ -1,5 +1,6 @@
-package fu.swp.dorm_mnm.demo;
+package fu.swp.dorm_mnm.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 // import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,15 +10,26 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.UserRepository;
+
 @RestController
 @RequestMapping("/api/v1/admin")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping
-    // @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('admin:read')")
     public String get() {
-        return "GET:: admin controller";
+        String out = "";
+        Iterable<User> users = userRepository.findAll();
+        for(User user: users){
+            out = user.getUsername();
+        }
+        return out;
     }
     @PostMapping
     @PreAuthorize("hasAuthority('admin:create')")
