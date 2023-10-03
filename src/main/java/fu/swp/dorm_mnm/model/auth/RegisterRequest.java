@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.model;
+package fu.swp.dorm_mnm.model.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

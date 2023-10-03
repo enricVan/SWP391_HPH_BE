@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.config;
+package fu.swp.dorm_mnm.service;
 
 import fu.swp.dorm_mnm.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;

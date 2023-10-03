@@ -1,3 +1,4 @@
+package fu.swp.dorm_mnm.security;
 // package fu.swp.dorm_mnm.config;
 
 // import io.swagger.v3.oas.annotations.OpenAPIDefinition;

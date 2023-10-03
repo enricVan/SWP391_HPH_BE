@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.config;
+package fu.swp.dorm_mnm.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

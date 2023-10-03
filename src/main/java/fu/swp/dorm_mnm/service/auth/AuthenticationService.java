@@ -1,11 +1,10 @@
 package fu.swp.dorm_mnm.service;
 
-import fu.swp.dorm_mnm.config.JwtService;
-import fu.swp.dorm_mnm.model.AuthenticationRequest;
-import fu.swp.dorm_mnm.model.AuthenticationResponse;
-import fu.swp.dorm_mnm.model.RegisterRequest;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.model.auth.AuthenticationRequest;
+import fu.swp.dorm_mnm.model.auth.AuthenticationResponse;
+import fu.swp.dorm_mnm.model.auth.RegisterRequest;
 import fu.swp.dorm_mnm.repository.RoleRepository;
 import fu.swp.dorm_mnm.repository.UserRepository;
 import fu.swp.dorm_mnm.token.Token;

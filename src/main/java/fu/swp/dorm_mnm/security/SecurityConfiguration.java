@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.config;
+package fu.swp.dorm_mnm.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,10 +23,10 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 // import static fu.swp.dorm_mnm.model.Permission.MANAGER_UPDATE;
 // import static fu.swp.dorm_mnm.user.Role.ADMIN;
 // import static fu.swp.dorm_mnm.user.Role.MANAGER;
-import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpMethod.PUT;
+// import static org.springframework.http.HttpMethod.DELETE;
+// import static org.springframework.http.HttpMethod.GET;
+// import static org.springframework.http.HttpMethod.POST;
+// import static org.springframework.http.HttpMethod.PUT;
 
 @Configuration
 @EnableWebSecurity

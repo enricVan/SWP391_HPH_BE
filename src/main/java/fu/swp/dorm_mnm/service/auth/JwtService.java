@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.config;
+package fu.swp.dorm_mnm.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
