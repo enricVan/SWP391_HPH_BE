@@ -15,14 +15,14 @@ import fu.swp.dorm_mnm.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/v1/admin")
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasRole('ADMIN')") //mac dinh + ROLE_ de thanh ROLE_ADMIN
 public class AdminController {
 
     @Autowired
     private UserRepository userRepository;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('admin:read')") //lay nguyen k them
     public String get() {
         String out = "";
         Iterable<User> users = userRepository.findAll();
