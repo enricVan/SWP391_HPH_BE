@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fu.swp.dorm_mnm.model.auth.AuthenticationRequest;
 import fu.swp.dorm_mnm.model.auth.AuthenticationResponse;
 import fu.swp.dorm_mnm.model.auth.RegisterRequest;
-import fu.swp.dorm_mnm.service.AuthenticationService;
+import fu.swp.dorm_mnm.service.auth.AuthenticationService;
 
 import java.io.IOException;
 

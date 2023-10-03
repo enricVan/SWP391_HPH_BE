@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.service;
+package fu.swp.dorm_mnm.service.auth;
 
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
