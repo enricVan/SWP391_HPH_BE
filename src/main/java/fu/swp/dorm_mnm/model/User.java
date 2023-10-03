@@ -2,8 +2,6 @@ package fu.swp.dorm_mnm.model;
 
 import fu.swp.dorm_mnm.token.Token;
 import jakarta.persistence.*;
-// import jakarta.persistence.EnumType;
-// import jakarta.persistence.Enumerated;
 
 import java.util.Collection;
 import java.util.Date;

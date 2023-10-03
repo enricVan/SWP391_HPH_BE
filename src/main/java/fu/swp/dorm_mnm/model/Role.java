@@ -1,7 +1,11 @@
 package fu.swp.dorm_mnm.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 // import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import jakarta.persistence.Column;
@@ -21,6 +25,9 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
 public class Role {
 
         @Id
