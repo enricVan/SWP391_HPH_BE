@@ -25,25 +25,25 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 @RestController
 //Permits ADMIN
 @PreAuthorize("hasRole('ADMIN')")
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/user")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
 
     // get all employees
-    @GetMapping("/user")
+    @GetMapping
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
     // create employee rest api
-    @PostMapping("/user")
+    @PostMapping
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
     }
 
     // get employee by id rest api
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" +
@@ -53,7 +53,7 @@ public class UserController {
 
     // update employee rest api
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> updateEmployee(@PathVariable Integer id, @RequestBody User userDetails) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
@@ -67,7 +67,7 @@ public class UserController {
     }
 
     // delete employee rest api
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
