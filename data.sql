@@ -19,7 +19,7 @@ VALUES
     (NOW(), NOW(), 'Spring24', '2024-01-04', '2024-05-08'),
     (NOW(), NOW(), 'Summer24', '2024-05-11', '2024-09-04');
 
-INSERT INTO `user` (created_at, updated_at, role_id, username, `password`, full_name, email, gender, phone, address, avatar_image, `status`)
+INSERT INTO _user (created_at, updated_at, role_id, username, `password`, full_name, email, gender, phone, address, avatar_image, `status`)
 VALUES (NOW(), NOW(), 1, 'admin', 'admin', 'Admin User', 'admin@example.com', 'Male', '1234567890',
         'Admin Address', 'admin.jpg', 'Active'),
        (NOW(), NOW(), 2, 'student1', 'hashed_password_2', 'Student User 1', 'student1@example.com', 'Female',
