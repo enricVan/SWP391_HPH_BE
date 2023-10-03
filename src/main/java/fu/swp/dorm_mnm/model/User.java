@@ -1,116 +1,106 @@
 package fu.swp.dorm_mnm.model;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import fu.swp.dorm_mnm.token.Token;
+import jakarta.persistence.*;
+// import jakarta.persistence.EnumType;
+// import jakarta.persistence.Enumerated;
+
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-
-import javax.persistence.*;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Getter
-@Setter
-@Entity
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Entity
 @Table(name = "`user`")
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+  @Column(name = "username", nullable = false, unique = true, length = 20)
+  private String username;
 
-    @Column(name = "username", nullable = false, unique = true, length = 20)
-    private String username;
+  @Column(name = "password", nullable = false, length = 255)
+  private String password;
 
-    @Column(name = "password", nullable = false, length = 255)
-    private String password;
+  @Column(name = "full_name", length = 100)
+  private String fullName;
 
-    @Column(name = "full_name", length = 100)
-    private String fullName;
+  @Column(name = "email", length = 100)
+  private String email;
 
-    @Column(name = "email", length = 100)
-    private String email;
+  @Column(name = "gender", length = 20)
+  private String gender;
 
-    @Column(name = "gender", length = 20)
-    private String gender;
+  @Temporal(TemporalType.DATE)
+  @Column(name = "date_of_birth")
+  private Date dateOfBirth;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+  @Column(name = "phone", length = 20)
+  private String phone;
 
-    @Column(name = "phone", length = 20)
-    private String phone;
+  @Column(name = "address", length = 100)
+  private String address;
 
-    @Column(name = "address", length = 100)
-    private String address;
+  @Column(name = "avatar_image", length = 300)
+  private String avatarImage;
 
-    @Column(name = "avatar_image", length = 300)
-    private String avatarImage;
+  @Column(name = "status", length = 50)
+  private String status;
 
-    @Column(name = "status", length = 50)
-    private String status;
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "created_at")
+  private Date createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "updated_at")
+  private Date updatedAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Date updatedAt;
+  // @Enumerated(EnumType.STRING)
+  @ManyToOne
+  @JoinColumn(name = "role_id")
+  private Role role;
 
-    // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // private Student student;
+//  @OneToMany(mappedBy = "user")
+//  private List<Token> tokens;
 
-    // @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // private Manager manager;
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return role.getAuthorities();
+  }
 
-    // @OneToMany(mappedBy = "user")
-    // private List<Feedback> feedbacks;
+  @Override
+  public String getPassword() {
+    return password;
+  }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getRoleName()));
-    }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 }

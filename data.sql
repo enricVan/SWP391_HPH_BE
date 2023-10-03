@@ -25,7 +25,10 @@ VALUES (NOW(), NOW(), 1, 'admin', 'admin', 'Admin User', 'admin@example.com', 'M
        (NOW(), NOW(), 2, 'student1', 'hashed_password_2', 'Student User 1', 'student1@example.com', 'Female',
         '9876543210', 'Student Address 1', 'student1.jpg', 'Active'),
        (NOW(), NOW(), 2, 'student2', 'hashed_password_3', 'Student User 2', 'student2@example.com', 'Male',
-        '5555555555', 'Student Address 2', 'student2.jpg', 'Active');
+        '5555555555', 'Student Address 2', 'student2.jpg', 'Active'),
+       (NOW(), NOW(), 2, 'student3', 'hashed_password_4', 'Student User 3', 'student3@example.com', 'Male',
+        '5555555555', 'Student Address 3', 'student3.jpg', 'Active')
+;
 
 INSERT INTO `feature` (created_at, updated_at, feature_name, url)
 VALUES (NOW(), NOW(), 'Feature 1', 'URL 1'),
@@ -38,9 +41,10 @@ VALUES (NOW(), NOW(), 1, 1),
        (NOW(), NOW(), 3, 3);
 
 INSERT INTO `student` (created_at, updated_at, roll_number, user_id, parent_name, `description`)
-VALUES (NOW(), NOW(), 'HE173334', 1, 'Parent 1', 'Description 1'),
-       (NOW(), NOW(), 'HE123456', 2, 'Parent 2', 'Description 2'),
-       (NOW(), NOW(), 'HE111111', 3, 'Parent 3', 'Description 3');
+VALUES (NOW(), NOW(), 'HE173334', 2, 'Parent 1', 'Description 1'),
+       (NOW(), NOW(), 'HE123456', 3, 'Parent 2', 'Description 2'),
+       (NOW(), NOW(), 'HE111111', 4, 'Parent 3', 'Description 3')
+;
 
 INSERT INTO `manager` (created_at, updated_at, user_id, `description`)
 VALUES (NOW(), NOW(), 1, 'Manager 1 Description');
@@ -157,10 +161,11 @@ VALUES (NOW(), NOW(), 2, 1, 'Skill issues', 'pending'),
 
 
 -- check data
+-- select * from user;
 -- select * from room;
 -- select * from room_type;
--- select * from user;
 -- select * from semester;
 -- select * from bed_request;
 -- select * from request_type;
 -- select * from request;
+-- select * from `student_request`
