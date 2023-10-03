@@ -1,6 +1,6 @@
 package fu.swp.dorm_mnm.security;
 
-import fu.swp.dorm_mnm.service.JwtService;
+import fu.swp.dorm_mnm.service.auth.JwtService;
 import fu.swp.dorm_mnm.token.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
