@@ -20,7 +20,7 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 @RestController
 //Permits ADMIN
 @PreAuthorize("hasRole('ADMIN')")
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/admin/user")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
