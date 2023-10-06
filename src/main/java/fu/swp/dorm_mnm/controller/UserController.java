@@ -19,7 +19,7 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 //Permits ADMIN
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
 @RequestMapping("/api/v1/admin/user")
 public class UserController {
     @Autowired
