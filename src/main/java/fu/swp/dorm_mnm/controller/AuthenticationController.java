@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fu.swp.dorm_mnm.model.Role;
-import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.model.auth.AuthenticationRequest;
 import fu.swp.dorm_mnm.model.auth.AuthenticationResponse;
 import fu.swp.dorm_mnm.model.auth.RegisterRequest;

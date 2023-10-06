@@ -32,7 +32,7 @@ public class UserController {
     }
 
 	//get User by username
-	@GetMapping("/user/search")
+	@GetMapping("/search")
 	public ResponseEntity<List<User>> searchUsers(@RequestParam("partialUsername") String partialUsername) {
 		return new ResponseEntity<>(userRepository.findByUsernameContaining(partialUsername), HttpStatus.OK);
 	}
