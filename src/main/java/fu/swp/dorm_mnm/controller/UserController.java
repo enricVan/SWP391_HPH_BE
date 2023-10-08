@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fu.swp.dorm_mnm.model.News;
+import fu.swp.dorm_mnm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -25,18 +28,13 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    // get all employees
+    private UserService userService;
+
+    //get all employees
     @GetMapping
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
-
-	//get User by username
-	@GetMapping("/search")
-	public ResponseEntity<List<User>> searchUsers(@RequestParam("partialUsername") String partialUsername) {
-		return new ResponseEntity<>(userRepository.findByUsernameContaining(partialUsername), HttpStatus.OK);
-	}
-
 
     // create employee rest api
     @PostMapping
@@ -57,13 +55,11 @@ public class UserController {
     // update employee rest api
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateEmployee(@PathVariable Integer id, @RequestBody User userDetails) {
+    public ResponseEntity<User> updateStatus(@PathVariable Integer id, @RequestBody User userDetails) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
 
-        user.setFullName(userDetails.getFullName());
-        user.setUsername(userDetails.getUsername());
-        user.setPassword(userDetails.getPassword());
+        user.setStatus(userDetails.getStatus());
 
         User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);

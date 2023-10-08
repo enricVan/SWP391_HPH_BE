@@ -7,8 +7,12 @@ import java.util.Optional;
 
 public interface NewsService {
     Optional<News> findById(Long id);
+
     News save(News news);
+
     void remove(Long id);
+
     Page<News> findAll(int pageNo);
-    Page<News> findAllByTitle(String title,int pageNo);
+
+    Page<News> findAllByTitle(String title, int pageNo);
 }

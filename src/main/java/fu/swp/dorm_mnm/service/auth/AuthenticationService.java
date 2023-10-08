@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +40,9 @@ public class AuthenticationService {
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(role)
+                .status("active")
+                .createdAt(new Date())
+                .updatedAt(new Date())
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
