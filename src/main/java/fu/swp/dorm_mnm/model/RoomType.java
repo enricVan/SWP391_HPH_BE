@@ -25,7 +25,8 @@ public class RoomType {
 
     @Column(name = "room_type_name", length = 20)
     private String roomTypeName;
-
+    @Column(name = "room_type_description")
+    private String roomTypeDescription;
     // @OneToMany(mappedBy = "roomType")
     // private List<Room> rooms;
 
