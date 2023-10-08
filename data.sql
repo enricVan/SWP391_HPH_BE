@@ -1,9 +1,9 @@
 USE hph_db;
 
-INSERT INTO `role` (created_at, updated_at, role_name, `description`)
-VALUES (NOW(), NOW(), 'ADMIN', 'Administrator Role'),
-       (NOW(), NOW(), 'STUDENT', 'Student Role'),
-       (NOW(), NOW(), 'MANAGER', 'Manager Role');
+-- INSERT INTO `role` (created_at, updated_at, role_name, `description`)
+-- VALUES (NOW(), NOW(), 'ADMIN', 'Administrator Role'),
+--        (NOW(), NOW(), 'STUDENT', 'Student Role'),
+--        (NOW(), NOW(), 'MANAGER', 'Manager Role');
 
 INSERT INTO `room_type` (created_at, updated_at, room_type_name)
 VALUES (NOW(), NOW(), '8 male'),
@@ -19,13 +19,16 @@ VALUES
     (NOW(), NOW(), 'Spring24', '2024-01-04', '2024-05-08'),
     (NOW(), NOW(), 'Summer24', '2024-05-11', '2024-09-04');
 
-INSERT INTO _user (created_at, updated_at, role_id, username, `password`, full_name, email, gender, phone, address, avatar_image, `status`)
-VALUES (NOW(), NOW(), 1, 'admin', 'admin', 'Admin User', 'admin@example.com', 'Male', '1234567890',
-        'Admin Address', 'admin.jpg', 'Active'),
-       (NOW(), NOW(), 2, 'student1', 'hashed_password_2', 'Student User 1', 'student1@example.com', 'Female',
-        '9876543210', 'Student Address 1', 'student1.jpg', 'Active'),
-       (NOW(), NOW(), 2, 'student2', 'hashed_password_3', 'Student User 2', 'student2@example.com', 'Male',
-        '5555555555', 'Student Address 2', 'student2.jpg', 'Active');
+-- INSERT INTO `user` (created_at, updated_at, role_id, username, `password`, full_name, email, gender, phone, address, avatar_image, `status`)
+-- VALUES (NOW(), NOW(), 1, 'admin', 'admin', 'Admin User', 'admin@example.com', 'Male', '1234567890',
+--         'Admin Address', 'admin.jpg', 'Active'),
+--        (NOW(), NOW(), 2, 'student1', 'hashed_password_2', 'Student User 1', 'student1@example.com', 'Female',
+--         '9876543210', 'Student Address 1', 'student1.jpg', 'Active'),
+--        (NOW(), NOW(), 2, 'student2', 'hashed_password_3', 'Student User 2', 'student2@example.com', 'Male',
+--         '5555555555', 'Student Address 2', 'student2.jpg', 'Active'),
+--          (NOW(), NOW(), 2, 'student3', 'hashed_password_4', 'Student User 3', 'student3@example.com', 'Male',
+--         '5555555555', 'Student Address 3', 'student3.jpg', 'Active')
+--         ;
 
 INSERT INTO `feature` (created_at, updated_at, feature_name, url)
 VALUES (NOW(), NOW(), 'Feature 1', 'URL 1'),
@@ -38,9 +41,8 @@ VALUES (NOW(), NOW(), 1, 1),
        (NOW(), NOW(), 3, 3);
 
 INSERT INTO `student` (created_at, updated_at, roll_number, user_id, parent_name, `description`)
-VALUES (NOW(), NOW(), 'HE173334', 1, 'Parent 1', 'Description 1'),
-       (NOW(), NOW(), 'HE123456', 2, 'Parent 2', 'Description 2'),
-       (NOW(), NOW(), 'HE111111', 3, 'Parent 3', 'Description 3');
+VALUES (NOW(), NOW(), 'HE173334', 2, 'Parent 1', 'Description 1')
+;
 
 INSERT INTO `manager` (created_at, updated_at, user_id, `description`)
 VALUES (NOW(), NOW(), 1, 'Manager 1 Description');
@@ -61,7 +63,7 @@ VALUES (NOW(), NOW(), 1, 'Notice', 'Renewal of dormitory registration for Fall 2
        (NOW(), NOW(), 1, 'Announcement', 'Dormitory air conditioning maintenance schedule, phase 1 of 2023', 'News Content 2', 'Image URL 2'),
        (NOW(), NOW(), 1, 'Announcement', 'Dormitory air conditioning maintenance schedule, phase 2 of 2023', 'News Content 2', 'Image URL 2'),
        (NOW(), NOW(), 1, 'Announcement', 'New Dorm Buiding Open', 'News Content 2', 'Image URL 2'),
-       (NOW(), NOW(), 1, 'Tip', 'Where to go when having missing items', 'News Content 1', 'Image URL 3');
+       (NOW(), NOW(), 1, 'Tip', 'News Title 3', 'Where to go when having missing items', 'Image URL 3');
 
 INSERT INTO `faq` (created_at, updated_at, title, sub_title, content)
 VALUES (NOW(), NOW(), 'FAQ Title 1', 'FAQ Subtitle 1', 'FAQ Content 1'),
@@ -141,9 +143,9 @@ VALUES
 
 
 INSERT INTO `bed_request` (created_at, updated_at, bed_id, student_id, semester_id, `status`)
-VALUES (NOW(), NOW(), 1, 1, 1, 'pending'),
-       (NOW(), NOW(), 2, 2, 2, 'approved'),
-       (NOW(), NOW(), 3, 3, 3, 'denied');
+VALUES (NOW(), NOW(), 1, 1, 2, 'pending'),
+       (NOW(), NOW(), 2, 1, 2, 'approved'),
+       (NOW(), NOW(), 3, 1, 3, 'denied');
 
 INSERT INTO `student_request_type` (created_at, updated_at, student_request_type_name)
 VALUES (NOW(), NOW(), 'Skill issues'),
@@ -151,16 +153,17 @@ VALUES (NOW(), NOW(), 'Skill issues'),
 ;
 
 INSERT INTO `student_request` (created_at, updated_at, student_id, student_request_type_id, request_content, `status`)
-VALUES (NOW(), NOW(), 2, 1, 'Skill issues', 'pending'),
-       (NOW(), NOW(), 2, 2, 'Fix devices', 'approved')
+VALUES (NOW(), NOW(), 1, 1, 'Skill issues', 'pending'),
+       (NOW(), NOW(), 1, 2, 'Fix devices', 'approved')
 ;
 
 
 -- check data
+-- select * from user;
 -- select * from room;
 -- select * from room_type;
--- select * from user;
 -- select * from semester;
 -- select * from bed_request;
 -- select * from request_type;
 -- select * from request;
+-- select * from `student_request`

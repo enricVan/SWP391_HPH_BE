@@ -1,78 +1,79 @@
-// package fu.swp.dorm_mnm.controller;
+package fu.swp.dorm_mnm.controller;
 
-// import java.util.HashMap;
-// import java.util.List;
-// import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.CrossOrigin;
-// import org.springframework.web.bind.annotation.DeleteMapping;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.PutMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RestController;
+import fu.swp.dorm_mnm.model.News;
+import fu.swp.dorm_mnm.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-// import fu.swp.dorm_mnm.model.User;
-// import fu.swp.dorm_mnm.repository.UserRepository;
-// import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
-// @CrossOrigin(origins = "http://localhost:5173")
-// @RestController
 
-// @RequestMapping("/api/v1/")
-// public class UserController {
-// 	@Autowired
-// 	private UserRepository userRepository;
+import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.UserRepository;
+import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 
-// 	// get all employees
-// 	@GetMapping("/user")
-// 	public List<User> getAllUser() {
-// 		return userRepository.findAll();
-// 	}
+@CrossOrigin(origins = "http://localhost:5173")
+@RestController
+//Permits ADMIN
+@PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
+@RequestMapping("/api/v1/admin/user")
+public class UserController {
+    @Autowired
+    private UserRepository userRepository;
 
-// 	// create employee rest api
-// 	@PostMapping("/user")
-// 	public User createUser(@RequestBody User user) {
-// 		return userRepository.save(user);
-// 	}
+    private UserService userService;
 
-// 	// get employee by id rest api
-// 	@GetMapping("/user/{id}")
-// 	public ResponseEntity<User> getUserById(@PathVariable Long id) {
-// 		User user = userRepository.findById(id)
-// 				.orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" +
-// 						id));
-// 		return ResponseEntity.ok(user);
-// 	}
+    //get all employees
+    @GetMapping
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
 
-// 	// update employee rest api
+    // create employee rest api
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userRepository.save(user);
+    }
 
-// 	@PutMapping("/user/{id}")
-// 	public ResponseEntity<User> updateEmployee(@PathVariable Long id, @RequestBody User userDetails) {
-// 		User user = userRepository.findById(id)
-// 				.orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
 
-// 		user.setFullName(userDetails.getFullName());
-// 		user.setUsername(userDetails.getUsername());
-// 		user.setPassword(userDetails.getPassword());
+    // get employee by id rest api
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" +
+                        id));
+        return ResponseEntity.ok(user);
+    }
 
-// 		User updatedUser = userRepository.save(user);
-// 		return ResponseEntity.ok(updatedUser);
-// 	}
+    // update employee rest api
 
-// 	// delete employee rest api
-// 	@DeleteMapping("/user/{id}")
-// 	public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {
-// 		User user = userRepository.findById(id)
-// 				.orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateStatus(@PathVariable Integer id, @RequestBody User userDetails) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
 
-// 		userRepository.delete(user);
-// 		Map<String, Boolean> response = new HashMap<>();
-// 		response.put("deleted", Boolean.TRUE);
-// 		return ResponseEntity.ok(response);
-// 	}
-// }
+        user.setStatus(userDetails.getStatus());
+
+        User updatedUser = userRepository.save(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    // delete employee rest api
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
+
+        userRepository.delete(user);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
+}
