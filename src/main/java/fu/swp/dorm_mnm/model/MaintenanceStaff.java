@@ -15,12 +15,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "manager")
-public class Manager {
+@Table(name = "maintenance_staff")
+public class MaintenanceStaff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "manager_id")
-    private Long managerId;
+    @Column(name = "maintenance_staff_id")
+    private Long maintenanceStaffId;
 
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
@@ -28,9 +28,6 @@ public class Manager {
 
     @Column(name = "description", length = 200)
     private String description;
-
-    // @OneToMany(mappedBy = "manager")
-    // private List<News> newsList;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
