@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,22 +17,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "manager")
-public class Manager {
+@Table(name = "staff")
+public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "manager_id")
-    private Long managerId;
+    @Column(name = "staff_id")
+    private Long staff_id;
 
     @OneToOne
-    @JoinColumn(name = "staff_id", unique = true)
-    private Staff staff;
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 
-    @Column(name = "description", length = 200)
-    private String description;
-
-    // @OneToMany(mappedBy = "manager")
-    // private List<News> newsList;
+    @OneToMany(mappedBy = "staff")
+    private List<StudentRequest> StudentRequets;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -41,5 +39,4 @@ public class Manager {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    // Constructors, getters, and setters
 }

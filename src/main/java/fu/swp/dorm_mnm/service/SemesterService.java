@@ -4,7 +4,6 @@ import fu.swp.dorm_mnm.model.Semester;
 import java.util.Date;
 import java.util.Optional;
 
-
 public interface SemesterService {
 
     Iterable<Semester> findAll();
@@ -15,5 +14,5 @@ public interface SemesterService {
 
     void remove(Long id);
 
-     Semester getNextSemester(Date currentDate);
+    Semester getNextSemester(Date currentDate);
 }

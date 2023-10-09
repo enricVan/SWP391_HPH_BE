@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.Optional;
 
-
 @Service
 public class SemesterServiceImpl implements SemesterService {
 
     @Autowired
     private SemesterRepository semesterRepository;
+
     @Override
     public Iterable<Semester> findAll() {
         return semesterRepository.findAll();

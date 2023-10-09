@@ -16,12 +16,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "manager")
-public class Manager {
+@Table(name = "maintenance_staff")
+public class MaintenanceStaff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "manager_id")
-    private Long managerId;
+    @Column(name = "maintenance_staff_id")
+    private Long maintenanceStaffId;
 
     @OneToOne
     @JoinColumn(name = "staff_id", unique = true)

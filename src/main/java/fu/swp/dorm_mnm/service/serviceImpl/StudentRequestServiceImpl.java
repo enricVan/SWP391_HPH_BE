@@ -1,6 +1,5 @@
 package fu.swp.dorm_mnm.service.serviceImpl;
 
-
 import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.model.StudentRequest;
@@ -25,6 +24,7 @@ public class StudentRequestServiceImpl implements StudentRequestService {
 
     @Autowired
     private StudentRequestTypeRepository studentRequestTypeRepository;
+
     @Override
     public Iterable<StudentRequest> findAll() {
         return studentRequestRepository.findAll();
@@ -38,7 +38,8 @@ public class StudentRequestServiceImpl implements StudentRequestService {
     @Override
     public StudentRequest save(StudentRequest studentRequestReq) {
         Optional<Student> studentOptional = studentRepository.findById(studentRequestReq.getStudent().getStudentId());
-        Optional<StudentRequestType> studentRequestTypeOptional = studentRequestTypeRepository.findById(studentRequestReq.getStudentRequestType().getStudentRequestTypeId());
+        Optional<StudentRequestType> studentRequestTypeOptional = studentRequestTypeRepository
+                .findById(studentRequestReq.getStudentRequestType().getStudentRequestTypeId());
 
         if (studentOptional.isPresent() && studentRequestTypeOptional.isPresent()) {
             Student student = studentOptional.get();
