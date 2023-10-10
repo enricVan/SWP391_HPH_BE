@@ -49,7 +49,7 @@ public class UserController {
         return userRepository.save(user);
     }
 
-@GetMapping("/userDetails")
+@GetMapping("/userdetails")
 public ResponseEntity<User> getUserDetails(){
     Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
     User user=(User) authentication.getPrincipal();
