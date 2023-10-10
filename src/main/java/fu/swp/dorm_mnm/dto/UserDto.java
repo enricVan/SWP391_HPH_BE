@@ -22,7 +22,7 @@ public class UserDto {
     private String createdAt;
     private String updatedAt;
     public UserDto(User user) {
-        String pattern = "MM/dd/yyyy HH:mm:ss";
+        String pattern = "dd/MM/yyyy HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);
 
         this.id = user.getId();
