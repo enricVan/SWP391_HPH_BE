@@ -1,9 +1,8 @@
 package fu.swp.dorm_mnm.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import fu.swp.dorm_mnm.dto.UserDto;
 import fu.swp.dorm_mnm.model.News;
 import fu.swp.dorm_mnm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +31,14 @@ public class UserController {
 
     //get all employees
     @GetMapping
-    public List<User> getAllUser() {
-        return userRepository.findAll();
+    public ResponseEntity<List<UserDto>> getAllUser() {
+        List<User> userList = userRepository.findAll();
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user:
+             userList) {
+            userDtos.add(new UserDto(user));
+        }
+        return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 
     // create employee rest api
@@ -45,11 +50,11 @@ public class UserController {
 
     // get employee by id rest api
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" +
                         id));
-        return ResponseEntity.ok(user);
+        return new ResponseEntity<>((new UserDto(user)), HttpStatus.OK);
     }
 
     // update employee rest api
@@ -60,6 +65,7 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
 
         user.setStatus(userDetails.getStatus());
+        user.setUpdatedAt(new Date());
 
         User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);
