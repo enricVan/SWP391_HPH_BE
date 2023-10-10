@@ -37,7 +37,7 @@ public class BedRequestServiceImpl implements BedRequestService {
     @Override
     public BedRequest save(BedRequest bedRequestReq) {
         Optional<Bed> bedOptional = bedService.findById(bedRequestReq.getBed().getBedId());
-        Optional<Student> studentOptional = studentService.findById(bedRequestReq.getStudent().getStudentId());
+        Optional<Student> studentOptional = studentService.findByUserId(bedRequestReq.getStudent().getStudentId());
 
         if (bedOptional.isPresent() && studentOptional.isPresent()) {
             Bed bed = bedOptional.get();
