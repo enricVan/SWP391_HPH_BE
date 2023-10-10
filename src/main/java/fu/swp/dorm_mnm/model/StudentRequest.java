@@ -27,6 +27,10 @@ public class StudentRequest {
     private Student student;
 
     @ManyToOne
+    @JoinColumn(name = "staff_id")
+    private Staff staff;
+
+    @ManyToOne
     @JoinColumn(name = "student_request_type_id")
     private StudentRequestType studentRequestType;
 

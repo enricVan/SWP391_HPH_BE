@@ -23,8 +23,8 @@ public class Manager {
     private Long managerId;
 
     @OneToOne
-    @JoinColumn(name = "user_id", unique = true)
-    private User user;
+    @JoinColumn(name = "staff_id", unique = true)
+    private Staff staff;
 
     @Column(name = "description", length = 200)
     private String description;

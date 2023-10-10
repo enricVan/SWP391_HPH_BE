@@ -6,6 +6,7 @@ import fu.swp.dorm_mnm.model.StudentRequest;
 import java.util.Optional;
 
 public interface StudentRequestService {
+    
     Iterable<StudentRequest> findAll();
 
     Optional<StudentRequest> findById(Long id);

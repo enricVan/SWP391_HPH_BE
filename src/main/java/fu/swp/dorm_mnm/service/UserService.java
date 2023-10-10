@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import java.util.Optional;
 
 public interface UserService {
+    
     Optional<User> findById(Integer id);
 
     User save(User news);
