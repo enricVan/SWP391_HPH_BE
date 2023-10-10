@@ -1,7 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
