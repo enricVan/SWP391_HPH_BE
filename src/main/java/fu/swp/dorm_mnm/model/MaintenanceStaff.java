@@ -30,9 +30,6 @@ public class MaintenanceStaff {
     @Column(name = "description", length = 200)
     private String description;
 
-    // @OneToMany(mappedBy = "manager")
-    // private List<News> newsList;
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
