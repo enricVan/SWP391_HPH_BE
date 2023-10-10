@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -47,7 +49,12 @@ public class UserController {
         return userRepository.save(user);
     }
 
-
+@GetMapping("/userdetails")
+public ResponseEntity<User> getUserDetails(){
+    Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+    User user=(User) authentication.getPrincipal();
+return ResponseEntity.ok(user);
+}
     // get employee by id rest api
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Integer id) {
