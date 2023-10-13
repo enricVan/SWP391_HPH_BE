@@ -69,6 +69,11 @@ public class AuthenticationController {
     roles.add(manager);
     roleRepository.save(manager);
 
+    Role guard = new Role();
+    guard.setName("GUARD");
+    roles.add(guard);
+    roleRepository.save(guard);
+
     return ResponseEntity.ok().body(roles);
   }
 
@@ -78,12 +83,15 @@ public class AuthenticationController {
     RegisterRequest registerRequestAdmin = new RegisterRequest("admin", "admin", "ADMIN");
     RegisterRequest registerRequestStudent = new RegisterRequest("student", "student", "STUDENT");
     RegisterRequest registerRequestManager = new RegisterRequest("manager", "manager", "MANAGER");
+    RegisterRequest registerRequestGuard = new RegisterRequest("guard", "guard", "GUARD");
     service.register(registerRequestAdmin);
     service.register(registerRequestStudent);
     service.register(registerRequestManager);
+    service.register((registerRequestGuard));
     registerRequests.add(registerRequestAdmin);
     registerRequests.add(registerRequestStudent);
     registerRequests.add(registerRequestManager);
+    registerRequests.add(registerRequestGuard);
     return ResponseEntity.ok().body(registerRequests);
   }
 
