@@ -27,64 +27,64 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-  private final AuthenticationService service;
+    private final AuthenticationService service;
 
-  @Autowired
-  private final RoleRepository roleRepository;
+    @Autowired
+    private final RoleRepository roleRepository;
 
-  @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
-      @RequestBody RegisterRequest request) {
-    return ResponseEntity.ok(service.register(request));
-  }
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(
+            @RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(service.register(request));
+    }
 
-  @PostMapping("/authenticate")
-  public ResponseEntity<AuthenticationResponse> authenticate(
-      @RequestBody AuthenticationRequest request) {
-    return ResponseEntity.ok(service.authenticate(request));
-  }
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(
+            @RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(service.authenticate(request));
+    }
 
-  @PostMapping("/refresh-token")
-  public void refreshToken(
-      HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    service.refreshToken(request, response);
-  }
+    @PostMapping("/refresh-token")
+    public void refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+        service.refreshToken(request, response);
+    }
 
-  @PostMapping("/addRole")
-  public ResponseEntity<List<Role>> addRole() {
-    List<Role> roles = new ArrayList<>();
-    Role admin = new Role();
-    admin.setName("ADMIN");
-    roles.add(admin);
-    roleRepository.save(admin);
+    @PostMapping("/addRole")
+    public ResponseEntity<List<Role>> addRole() {
+        List<Role> roles = new ArrayList<>();
+        Role admin = new Role();
+        admin.setName("ADMIN");
+        roles.add(admin);
+        roleRepository.save(admin);
 
-    Role student = new Role();
-    student.setName("STUDENT");
-    roles.add(student);
-    roleRepository.save(student);
+        Role student = new Role();
+        student.setName("STUDENT");
+        roles.add(student);
+        roleRepository.save(student);
 
-    Role manager = new Role();
-    manager.setName("MANAGER");
-    roles.add(manager);
-    roleRepository.save(manager);
+        Role manager = new Role();
+        manager.setName("MANAGER");
+        roles.add(manager);
+        roleRepository.save(manager);
 
-    return ResponseEntity.ok().body(roles);
-  }
+        return ResponseEntity.ok().body(roles);
+    }
 
-  @PostMapping("/addUser")
-  public ResponseEntity<List<RegisterRequest>> addUser() {
-    List<RegisterRequest> registerRequests = new ArrayList<>();
-    RegisterRequest registerRequestAdmin = new RegisterRequest("admin", "admin", "ADMIN");
-    RegisterRequest registerRequestStudent = new RegisterRequest("student", "student", "STUDENT");
-    RegisterRequest registerRequestManager = new RegisterRequest("manager", "manager", "MANAGER");
-    service.register(registerRequestAdmin);
-    service.register(registerRequestStudent);
-    service.register(registerRequestManager);
-    registerRequests.add(registerRequestAdmin);
-    registerRequests.add(registerRequestStudent);
-    registerRequests.add(registerRequestManager);
-    return ResponseEntity.ok().body(registerRequests);
-  }
+    @PostMapping("/addUser")
+    public ResponseEntity<List<RegisterRequest>> addUser() {
+        List<RegisterRequest> registerRequests = new ArrayList<>();
+        RegisterRequest registerRequestAdmin = new RegisterRequest("admin", "admin", "ADMIN");
+        RegisterRequest registerRequestStudent = new RegisterRequest("student", "student", "STUDENT");
+        RegisterRequest registerRequestManager = new RegisterRequest("manager", "manager", "MANAGER");
+        service.register(registerRequestAdmin);
+        service.register(registerRequestStudent);
+        service.register(registerRequestManager);
+        registerRequests.add(registerRequestAdmin);
+        registerRequests.add(registerRequestStudent);
+        registerRequests.add(registerRequestManager);
+        return ResponseEntity.ok().body(registerRequests);
+    }
 
 }

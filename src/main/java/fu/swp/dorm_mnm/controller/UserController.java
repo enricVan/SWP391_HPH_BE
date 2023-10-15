@@ -15,14 +15,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-
 import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.UserRepository;
 import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-//Permits ADMIN
 @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
 @RequestMapping("/api/v1/admin/user")
 public class UserController {
@@ -31,13 +29,11 @@ public class UserController {
 
     private UserService userService;
 
-    //get all employees
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUser() {
         List<User> userList = userRepository.findAll();
         List<UserDto> userDtos = new ArrayList<>();
-        for (User user:
-             userList) {
+        for (User user : userList) {
             userDtos.add(new UserDto(user));
         }
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
@@ -49,12 +45,13 @@ public class UserController {
         return userRepository.save(user);
     }
 
-@GetMapping("/userdetails")
-public ResponseEntity<User> getUserDetails(){
-    Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-    User user=(User) authentication.getPrincipal();
-return ResponseEntity.ok(user);
-}
+    @GetMapping("/userdetails")
+    public ResponseEntity<User> getUserDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(user);
+    }
+
     // get employee by id rest api
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Integer id) {

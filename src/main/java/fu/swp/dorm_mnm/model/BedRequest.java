@@ -23,6 +23,9 @@ public class BedRequest {
     @Column(name = "bed_request_id")
     private Long bedRequestId;
 
+    @OneToOne(mappedBy = "bedRequest", targetEntity = Payment.class)
+    private Payment payment;
+
     @ManyToOne
     @JoinColumn(name = "bed_id")
     private Bed bed;
@@ -47,4 +50,3 @@ public class BedRequest {
 
     // Constructors, getters, and setters
 }
-

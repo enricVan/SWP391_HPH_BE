@@ -1,7 +1,9 @@
 package fu.swp.dorm_mnm.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,19 +17,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "maintenance_staff")
-public class MaintenanceStaff {
+@Table(name = "building")
+public class Building {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "maintenance_staff_id")
-    private Long maintenanceStaffId;
+    @Column(name = "building_id")
+    private Long buildingId;
 
-    @OneToOne
-    @JoinColumn(name = "staff_id", unique = true)
-    private Staff staff;
+    @Column(name = "building_name")
+    private String buildingName;
 
-    @Column(name = "description", length = 200)
-    private String description;
+    @OneToMany(mappedBy = "building", targetEntity = Room.class)
+    private List<Room> rooms;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -36,6 +37,4 @@ public class MaintenanceStaff {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
-    // Constructors, getters, and setters
 }

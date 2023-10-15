@@ -14,25 +14,28 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "student_request")
-public class StudentRequest {
+@Table(name = "request_application")
+public class RequestApplication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "request_id")
-    private Long requestId;
+    @Column(name = "request_application_id")
+    private Long requestApplicationId;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "staff_id")
-    private Staff staff;
+    @JoinColumn(name = "manager_id")
+    private Manager manager;
 
     @ManyToOne
-    @JoinColumn(name = "student_request_type_id")
-    private StudentRequestType studentRequestType;
+    @JoinColumn(name = "request_application_type_id")
+    private RequestApplicationType requestApplicationType;
+
+    @Column(name = "text_respone", columnDefinition = "TEXT")
+    private String textRespone;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -45,6 +48,5 @@ public class StudentRequest {
 
     @Column(name = "status")
     private String status;
-    // Constructors, getters, and setters
-}
 
+}

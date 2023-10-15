@@ -9,6 +9,7 @@ import lombok.Setter;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,6 +31,9 @@ public class Feature {
     @Column(name = "url", nullable = false, length = 300)
     private String url;
 
+    @ManyToMany(mappedBy = "features", targetEntity = Role.class)
+    private List<Role> roles;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
@@ -38,7 +42,7 @@ public class Feature {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    // @ManyToMany(mappedBy = "features")
+    // @ManyToMany(mappedBy = "features", targetEntity = Role.class)
     // private List<Role> roles;
     // Constructors, getters, and setters
 }

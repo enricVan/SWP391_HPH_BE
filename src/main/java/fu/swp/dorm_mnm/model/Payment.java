@@ -1,7 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -16,20 +15,30 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "role_feature")
-public class RoleFeature {
+@Table(name = "payment")
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_feature_id")
-    private Long roleFeatureId;
+    @Column(name = "payment_id")
+    private Long paymentId;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "feature_id")
-    private Feature feature;
+    @JoinColumn(name = "checked_by_manager_id", nullable = false)
+    private Manager manager;
+
+    @OneToOne
+    @JoinColumn(name = "bed_request_id", nullable = false, unique = true)
+    private BedRequest bedRequest;
+
+    @Column(name = "amount")
+    private Double amount;
+
+    @Column(name = "status")
+    private String status;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
