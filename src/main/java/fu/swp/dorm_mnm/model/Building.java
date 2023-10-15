@@ -30,6 +30,9 @@ public class Building {
     @OneToMany(mappedBy = "building", targetEntity = Room.class)
     private List<Room> rooms;
 
+    @OneToMany(mappedBy = "building", targetEntity = GuardShift.class)
+    private List<GuardShift> GuardShifts;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;

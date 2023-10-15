@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.UserDto;
 import fu.swp.dorm_mnm.model.Role;
+import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.model.auth.AuthenticationRequest;
 import fu.swp.dorm_mnm.model.auth.AuthenticationResponse;
 import fu.swp.dorm_mnm.model.auth.RegisterRequest;
 import fu.swp.dorm_mnm.repository.RoleRepository;
+import fu.swp.dorm_mnm.service.UserService;
 import fu.swp.dorm_mnm.service.auth.AuthenticationService;
 
 import java.io.IOException;
@@ -27,7 +30,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final AuthenticationService service;
+    @Autowired
+    private final AuthenticationService authenticationService;
+
+    @Autowired
+    private final UserService userService;
 
     @Autowired
     private final RoleRepository roleRepository;
@@ -35,20 +42,22 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(service.register(request));
+        return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(service.authenticate(request));
+            @RequestBody AuthenticationRequest authenticationRequest) {
+        AuthenticationResponse response = authenticationService.authenticate(authenticationRequest);
+  
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/refresh-token")
     public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response) throws IOException {
-        service.refreshToken(request, response);
+        authenticationService.refreshToken(request, response);
     }
 
     @PostMapping("/addRole")
@@ -78,9 +87,9 @@ public class AuthenticationController {
         RegisterRequest registerRequestAdmin = new RegisterRequest("admin", "admin", "ADMIN");
         RegisterRequest registerRequestStudent = new RegisterRequest("student", "student", "STUDENT");
         RegisterRequest registerRequestManager = new RegisterRequest("manager", "manager", "MANAGER");
-        service.register(registerRequestAdmin);
-        service.register(registerRequestStudent);
-        service.register(registerRequestManager);
+        authenticationService.register(registerRequestAdmin);
+        authenticationService.register(registerRequestStudent);
+        authenticationService.register(registerRequestManager);
         registerRequests.add(registerRequestAdmin);
         registerRequests.add(registerRequestStudent);
         registerRequests.add(registerRequestManager);

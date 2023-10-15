@@ -41,8 +41,4 @@ public class Feature {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
-    // @ManyToMany(mappedBy = "features", targetEntity = Role.class)
-    // private List<Role> roles;
-    // Constructors, getters, and setters
 }

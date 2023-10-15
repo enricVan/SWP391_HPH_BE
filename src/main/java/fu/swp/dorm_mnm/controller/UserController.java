@@ -24,6 +24,7 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
 @RequestMapping("/api/v1/admin/user")
 public class UserController {
+    
     @Autowired
     private UserRepository userRepository;
 

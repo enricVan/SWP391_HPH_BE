@@ -27,15 +27,15 @@ public class RequestApplication {
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "manager_id")
+    @JoinColumn(name = "take_by_manager_id")
     private Manager manager;
 
     @ManyToOne
     @JoinColumn(name = "request_application_type_id")
     private RequestApplicationType requestApplicationType;
 
-    @Column(name = "text_respone", columnDefinition = "TEXT")
-    private String textRespone;
+    @Column(name = "text_response", columnDefinition = "TEXT")
+    private String textResponse;
 
     @Column(name = "created_at")
     private Date createdAt;

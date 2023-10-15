@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -31,6 +32,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
+@Table(name = "`role`")
 public class Role {
 
         @Id

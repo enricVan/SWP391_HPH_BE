@@ -33,6 +33,15 @@ public class Manager {
     @OneToMany(mappedBy = "manager", targetEntity = News.class)
     private List<News> news;
 
+    @OneToMany(mappedBy = "manager", targetEntity = GuardShift.class)
+    private List<GuardShift> guardShifts;
+
+    @OneToMany(mappedBy = "manager", targetEntity = RequestApplication.class)
+    private List<RequestApplication> requestApplications;
+
+    @OneToMany(mappedBy = "manager", targetEntity = MaintenanceReport.class)
+    private List<MaintenanceReport> maintenanceReports;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;

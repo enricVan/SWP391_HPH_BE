@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,9 @@ public class Semester {
     @Column(name = "semester_name")
     private String semesterName;
 
+    @OneToMany(mappedBy = "semester", targetEntity = BedRequest.class)
+    private List<BedRequest> bedRequests;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
     private Date startDate;
@@ -43,5 +47,3 @@ public class Semester {
     private Date updatedAt;
 
 }
-
-
