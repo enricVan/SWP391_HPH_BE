@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.service.auth;
+package fu.swp.dorm_mnm.security.service;
 
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
@@ -15,6 +15,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,11 +29,22 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
+    @Autowired
     private final UserRepository repository;
+
+    @Autowired
     private final TokenRepository tokenRepository;
+
+    @Autowired
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
     private final JwtService jwtService;
+
+    @Autowired
     private final AuthenticationManager authenticationManager;
+
+    @Autowired
     private final RoleRepository roleRepository;
 
     public AuthenticationResponse register(RegisterRequest request) {
@@ -58,9 +71,7 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
-                        request.getPassword()
-                )
-        );
+                        request.getPassword()));
         var user = repository.findByUsername(request.getUsername())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
@@ -98,8 +109,7 @@ public class AuthenticationService {
 
     public void refreshToken(
             HttpServletRequest request,
-            HttpServletResponse response
-    ) throws IOException {
+            HttpServletResponse response) throws IOException {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refreshToken;
         final String userEmail;

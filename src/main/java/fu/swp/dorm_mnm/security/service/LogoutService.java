@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.service.auth;
+package fu.swp.dorm_mnm.security.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
