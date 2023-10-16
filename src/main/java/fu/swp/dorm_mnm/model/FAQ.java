@@ -40,5 +40,8 @@ public class FAQ {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    @Column(name = "created_by_user_id")
+    private Long userId;
+
     // Constructors, getters, and setters
 }

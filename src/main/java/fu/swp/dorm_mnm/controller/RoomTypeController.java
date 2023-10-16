@@ -16,7 +16,7 @@
 
  @CrossOrigin(origins = "http://localhost:5173")
  @RestController
- @RequestMapping("/api/v1/admin/roomType")
+ @RequestMapping("/api/v1/admin/room-type")
  public class RoomTypeController {
 
      @Autowired

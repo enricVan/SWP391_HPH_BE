@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url:  ${db.url}
+    url: ${db.url}
     username: ${db.username}
     password: ${db.password}
-    driver-class-name: ${db.driver}
+    # driver-class-name: ${db.driver}
 
   jpa:
     hibernate:
@@ -40,3 +40,6 @@ application:
       expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days
+logging:
+  level:
+    org.springframework.security: DEBUG

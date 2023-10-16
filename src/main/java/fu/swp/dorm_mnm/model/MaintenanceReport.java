@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,30 +17,30 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "bed_request")
-public class BedRequest {
+@Table(name = "maintenance_report")
+public class MaintenanceReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bed_request_id")
-    private Long bedRequestId;
-
-    @OneToOne(mappedBy = "bedRequest", targetEntity = Payment.class)
-    private Payment payment;
+    @Column(name = "maintenance_report_id")
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "bed_id")
-    private Bed bed;
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    @Column(name = "status", length = 50)
+    private String status;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "created_by_student_id")
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "semester_id")
-    private Semester semester;
+    @JoinColumn(name = "receive_by_manager_id")
+    private Manager manager;
 
-    @Column(name = "status", length = 20)
-    private String status;
+    @Column(name = "note", columnDefinition = "TEXT")
+    private String note;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -48,6 +49,5 @@ public class BedRequest {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
     // Constructors, getters, and setters
 }

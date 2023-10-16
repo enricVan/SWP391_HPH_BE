@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,14 +31,18 @@ public class Room {
     @Column(name = "room_name", unique = true, length = 20)
     private String roomName;
 
-    @Column(name = "belong_dom", length = 20)
-    private String belongDom;
-
     @Column(name = "floor")
     private Long floor;
 
-    // @OneToMany(mappedBy = "room")
-    // private List<Bed> beds;
+    @ManyToOne
+    @JoinColumn(name = "building_id")
+    private Building building;
+
+    @OneToMany(mappedBy = "room", targetEntity = Bed.class)
+    private List<Bed> beds;
+
+    @Column(name = "room_price")
+    private Float roomPrice;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -49,4 +54,3 @@ public class Room {
 
     // Constructors, getters, and setters
 }
-
