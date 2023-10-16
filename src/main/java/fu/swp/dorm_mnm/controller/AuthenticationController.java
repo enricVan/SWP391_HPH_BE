@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import fu.swp.dorm_mnm.dto.UserDto;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
-import fu.swp.dorm_mnm.model.auth.AuthenticationRequest;
-import fu.swp.dorm_mnm.model.auth.AuthenticationResponse;
-import fu.swp.dorm_mnm.model.auth.RegisterRequest;
 import fu.swp.dorm_mnm.repository.RoleRepository;
+import fu.swp.dorm_mnm.security.auth.AuthenticationRequest;
+import fu.swp.dorm_mnm.security.auth.AuthenticationResponse;
+import fu.swp.dorm_mnm.security.auth.RegisterRequest;
 import fu.swp.dorm_mnm.service.UserService;
 import fu.swp.dorm_mnm.service.auth.AuthenticationService;
 

@@ -2,14 +2,14 @@ package fu.swp.dorm_mnm.service.auth;
 
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
-import fu.swp.dorm_mnm.model.auth.AuthenticationRequest;
-import fu.swp.dorm_mnm.model.auth.AuthenticationResponse;
-import fu.swp.dorm_mnm.model.auth.RegisterRequest;
 import fu.swp.dorm_mnm.repository.RoleRepository;
 import fu.swp.dorm_mnm.repository.UserRepository;
-import fu.swp.dorm_mnm.token.Token;
-import fu.swp.dorm_mnm.token.TokenRepository;
-import fu.swp.dorm_mnm.token.TokenType;
+import fu.swp.dorm_mnm.security.auth.AuthenticationRequest;
+import fu.swp.dorm_mnm.security.auth.AuthenticationResponse;
+import fu.swp.dorm_mnm.security.auth.RegisterRequest;
+import fu.swp.dorm_mnm.security.token.Token;
+import fu.swp.dorm_mnm.security.token.TokenRepository;
+import fu.swp.dorm_mnm.security.token.TokenType;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

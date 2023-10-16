@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.token;
+package fu.swp.dorm_mnm.security.token;
 
 import java.util.List;
 import java.util.Optional;

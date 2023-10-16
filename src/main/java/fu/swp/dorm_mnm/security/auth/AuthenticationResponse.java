@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.model.auth;
+package fu.swp.dorm_mnm.security.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

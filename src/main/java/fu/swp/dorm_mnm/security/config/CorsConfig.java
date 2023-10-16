@@ -1,4 +1,4 @@
-package fu.swp.dorm_mnm.security;
+package fu.swp.dorm_mnm.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
