@@ -21,12 +21,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
-import java.util.ArrayList;
 import java.util.Date;
-// import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-// import java.util.stream.Collectors;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Entity
@@ -63,14 +60,14 @@ public class Role {
         // private final Set<Permission> permissions;
 
         public List<SimpleGrantedAuthority> getAuthorities() {
-                // var authorities = getPermissions()
-                // .stream()
-                // .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
-                // .collect(Collectors.toList());
-                List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+                var authorities = getFeatures()
+                .stream()
+                .map(feature -> new SimpleGrantedAuthority(feature.getFeatureName()))
+                .collect(Collectors.toList());
+                // List<SimpleGrantedAuthority> authorities = new ArrayList<>();
                 authorities.add(new SimpleGrantedAuthority("ROLE_" + name));
-                authorities.add(new SimpleGrantedAuthority("admin:read"));
-                authorities.add(new SimpleGrantedAuthority("admin:create"));
+                        // authorities.add(new SimpleGrantedAuthority("admin:read"));
+                        // authorities.add(new SimpleGrantedAuthority("admin:create"));
                 return authorities;
         }
 }
