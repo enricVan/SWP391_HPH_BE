@@ -5,7 +5,8 @@
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.http.HttpStatus;
  import org.springframework.http.ResponseEntity;
- import org.springframework.stereotype.Controller;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
  import org.springframework.web.bind.annotation.GetMapping;
  import org.springframework.web.bind.annotation.PostMapping;
  import org.springframework.web.bind.annotation.PutMapping;
@@ -19,7 +20,8 @@
  import fu.swp.dorm_mnm.repository.UserRepository;
 
  @Controller
- @RequestMapping("/api/v1/admin/student")
+ @RequestMapping("/api/v1/student")
+ @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD', 'ADMIN')")
  public class StudentController {
      @Autowired
      private StudentRepository studentRepository;
@@ -28,6 +30,7 @@
      private UserRepository userRepository;
 
      @PutMapping
+     @PreAuthorize("hasAuthority('semester:update')")
      public ResponseEntity<User> createNewStudent(@RequestBody User studentRequest) {
          User user = userRepository.findByUsername(studentRequest.getUsername()).get();
          user.setFullName(studentRequest.getFullName());
@@ -44,6 +47,7 @@
      }
 
      @GetMapping
+     @PreAuthorize("hasAuthority('semester:read')")
      public ResponseEntity<Iterable<Student>> getAllStudent() {
          return new ResponseEntity<>(studentRepository.findAll(), HttpStatus.OK);
      }
