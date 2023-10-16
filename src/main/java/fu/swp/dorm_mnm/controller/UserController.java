@@ -22,15 +22,14 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @PreAuthorize("hasAnyRole('ADMIN','STUDENT', 'MANAGER', 'GUARD')")
-@RequestMapping("/api/v1/admin/user")
+@RequestMapping("/api/v1/user")
 public class UserController {
     
     @Autowired
     private UserRepository userRepository;
 
-    private UserService userService;
-
     @GetMapping
+    @PreAuthorize("hasAuthority('user:read')")
     public ResponseEntity<List<UserDto>> getAllUser() {
         List<User> userList = userRepository.findAll();
         List<UserDto> userDtos = new ArrayList<>();
@@ -42,19 +41,23 @@ public class UserController {
 
     // create employee rest api
     @PostMapping
+    @PreAuthorize("hasAuthority('user:create')")
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
     }
 
     @GetMapping("/userdetails")
-    public ResponseEntity<User> getUserDetails() {
+    @PreAuthorize("hasAuthority('user:read')")
+    public ResponseEntity<UserDto> getUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        return ResponseEntity.ok(user);
+        UserDto userDto = new UserDto(user);
+        return ResponseEntity.ok(userDto);
     }
 
-    // get employee by id rest api
+    // get user by id rest api
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('user:read')")
     public ResponseEntity<UserDto> getUserById(@PathVariable Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" +
@@ -65,6 +68,7 @@ public class UserController {
     // update employee rest api
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('user:put')")
     public ResponseEntity<User> updateStatus(@PathVariable Integer id, @RequestBody User userDetails) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
@@ -78,6 +82,7 @@ public class UserController {
 
     // delete employee rest api
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('user:delete')")
     public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));

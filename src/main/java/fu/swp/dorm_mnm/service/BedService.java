@@ -13,4 +13,5 @@ public interface BedService {
     Bed save(Bed bed);
 
     void remove(Long id);
+
 }

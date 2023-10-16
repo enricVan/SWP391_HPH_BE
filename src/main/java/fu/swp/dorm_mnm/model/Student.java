@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -28,9 +29,11 @@ public class Student {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "student", targetEntity = BedRequest.class)
     private List<BedRequest> bedRequests;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "student", targetEntity = Payment.class)
     private List<Payment> payments;
 

@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class Semester {
     @Column(name = "semester_name")
     private String semesterName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "semester", targetEntity = BedRequest.class)
     private List<BedRequest> bedRequests;
 

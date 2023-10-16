@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -30,15 +31,19 @@ public class Manager {
     @Column(name = "description", length = 200)
     private String description;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "manager", targetEntity = News.class)
     private List<News> news;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "manager", targetEntity = GuardShift.class)
     private List<GuardShift> guardShifts;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "manager", targetEntity = RequestApplication.class)
     private List<RequestApplication> requestApplications;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "manager", targetEntity = MaintenanceReport.class)
     private List<MaintenanceReport> maintenanceReports;
 

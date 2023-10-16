@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -28,6 +29,7 @@ public class Guard {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "guard", targetEntity = GuardShift.class)
     private List<GuardShift> guardShifts;
 

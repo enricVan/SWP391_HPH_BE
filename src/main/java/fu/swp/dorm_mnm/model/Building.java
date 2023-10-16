@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -27,9 +28,11 @@ public class Building {
     @Column(name = "building_name")
     private String buildingName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "building", targetEntity = Room.class)
     private List<Room> rooms;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "building", targetEntity = GuardShift.class)
     private List<GuardShift> GuardShifts;
 

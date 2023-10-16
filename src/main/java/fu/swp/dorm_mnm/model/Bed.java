@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -24,6 +25,7 @@ public class Bed {
     @Column(name = "bed_id")
     private Long bedId;
 
+
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
@@ -34,10 +36,12 @@ public class Bed {
     @Column(name = "status", length = 50)
     private String status;
 
+
     @OneToOne
     @JoinColumn(name = "student_id", unique = true)
     private Student student;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "bed")
     private List<BedRequest> bedRequest;
 
