@@ -21,7 +21,7 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
+@PreAuthorize("hasAnyRole('ADMIN','STUDENT', 'MANAGER', 'GUARD')")
 @RequestMapping("/api/v1/admin/user")
 public class UserController {
     
