@@ -3,7 +3,6 @@ package fu.swp.dorm_mnm.security.auth;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import fu.swp.dorm_mnm.dto.UserDto;
-import fu.swp.dorm_mnm.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +21,5 @@ public class AuthenticationResponse {
   private String refreshToken;
 
   @JsonProperty("user")
-  private User user;
+  private UserDto userdto;
 }

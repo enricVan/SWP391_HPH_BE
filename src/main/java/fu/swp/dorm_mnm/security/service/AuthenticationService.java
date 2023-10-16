@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.security.service;
 
+import fu.swp.dorm_mnm.dto.UserDto;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.RoleRepository;
@@ -74,6 +75,7 @@ public class AuthenticationService {
                         request.getPassword()));
         var user = repository.findByUsername(request.getUsername())
                 .orElseThrow();
+        var userdto = new UserDto(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
@@ -81,7 +83,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
-                .user(user)
+                .userdto(userdto)
                 .build();
     }
 
