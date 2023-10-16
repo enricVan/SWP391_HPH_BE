@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -14,12 +15,14 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/admin/news")
+@RequestMapping("/api/v1/news")
+@PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD')")
 public class NewsController {
     @Autowired
     NewsService newsService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('news:read')")
     public ResponseEntity<Map<String, Object>> getNewsPage(@RequestParam(required = false) String title,
             @RequestParam(value = "page", defaultValue = "0") int pageNo) {
         try {
@@ -41,6 +44,7 @@ public class NewsController {
     }
 
     @GetMapping("/detail/{id}")
+    @PreAuthorize("hasAuthority('news:read')")
     public ResponseEntity<News> getNewsById(@PathVariable(required = true) Long id) {
         Optional<News> newsOptional = newsService.findById(id);
         return newsOptional.map(newsRequest -> new ResponseEntity<>(newsRequest, HttpStatus.OK))
