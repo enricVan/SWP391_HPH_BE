@@ -259,16 +259,16 @@ INSERT INTO `feature`
 VALUES (
         1,
         '2023-10-16 00:31:08.000000',
-        'Feature 1',
+        'admin:read',
         '2023-10-16 00:31:08.000000',
-        '/feature1'
+        '/admin'
     ),
     (
         2,
         '2023-10-16 00:31:08.000000',
-        'Feature 2',
+        'admin:create',
         '2023-10-16 00:31:08.000000',
-        '/feature2'
+        '/admin'
     );
 /*!40000 ALTER TABLE `feature` ENABLE KEYS */
 ;
@@ -838,6 +838,16 @@ CREATE TABLE `role_feature` (
 -- Dumping data for table `role_feature`
 --
 
+INSERT INTO `role_feature`
+VALUES (
+        1,
+        1
+    ),
+    (
+        1,
+        2
+    )
+;
 LOCK TABLES `role_feature` WRITE;
 /*!40000 ALTER TABLE `role_feature` DISABLE KEYS */
 ;
