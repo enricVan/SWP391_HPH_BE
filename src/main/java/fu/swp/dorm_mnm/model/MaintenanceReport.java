@@ -17,19 +17,30 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "staff")
-public class Staff {
+@Table(name = "maintenance_report")
+public class MaintenanceReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "staff_id")
-    private Long staff_id;
+    @Column(name = "maintenance_report_id")
+    private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", unique = true)
-    private User user;
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
 
-    @OneToMany(mappedBy = "staff")
-    private List<StudentRequest> StudentRequets;
+    @Column(name = "status", length = 50)
+    private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by_student_id")
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "receive_by_manager_id")
+    private Manager manager;
+
+    @Column(name = "note", columnDefinition = "TEXT")
+    private String note;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -38,5 +49,5 @@ public class Staff {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
+    // Constructors, getters, and setters
 }

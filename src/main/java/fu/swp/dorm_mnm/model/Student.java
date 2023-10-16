@@ -3,7 +3,7 @@ package fu.swp.dorm_mnm.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
-
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,12 +24,15 @@ public class Student {
     @Column(name = "student_id")
     private Long studentId;
 
-     @OneToOne
-     @JoinColumn(name = "user_id", nullable = false)
-     private User user;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 
-    // @OneToMany(mappedBy = "student")
-    // private List<BedRequest> bedRequests;
+    @OneToMany(mappedBy = "student", targetEntity = BedRequest.class)
+    private List<BedRequest> bedRequests;
+
+    @OneToMany(mappedBy = "student", targetEntity = Payment.class)
+    private List<Payment> payments;
 
     @Column(name = "parent_name", nullable = false, length = 100)
     private String parentName;
@@ -49,4 +52,3 @@ public class Student {
     private Date updatedAt;
     // Constructors, getters, and setters
 }
-

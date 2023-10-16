@@ -1,6 +1,5 @@
 package fu.swp.dorm_mnm.model;
 
-import fu.swp.dorm_mnm.token.Token;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -13,6 +12,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import fu.swp.dorm_mnm.token.Token;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,7 +24,7 @@ public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   @Column(name = "username", nullable = false, unique = true, length = 20)
   private String username;
@@ -64,13 +65,12 @@ public class User implements UserDetails {
   @Column(name = "updated_at")
   private Date updatedAt;
 
-  // @Enumerated(EnumType.STRING)
   @ManyToOne
   @JoinColumn(name = "role_id")
   private Role role;
 
-//  @OneToMany(mappedBy = "user")
-//  private List<Token> tokens;
+  // @OneToMany(mappedBy = "user")
+  // private List<Token> tokens;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

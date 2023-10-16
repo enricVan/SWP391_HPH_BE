@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,30 +17,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "bed_request")
-public class BedRequest {
+@Table(name = "building")
+public class Building {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bed_request_id")
-    private Long bedRequestId;
+    @Column(name = "building_id")
+    private Long buildingId;
 
-    @OneToOne(mappedBy = "bedRequest", targetEntity = Payment.class)
-    private Payment payment;
+    @Column(name = "building_name")
+    private String buildingName;
 
-    @ManyToOne
-    @JoinColumn(name = "bed_id")
-    private Bed bed;
+    @OneToMany(mappedBy = "building", targetEntity = Room.class)
+    private List<Room> rooms;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
-
-    @ManyToOne
-    @JoinColumn(name = "semester_id")
-    private Semester semester;
-
-    @Column(name = "status", length = 20)
-    private String status;
+    @OneToMany(mappedBy = "building", targetEntity = GuardShift.class)
+    private List<GuardShift> GuardShifts;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -48,6 +40,4 @@ public class BedRequest {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
-    // Constructors, getters, and setters
 }

@@ -1,15 +1,18 @@
 package fu.swp.dorm_mnm.dto;
 
 import fu.swp.dorm_mnm.model.User;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserDto {
-    private Integer id;
+    private Long id;
     private String username;
     private String fullName;
     private String role;
@@ -21,6 +24,7 @@ public class UserDto {
     private String status;
     private String createdAt;
     private String updatedAt;
+
     public UserDto(User user) {
         String pattern = "dd/MM/yyyy HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);

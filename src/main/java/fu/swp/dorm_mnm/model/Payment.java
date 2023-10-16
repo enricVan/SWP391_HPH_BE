@@ -15,19 +15,30 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "maintenance_staff")
-public class MaintenanceStaff {
+@Table(name = "payment")
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "maintenance_staff_id")
-    private Long maintenanceStaffId;
+    @Column(name = "payment_id")
+    private Long paymentId;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "checked_by_manager_id", nullable = false)
+    private Manager manager;
 
     @OneToOne
-    @JoinColumn(name = "staff_id", unique = true)
-    private Staff staff;
+    @JoinColumn(name = "bed_request_id", nullable = false, unique = true)
+    private BedRequest bedRequest;
 
-    @Column(name = "description", length = 200)
-    private String description;
+    @Column(name = "amount")
+    private Double amount;
+
+    @Column(name = "status")
+    private String status;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")

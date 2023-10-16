@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,20 +17,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "role_feature")
-public class RoleFeature {
+@Table(name = "guard")
+public class Guard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_feature_id")
-    private Long roleFeatureId;
+    @Column(name = "guard_id")
+    private Long guardId;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "feature_id")
-    private Feature feature;
+    @OneToMany(mappedBy = "guard", targetEntity = GuardShift.class)
+    private List<GuardShift> guardShifts;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -38,6 +38,5 @@ public class RoleFeature {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
     // Constructors, getters, and setters
 }

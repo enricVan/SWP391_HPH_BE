@@ -2,6 +2,7 @@ package fu.swp.dorm_mnm.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,14 +24,23 @@ public class Manager {
     private Long managerId;
 
     @OneToOne
-    @JoinColumn(name = "staff_id", unique = true)
-    private Staff staff;
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 
     @Column(name = "description", length = 200)
     private String description;
 
-    // @OneToMany(mappedBy = "manager")
-    // private List<News> newsList;
+    @OneToMany(mappedBy = "manager", targetEntity = News.class)
+    private List<News> news;
+
+    @OneToMany(mappedBy = "manager", targetEntity = GuardShift.class)
+    private List<GuardShift> guardShifts;
+
+    @OneToMany(mappedBy = "manager", targetEntity = RequestApplication.class)
+    private List<RequestApplication> requestApplications;
+
+    @OneToMany(mappedBy = "manager", targetEntity = MaintenanceReport.class)
+    private List<MaintenanceReport> maintenanceReports;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")

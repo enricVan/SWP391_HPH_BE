@@ -8,10 +8,10 @@ import fu.swp.dorm_mnm.service.BedRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
+
 @Service
 public class BedRequestServiceImpl implements BedRequestService {
 
@@ -49,7 +49,7 @@ public class BedRequestServiceImpl implements BedRequestService {
             bedRequest.setBed(bed);
             bedRequest.setStudent(student);
             bedRequest.setStatus("pending");
-            bedRequest.setSemesterId(bedRequestReq.getSemesterId());
+            bedRequest.setSemester(bedRequestReq.getSemester());
             return bedRequestRepository.save(bedRequest);
         } else {
             return null;
