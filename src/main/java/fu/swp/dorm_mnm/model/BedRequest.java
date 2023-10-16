@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -23,6 +24,7 @@ public class BedRequest {
     @Column(name = "bed_request_id")
     private Long bedRequestId;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "bedRequest", targetEntity = Payment.class)
     private Payment payment;
 

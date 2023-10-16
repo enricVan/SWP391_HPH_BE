@@ -50,7 +50,7 @@ public class SemesterController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/nextSemester")
+    @GetMapping("/next-semester")
     @PreAuthorize("hasAuthority('semester:read')")
     public ResponseEntity<Semester> getNextSemester() {
         Date currentDate = new Date();

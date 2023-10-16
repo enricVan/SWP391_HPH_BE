@@ -48,13 +48,14 @@ public class UserController {
 
     @GetMapping("/userdetails")
     @PreAuthorize("hasAuthority('user:read')")
-    public ResponseEntity<User> getUserDetails() {
+    public ResponseEntity<UserDto> getUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        return ResponseEntity.ok(user);
+        UserDto userDto = new UserDto(user);
+        return ResponseEntity.ok(userDto);
     }
 
-    // get employee by id rest api
+    // get user by id rest api
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('user:read')")
     public ResponseEntity<UserDto> getUserById(@PathVariable Integer id) {

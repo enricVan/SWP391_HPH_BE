@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 // import lombok.Getter;
@@ -41,6 +42,7 @@ public class Role {
         @Column(name = "role_name")
         private String name;
 
+        @JsonIgnore
         @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "role_feature", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "feature_id"))
         private List<Feature> features;

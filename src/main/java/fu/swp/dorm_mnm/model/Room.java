@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -38,6 +39,7 @@ public class Room {
     @JoinColumn(name = "building_id")
     private Building building;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "room", targetEntity = Bed.class)
     private List<Bed> beds;
 
