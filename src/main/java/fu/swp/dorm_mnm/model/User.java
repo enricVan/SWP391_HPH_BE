@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import fu.swp.dorm_mnm.token.Token;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -11,8 +12,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import fu.swp.dorm_mnm.token.Token;
 
 @Data
 @Builder

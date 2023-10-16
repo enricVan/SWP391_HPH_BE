@@ -7,7 +7,7 @@ USE `hph_db`;
 --
 -- Host: 127.0.0.1    Database: hph_db
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.1.0
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
 ;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
@@ -41,14 +41,16 @@ CREATE TABLE `bed` (
     `bed_id` bigint NOT NULL AUTO_INCREMENT,
     `bed_name` varchar(20) DEFAULT NULL,
     `created_at` datetime(6) DEFAULT NULL,
-    `price` float DEFAULT NULL,
     `status` varchar(50) DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
     `room_id` bigint DEFAULT NULL,
+    `student_id` bigint DEFAULT NULL,
     PRIMARY KEY (`bed_id`),
+    UNIQUE KEY `UK_ll08rt0pbj1eh4j2yrarod0lm` (`student_id`),
     KEY `FK115cuh725wpbt8yxq2lvgg1c9` (`room_id`),
-    CONSTRAINT `FK115cuh725wpbt8yxq2lvgg1c9` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 57 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+    CONSTRAINT `FK115cuh725wpbt8yxq2lvgg1c9` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`),
+    CONSTRAINT `FKawvg73odc61efa14yxmosiyn4` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -61,507 +63,21 @@ LOCK TABLES `bed` WRITE;
 INSERT INTO `bed`
 VALUES (
         1,
-        'A101 - Bed 1',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
+        'Bed A1',
+        '2023-10-16 00:31:08.000000',
+        'Occupied',
+        '2023-10-16 00:31:08.000000',
+        1,
         1
     ),
 (
         2,
-        'A101 - Bed 2',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        3,
-        'A101 - Bed 3',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        4,
-        'A101 - Bed 4',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        5,
-        'A101 - Bed 5',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        6,
-        'A101 - Bed 6',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        7,
-        'A101 - Bed 7',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        8,
-        'A101 - Bed 8',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        9,
-        'A102 - Bed 1',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
+        'Bed B2',
+        '2023-10-16 00:31:08.000000',
+        'Vacant',
+        '2023-10-16 00:31:08.000000',
+        2,
         2
-    ),
-(
-        10,
-        'A102 - Bed 2',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        2
-    ),
-(
-        11,
-        'A102 - Bed 3',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        2
-    ),
-(
-        12,
-        'A102 - Bed 4',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        2
-    ),
-(
-        13,
-        'A102 - Bed 5',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        2
-    ),
-(
-        14,
-        'A102 - Bed 6',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        2
-    ),
-(
-        15,
-        'A102 - Bed 7',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        2
-    ),
-(
-        16,
-        'A102 - Bed 8',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        2
-    ),
-(
-        17,
-        'B101 - Bed 1',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        3
-    ),
-(
-        18,
-        'B101 - Bed 2',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        3
-    ),
-(
-        19,
-        'B101 - Bed 3',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        3
-    ),
-(
-        20,
-        'B101 - Bed 4',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        3
-    ),
-(
-        21,
-        'B101 - Bed 5',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        3
-    ),
-(
-        22,
-        'B101 - Bed 6',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        3
-    ),
-(
-        23,
-        'B102 - Bed 1',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        4
-    ),
-(
-        24,
-        'B102 - Bed 2',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        4
-    ),
-(
-        25,
-        'B102 - Bed 3',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        4
-    ),
-(
-        26,
-        'B102 - Bed 4',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        4
-    ),
-(
-        27,
-        'B102 - Bed 5',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        4
-    ),
-(
-        28,
-        'B102 - Bed 6',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        4
-    ),
-(
-        29,
-        'C101 - Bed 1',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        5
-    ),
-(
-        30,
-        'C101 - Bed 2',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        5
-    ),
-(
-        31,
-        'C101 - Bed 3',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        5
-    ),
-(
-        32,
-        'C101 - Bed 4',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        5
-    ),
-(
-        33,
-        'C101 - Bed 5',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        5
-    ),
-(
-        34,
-        'C101 - Bed 6',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        5
-    ),
-(
-        35,
-        'C101 - Bed 7',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        5
-    ),
-(
-        36,
-        'C101 - Bed 8',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        5
-    ),
-(
-        37,
-        'C102 - Bed 1',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        6
-    ),
-(
-        38,
-        'C102 - Bed 2',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        6
-    ),
-(
-        39,
-        'C102 - Bed 3',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        6
-    ),
-(
-        40,
-        'C102 - Bed 4',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        6
-    ),
-(
-        41,
-        'C102 - Bed 5',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        6
-    ),
-(
-        42,
-        'C102 - Bed 6',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        6
-    ),
-(
-        43,
-        'C102 - Bed 7',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        6
-    ),
-(
-        44,
-        'C102 - Bed 8',
-        '2023-10-06 22:58:05.000000',
-        4200000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        6
-    ),
-(
-        45,
-        'D101 - Bed 1',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        7
-    ),
-(
-        46,
-        'D101 - Bed 2',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        7
-    ),
-(
-        47,
-        'D101 - Bed 3',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        7
-    ),
-(
-        48,
-        'D101 - Bed 4',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        7
-    ),
-(
-        49,
-        'D101 - Bed 5',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        7
-    ),
-(
-        50,
-        'D101 - Bed 6',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        7
-    ),
-(
-        51,
-        'D102 - Bed 1',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        8
-    ),
-(
-        52,
-        'D102 - Bed 2',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        8
-    ),
-(
-        53,
-        'D102 - Bed 3',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        8
-    ),
-(
-        54,
-        'D102 - Bed 4',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        8
-    ),
-(
-        55,
-        'D102 - Bed 5',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        8
-    ),
-(
-        56,
-        'D102 - Bed 6',
-        '2023-10-06 22:58:05.000000',
-        4400000,
-        'available',
-        '2023-10-06 22:58:05.000000',
-        8
     );
 /*!40000 ALTER TABLE `bed` ENABLE KEYS */
 ;
@@ -578,17 +94,19 @@ DROP TABLE IF EXISTS `bed_request`;
 CREATE TABLE `bed_request` (
     `bed_request_id` bigint NOT NULL AUTO_INCREMENT,
     `created_at` datetime(6) DEFAULT NULL,
-    `semester_id` bigint DEFAULT NULL,
     `status` varchar(20) DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
     `bed_id` bigint DEFAULT NULL,
+    `semester_id` bigint DEFAULT NULL,
     `student_id` bigint DEFAULT NULL,
     PRIMARY KEY (`bed_request_id`),
     KEY `FK9mh01gkerx5rc54mgtx2yc34s` (`bed_id`),
+    KEY `FKftatpe9cprf80cgwnctmm5u3b` (`semester_id`),
     KEY `FK61lhdae6b14pavjvwqsvcn8gj` (`student_id`),
     CONSTRAINT `FK61lhdae6b14pavjvwqsvcn8gj` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`),
-    CONSTRAINT `FK9mh01gkerx5rc54mgtx2yc34s` FOREIGN KEY (`bed_id`) REFERENCES `bed` (`bed_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+    CONSTRAINT `FK9mh01gkerx5rc54mgtx2yc34s` FOREIGN KEY (`bed_id`) REFERENCES `bed` (`bed_id`),
+    CONSTRAINT `FKftatpe9cprf80cgwnctmm5u3b` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`semester_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -601,32 +119,64 @@ LOCK TABLES `bed_request` WRITE;
 INSERT INTO `bed_request`
 VALUES (
         1,
-        '2023-10-06 22:58:05.000000',
-        2,
-        'pending',
-        '2023-10-06 22:58:05.000000',
+        '2023-10-16 00:31:08.000000',
+        'Approved',
+        '2023-10-16 00:31:08.000000',
+        1,
         1,
         1
     ),
 (
         2,
-        '2023-10-06 22:58:05.000000',
+        '2023-10-16 00:31:08.000000',
+        'Pending',
+        '2023-10-16 00:31:08.000000',
         2,
-        'approved',
-        '2023-10-06 22:58:05.000000',
         2,
-        1
-    ),
-(
-        3,
-        '2023-10-06 22:58:05.000000',
-        3,
-        'denied',
-        '2023-10-06 22:58:05.000000',
-        3,
-        1
+        2
     );
 /*!40000 ALTER TABLE `bed_request` ENABLE KEYS */
+;
+UNLOCK TABLES;
+--
+-- Table structure for table `building`
+--
+
+DROP TABLE IF EXISTS `building`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!50503 SET character_set_client = utf8mb4 */
+;
+CREATE TABLE `building` (
+    `building_id` bigint NOT NULL AUTO_INCREMENT,
+    `building_name` varchar(255) DEFAULT NULL,
+    `created_at` datetime(6) DEFAULT NULL,
+    `updated_at` datetime(6) DEFAULT NULL,
+    PRIMARY KEY (`building_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `building`
+--
+
+LOCK TABLES `building` WRITE;
+/*!40000 ALTER TABLE `building` DISABLE KEYS */
+;
+INSERT INTO `building`
+VALUES (
+        1,
+        'Building A',
+        '2023-10-16 00:31:08.000000',
+        '2023-10-16 00:31:08.000000'
+    ),
+(
+        2,
+        'Building B',
+        '2023-10-16 00:31:08.000000',
+        '2023-10-16 00:31:08.000000'
+    );
+/*!40000 ALTER TABLE `building` ENABLE KEYS */
 ;
 UNLOCK TABLES;
 --
@@ -645,8 +195,9 @@ CREATE TABLE `faq` (
     `sub_title` text,
     `title` text,
     `updated_at` datetime(6) DEFAULT NULL,
+    `created_by_user_id` bigint DEFAULT NULL,
     PRIMARY KEY (`faq_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -659,27 +210,21 @@ LOCK TABLES `faq` WRITE;
 INSERT INTO `faq`
 VALUES (
         1,
-        'FAQ Content 1',
-        '2023-10-06 22:58:05.000000',
-        'FAQ Subtitle 1',
-        'FAQ Title 1',
-        '2023-10-06 22:58:05.000000'
+        'Content for FAQ 1',
+        '2023-10-16 00:31:08.000000',
+        'Subtitle 1',
+        'FAQ 1',
+        '2023-10-16 00:31:08.000000',
+        NULL
     ),
 (
         2,
-        'FAQ Content 2',
-        '2023-10-06 22:58:05.000000',
-        'FAQ Subtitle 2',
-        'FAQ Title 2',
-        '2023-10-06 22:58:05.000000'
-    ),
-(
-        3,
-        'FAQ Content 3',
-        '2023-10-06 22:58:05.000000',
-        'FAQ Subtitle 3',
-        'FAQ Title 3',
-        '2023-10-06 22:58:05.000000'
+        'Content for FAQ 2',
+        '2023-10-16 00:31:08.000000',
+        'Subtitle 2',
+        'FAQ 2',
+        '2023-10-16 00:31:08.000000',
+        NULL
     );
 /*!40000 ALTER TABLE `faq` ENABLE KEYS */
 ;
@@ -700,7 +245,7 @@ CREATE TABLE `feature` (
     `updated_at` datetime(6) DEFAULT NULL,
     `url` varchar(300) NOT NULL,
     PRIMARY KEY (`feature_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -713,26 +258,183 @@ LOCK TABLES `feature` WRITE;
 INSERT INTO `feature`
 VALUES (
         1,
-        '2023-10-06 22:58:05.000000',
+        '2023-10-16 00:31:08.000000',
         'Feature 1',
-        '2023-10-06 22:58:05.000000',
-        'URL 1'
+        '2023-10-16 00:31:08.000000',
+        '/feature1'
     ),
 (
         2,
-        '2023-10-06 22:58:05.000000',
+        '2023-10-16 00:31:08.000000',
         'Feature 2',
-        '2023-10-06 22:58:05.000000',
-        'URL 2'
-    ),
-(
-        3,
-        '2023-10-06 22:58:05.000000',
-        'Feature 3',
-        '2023-10-06 22:58:05.000000',
-        'URL 3'
+        '2023-10-16 00:31:08.000000',
+        '/feature2'
     );
 /*!40000 ALTER TABLE `feature` ENABLE KEYS */
+;
+UNLOCK TABLES;
+--
+-- Table structure for table `guard`
+--
+
+DROP TABLE IF EXISTS `guard`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!50503 SET character_set_client = utf8mb4 */
+;
+CREATE TABLE `guard` (
+    `guard_id` bigint NOT NULL AUTO_INCREMENT,
+    `created_at` datetime(6) DEFAULT NULL,
+    `updated_at` datetime(6) DEFAULT NULL,
+    `user_id` bigint NOT NULL,
+    PRIMARY KEY (`guard_id`),
+    UNIQUE KEY `UK_ba18xfcy947lw9jwau3c6rk1a` (`user_id`),
+    CONSTRAINT `FKqj1yw92acn37p8kxqp0g4gmih` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `guard`
+--
+
+LOCK TABLES `guard` WRITE;
+/*!40000 ALTER TABLE `guard` DISABLE KEYS */
+;
+INSERT INTO `guard`
+VALUES (
+        1,
+        '2023-10-16 00:31:08.000000',
+        '2023-10-16 00:31:08.000000',
+        4
+    ),
+(
+        2,
+        '2023-10-16 00:31:08.000000',
+        '2023-10-16 00:31:08.000000',
+        5
+    );
+/*!40000 ALTER TABLE `guard` ENABLE KEYS */
+;
+UNLOCK TABLES;
+--
+-- Table structure for table `guard_shift`
+--
+
+DROP TABLE IF EXISTS `guard_shift`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!50503 SET character_set_client = utf8mb4 */
+;
+CREATE TABLE `guard_shift` (
+    `guard_shift_id` bigint NOT NULL AUTO_INCREMENT,
+    `created_at` datetime(6) DEFAULT NULL,
+    `end_date_time` datetime(6) DEFAULT NULL,
+    `slot` int DEFAULT NULL,
+    `start_date_time` datetime(6) DEFAULT NULL,
+    `updated_at` datetime(6) DEFAULT NULL,
+    `building` bigint DEFAULT NULL,
+    `guard_id` bigint DEFAULT NULL,
+    `assign_by_manager_id` bigint DEFAULT NULL,
+    PRIMARY KEY (`guard_shift_id`),
+    KEY `FK23owyj9tii82s86hgoh6tqxhy` (`building`),
+    KEY `FKiyq74gy7yxgwsl71e6lr718xt` (`guard_id`),
+    KEY `FKgtxd6knd5j2r2fsxg1pcuqmxo` (`assign_by_manager_id`),
+    CONSTRAINT `FK23owyj9tii82s86hgoh6tqxhy` FOREIGN KEY (`building`) REFERENCES `building` (`building_id`),
+    CONSTRAINT `FKgtxd6knd5j2r2fsxg1pcuqmxo` FOREIGN KEY (`assign_by_manager_id`) REFERENCES `manager` (`manager_id`),
+    CONSTRAINT `FKiyq74gy7yxgwsl71e6lr718xt` FOREIGN KEY (`guard_id`) REFERENCES `guard` (`guard_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `guard_shift`
+--
+
+LOCK TABLES `guard_shift` WRITE;
+/*!40000 ALTER TABLE `guard_shift` DISABLE KEYS */
+;
+INSERT INTO `guard_shift`
+VALUES (
+        1,
+        '2023-10-16 00:31:08.000000',
+        '2023-10-16 16:00:00.000000',
+        1,
+        '2023-10-16 08:00:00.000000',
+        '2023-10-16 00:31:08.000000',
+        1,
+        1,
+        1
+    ),
+(
+        2,
+        '2023-10-16 00:31:08.000000',
+        '2023-10-17 16:00:00.000000',
+        1,
+        '2023-10-17 08:00:00.000000',
+        '2023-10-16 00:31:08.000000',
+        2,
+        2,
+        2
+    );
+/*!40000 ALTER TABLE `guard_shift` ENABLE KEYS */
+;
+UNLOCK TABLES;
+--
+-- Table structure for table `maintenance_report`
+--
+
+DROP TABLE IF EXISTS `maintenance_report`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!50503 SET character_set_client = utf8mb4 */
+;
+CREATE TABLE `maintenance_report` (
+    `maintenance_report_id` bigint NOT NULL AUTO_INCREMENT,
+    `created_at` datetime(6) DEFAULT NULL,
+    `note` text,
+    `status` varchar(50) DEFAULT NULL,
+    `updated_at` datetime(6) DEFAULT NULL,
+    `receive_by_manager_id` bigint DEFAULT NULL,
+    `room_id` bigint DEFAULT NULL,
+    `created_by_student_id` bigint DEFAULT NULL,
+    PRIMARY KEY (`maintenance_report_id`),
+    KEY `FKo16g9078dh78tsydvuehtirj6` (`receive_by_manager_id`),
+    KEY `FKqmqakl4v5n54foe07cm9cea49` (`room_id`),
+    KEY `FKio88r83dkal1wf5iinej4stll` (`created_by_student_id`),
+    CONSTRAINT `FKio88r83dkal1wf5iinej4stll` FOREIGN KEY (`created_by_student_id`) REFERENCES `student` (`student_id`),
+    CONSTRAINT `FKo16g9078dh78tsydvuehtirj6` FOREIGN KEY (`receive_by_manager_id`) REFERENCES `manager` (`manager_id`),
+    CONSTRAINT `FKqmqakl4v5n54foe07cm9cea49` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `maintenance_report`
+--
+
+LOCK TABLES `maintenance_report` WRITE;
+/*!40000 ALTER TABLE `maintenance_report` DISABLE KEYS */
+;
+INSERT INTO `maintenance_report`
+VALUES (
+        1,
+        '2023-10-16 00:31:08.000000',
+        'Maintenance issue in Room 101',
+        'Pending',
+        '2023-10-16 00:31:08.000000',
+        1,
+        1,
+        1
+    ),
+(
+        2,
+        '2023-10-16 00:31:08.000000',
+        'Broken window in Room 201',
+        'Resolved',
+        '2023-10-16 00:31:08.000000',
+        2,
+        2,
+        2
+    );
+/*!40000 ALTER TABLE `maintenance_report` ENABLE KEYS */
 ;
 UNLOCK TABLES;
 --
@@ -749,11 +451,11 @@ CREATE TABLE `manager` (
     `created_at` datetime(6) DEFAULT NULL,
     `description` varchar(200) DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
-    `user_id` int DEFAULT NULL,
+    `user_id` bigint DEFAULT NULL,
     PRIMARY KEY (`manager_id`),
     UNIQUE KEY `UK_4vbgsjl6mcxrqyvts0hlilhob` (`user_id`),
     CONSTRAINT `FKlydl1hgqhi0ogywnwwfxh3bqe` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -766,10 +468,17 @@ LOCK TABLES `manager` WRITE;
 INSERT INTO `manager`
 VALUES (
         1,
-        '2023-10-06 22:58:05.000000',
-        'Manager 1 Description',
-        '2023-10-06 22:58:05.000000',
-        1
+        '2023-10-16 00:31:08.000000',
+        'Manager 1',
+        '2023-10-16 00:31:08.000000',
+        6
+    ),
+(
+        2,
+        '2023-10-16 00:31:08.000000',
+        'Manager 2',
+        '2023-10-16 00:31:08.000000',
+        7
     );
 /*!40000 ALTER TABLE `manager` ENABLE KEYS */
 ;
@@ -795,7 +504,7 @@ CREATE TABLE `news` (
     PRIMARY KEY (`news_id`),
     KEY `FKb3wmgkbeu1pqf74xk944s333h` (`manager_id`),
     CONSTRAINT `FKb3wmgkbeu1pqf74xk944s333h` FOREIGN KEY (`manager_id`) REFERENCES `manager` (`manager_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 17 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -808,165 +517,244 @@ LOCK TABLES `news` WRITE;
 INSERT INTO `news`
 VALUES (
         1,
-        'Notice',
-        'News Content 1',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 1',
-        'Renewal of dormitory registration for Fall 2023 term',
-        '2023-10-06 22:58:05.000000',
+        'Announcement',
+        'Important announcement...',
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'News 1',
+        '2023-10-16 00:31:08.000000',
         1
     ),
 (
         2,
-        'Tips',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'MANUAL FOR PREVENTION OF DENGUE FEVER EPIDEMIC',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        3,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'POWER LOSS ON August 6, 2023',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        4,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'DECISION 139/QD-CTGDFPT DATED DECEMBER 20, 2022 ON THE ISSUANCE OF FINANCIAL REGULATIONS FOR SCHOOL YEAR 2023-2024 FOR STUDENTS OF TRAINING SYSTEMS UNDER THE FPT EDUCATION SYSTEM',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        5,
-        'Notice',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'REGISTRATION/CANCELLATION OF KTX FALL 2023 Dormitory Rooms',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        6,
-        'Notice',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'Regarding the second spraying of mosquito and insecticides to prevent epidemics in 2023',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        7,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'CUT WATER TO CLEAN STORAGE TANKS',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        8,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        '[Important]ANNOUNCEMENT REGARDING CHANGE IN TIME FOR NEW REGISTRATION IN KY SU23 Dormitory Room',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        9,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'REGISTRATION/CANCELLATION OF SUMMER 2023 Dormitory',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        10,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'Dormitory air conditioning maintenance schedule for phase 1 of 2023',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        11,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'Plan to receive dormitory registration at Hoa Lac campus from Fall 2023',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        12,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        '1st SPRAYING OF MOSQUITOES AND INSECTS TO PREVENT DISEASES IN 2023',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        13,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'Dormitory air conditioning maintenance schedule, phase 1 of 2023',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        14,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'Dormitory air conditioning maintenance schedule, phase 2 of 2023',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        15,
-        'Announcement',
-        'News Content 2',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 2',
-        'New Dorm Buiding Open',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        16,
-        'Tip',
-        'Where to go when having missing items',
-        '2023-10-06 22:58:05.000000',
-        'Image URL 3',
-        'News Title 3',
-        '2023-10-06 22:58:05.000000',
-        1
+        'Event',
+        'Upcoming event details...',
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'News 2',
+        '2023-10-16 00:31:08.000000',
+        2
     );
 /*!40000 ALTER TABLE `news` ENABLE KEYS */
+;
+UNLOCK TABLES;
+--
+-- Table structure for table `payment`
+--
+
+DROP TABLE IF EXISTS `payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!50503 SET character_set_client = utf8mb4 */
+;
+CREATE TABLE `payment` (
+    `payment_id` bigint NOT NULL AUTO_INCREMENT,
+    `amount` double DEFAULT NULL,
+    `created_at` datetime(6) DEFAULT NULL,
+    `status` varchar(255) DEFAULT NULL,
+    `updated_at` datetime(6) DEFAULT NULL,
+    `bed_request_id` bigint NOT NULL,
+    `checked_by_manager_id` bigint NOT NULL,
+    `student_id` bigint NOT NULL,
+    PRIMARY KEY (`payment_id`),
+    UNIQUE KEY `UK_6jd4oa8467p4k5nedh6uxm0ey` (`bed_request_id`),
+    KEY `FKlgi22d9smuknidkpy77grwvhr` (`checked_by_manager_id`),
+    KEY `FKq0mpbhvyrwyggk1gwjams69wf` (`student_id`),
+    CONSTRAINT `FKi5hitqdbcf7vxw7a242tjgays` FOREIGN KEY (`bed_request_id`) REFERENCES `bed_request` (`bed_request_id`),
+    CONSTRAINT `FKlgi22d9smuknidkpy77grwvhr` FOREIGN KEY (`checked_by_manager_id`) REFERENCES `manager` (`manager_id`),
+    CONSTRAINT `FKq0mpbhvyrwyggk1gwjams69wf` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `payment`
+--
+
+LOCK TABLES `payment` WRITE;
+/*!40000 ALTER TABLE `payment` DISABLE KEYS */
+;
+INSERT INTO `payment`
+VALUES (
+        1,
+        500,
+        '2023-10-16 00:31:08.000000',
+        'Paid',
+        '2023-10-16 00:31:08.000000',
+        1,
+        1,
+        1
+    ),
+(
+        2,
+        600,
+        '2023-10-16 00:31:08.000000',
+        'Pending',
+        '2023-10-16 00:31:08.000000',
+        2,
+        2,
+        2
+    );
+/*!40000 ALTER TABLE `payment` ENABLE KEYS */
+;
+UNLOCK TABLES;
+--
+-- Table structure for table `penalty_ticket`
+--
+
+DROP TABLE IF EXISTS `penalty_ticket`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!50503 SET character_set_client = utf8mb4 */
+;
+CREATE TABLE `penalty_ticket` (
+    `penalty_ticket_id` bigint NOT NULL AUTO_INCREMENT,
+    `content` text,
+    `created_at` datetime(6) DEFAULT NULL,
+    `status` varchar(255) DEFAULT NULL,
+    `title` varchar(255) DEFAULT NULL,
+    `updated_at` datetime(6) DEFAULT NULL,
+    `created_by_guard_id` bigint NOT NULL,
+    `student_id` bigint NOT NULL,
+    PRIMARY KEY (`penalty_ticket_id`),
+    KEY `FK1ux9jtat8x5h0ojx9mrnhadeu` (`created_by_guard_id`),
+    KEY `FK9u6fhq9uske5o1mt127nvu4d2` (`student_id`),
+    CONSTRAINT `FK1ux9jtat8x5h0ojx9mrnhadeu` FOREIGN KEY (`created_by_guard_id`) REFERENCES `guard` (`guard_id`),
+    CONSTRAINT `FK9u6fhq9uske5o1mt127nvu4d2` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `penalty_ticket`
+--
+
+LOCK TABLES `penalty_ticket` WRITE;
+/*!40000 ALTER TABLE `penalty_ticket` DISABLE KEYS */
+;
+INSERT INTO `penalty_ticket`
+VALUES (
+        1,
+        'Excessive noise in Room 101',
+        '2023-10-16 00:31:09.000000',
+        'Pending',
+        'Noise Complaint',
+        '2023-10-16 00:31:09.000000',
+        1,
+        1
+    ),
+(
+        2,
+        'Room 201 violation report',
+        '2023-10-16 00:31:09.000000',
+        'Resolved',
+        'Violation Report',
+        '2023-10-16 00:31:09.000000',
+        2,
+        2
+    );
+/*!40000 ALTER TABLE `penalty_ticket` ENABLE KEYS */
+;
+UNLOCK TABLES;
+--
+-- Table structure for table `request_application`
+--
+
+DROP TABLE IF EXISTS `request_application`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!50503 SET character_set_client = utf8mb4 */
+;
+CREATE TABLE `request_application` (
+    `request_application_id` bigint NOT NULL AUTO_INCREMENT,
+    `created_at` datetime(6) DEFAULT NULL,
+    `request_content` text,
+    `status` varchar(255) DEFAULT NULL,
+    `text_response` text,
+    `updated_at` datetime(6) DEFAULT NULL,
+    `take_by_manager_id` bigint DEFAULT NULL,
+    `request_application_type_id` bigint DEFAULT NULL,
+    `student_id` bigint DEFAULT NULL,
+    PRIMARY KEY (`request_application_id`),
+    KEY `FKnybjnakovu6ouc27fdg4cxaqv` (`take_by_manager_id`),
+    KEY `FK84sbiaiy31c7u8k4iw1vcuk9m` (`request_application_type_id`),
+    KEY `FK47l9s3lnc3mapt1m9j93508uq` (`student_id`),
+    CONSTRAINT `FK47l9s3lnc3mapt1m9j93508uq` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`),
+    CONSTRAINT `FK84sbiaiy31c7u8k4iw1vcuk9m` FOREIGN KEY (`request_application_type_id`) REFERENCES `request_application_type` (`request_application_type_id`),
+    CONSTRAINT `FKnybjnakovu6ouc27fdg4cxaqv` FOREIGN KEY (`take_by_manager_id`) REFERENCES `manager` (`manager_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `request_application`
+--
+
+LOCK TABLES `request_application` WRITE;
+/*!40000 ALTER TABLE `request_application` DISABLE KEYS */
+;
+INSERT INTO `request_application`
+VALUES (
+        1,
+        '2023-10-16 00:31:09.000000',
+        'Request for vacation leave',
+        'Pending',
+        NULL,
+        '2023-10-16 00:31:09.000000',
+        1,
+        1,
+        1
+    ),
+(
+        2,
+        '2023-10-16 00:31:09.000000',
+        'Noise Complaint',
+        'Resolved',
+        'Resolved the noise issue',
+        '2023-10-16 00:31:09.000000',
+        2,
+        2,
+        2
+    );
+/*!40000 ALTER TABLE `request_application` ENABLE KEYS */
+;
+UNLOCK TABLES;
+--
+-- Table structure for table `request_application_type`
+--
+
+DROP TABLE IF EXISTS `request_application_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!50503 SET character_set_client = utf8mb4 */
+;
+CREATE TABLE `request_application_type` (
+    `request_application_type_id` bigint NOT NULL AUTO_INCREMENT,
+    `created_at` datetime(6) DEFAULT NULL,
+    `request_application_type_name` varchar(300) DEFAULT NULL,
+    `updated_at` datetime(6) DEFAULT NULL,
+    PRIMARY KEY (`request_application_type_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
+--
+-- Dumping data for table `request_application_type`
+--
+
+LOCK TABLES `request_application_type` WRITE;
+/*!40000 ALTER TABLE `request_application_type` DISABLE KEYS */
+;
+INSERT INTO `request_application_type`
+VALUES (
+        1,
+        '2023-10-16 00:31:09.000000',
+        'Leave Request',
+        '2023-10-16 00:31:09.000000'
+    ),
+(
+        2,
+        '2023-10-16 00:31:09.000000',
+        'Complaint',
+        '2023-10-16 00:31:09.000000'
+    );
+/*!40000 ALTER TABLE `request_application_type` ENABLE KEYS */
 ;
 UNLOCK TABLES;
 --
@@ -985,7 +773,7 @@ CREATE TABLE `role` (
     `role_name` varchar(255) DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
     PRIMARY KEY (`role_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -996,9 +784,34 @@ LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */
 ;
 INSERT INTO `role`
-VALUES (1, NULL, NULL, 'ADMIN', NULL),
-(2, NULL, NULL, 'STUDENT', NULL),
-(3, NULL, NULL, 'MANAGER', NULL);
+VALUES (
+        1,
+        '2023-10-16 00:31:08.000000',
+        'Admin role',
+        'ADMIN',
+        '2023-10-16 00:31:08.000000'
+    ),
+(
+        2,
+        '2023-10-16 00:31:08.000000',
+        'Student role',
+        'STUDENT',
+        '2023-10-16 00:31:08.000000'
+    ),
+(
+        3,
+        '2023-10-16 00:31:08.000000',
+        'Manager role',
+        'MANAGER',
+        '2023-10-16 00:31:08.000000'
+    ),
+(
+        4,
+        '2023-10-16 00:31:08.000000',
+        'GUARD ROLE',
+        'GUARD',
+        '2023-10-16 00:31:08.000000'
+    );
 /*!40000 ALTER TABLE `role` ENABLE KEYS */
 ;
 UNLOCK TABLES;
@@ -1012,17 +825,13 @@ DROP TABLE IF EXISTS `role_feature`;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 CREATE TABLE `role_feature` (
-    `role_feature_id` bigint NOT NULL AUTO_INCREMENT,
-    `created_at` datetime(6) DEFAULT NULL,
-    `updated_at` datetime(6) DEFAULT NULL,
-    `feature_id` bigint DEFAULT NULL,
-    `role_id` bigint DEFAULT NULL,
-    PRIMARY KEY (`role_feature_id`),
+    `role_id` bigint NOT NULL,
+    `feature_id` bigint NOT NULL,
     KEY `FK602jkws28uc62gtuyokf4ke07` (`feature_id`),
-    KEY `FKkvt34970jxowf984hrm3loqlg` (`role_id`),
+    KEY `FKdvn8a8caf8ckyjtdl4rc3x0tb` (`role_id`),
     CONSTRAINT `FK602jkws28uc62gtuyokf4ke07` FOREIGN KEY (`feature_id`) REFERENCES `feature` (`feature_id`),
-    CONSTRAINT `FKkvt34970jxowf984hrm3loqlg` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+    CONSTRAINT `FKdvn8a8caf8ckyjtdl4rc3x0tb` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1032,28 +841,6 @@ CREATE TABLE `role_feature` (
 LOCK TABLES `role_feature` WRITE;
 /*!40000 ALTER TABLE `role_feature` DISABLE KEYS */
 ;
-INSERT INTO `role_feature`
-VALUES (
-        1,
-        '2023-10-06 22:58:05.000000',
-        '2023-10-06 22:58:05.000000',
-        1,
-        1
-    ),
-(
-        2,
-        '2023-10-06 22:58:05.000000',
-        '2023-10-06 22:58:05.000000',
-        2,
-        2
-    ),
-(
-        3,
-        '2023-10-06 22:58:05.000000',
-        '2023-10-06 22:58:05.000000',
-        3,
-        3
-    );
 /*!40000 ALTER TABLE `role_feature` ENABLE KEYS */
 ;
 UNLOCK TABLES;
@@ -1068,17 +855,20 @@ DROP TABLE IF EXISTS `room`;
 ;
 CREATE TABLE `room` (
     `room_id` bigint NOT NULL AUTO_INCREMENT,
-    `belong_dom` varchar(20) DEFAULT NULL,
     `created_at` datetime(6) DEFAULT NULL,
     `floor` bigint DEFAULT NULL,
     `room_name` varchar(20) DEFAULT NULL,
+    `room_price` float DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
+    `building_id` bigint DEFAULT NULL,
     `room_type_id` bigint DEFAULT NULL,
     PRIMARY KEY (`room_id`),
     UNIQUE KEY `UK_2tklvare2e5touoeqsdgdsdgm` (`room_name`),
+    KEY `FK4kmfw73x2vpfymk0ml875rh2q` (`building_id`),
     KEY `FKd468eq7j1cbue8mk20qfrj5et` (`room_type_id`),
+    CONSTRAINT `FK4kmfw73x2vpfymk0ml875rh2q` FOREIGN KEY (`building_id`) REFERENCES `building` (`building_id`),
     CONSTRAINT `FKd468eq7j1cbue8mk20qfrj5et` FOREIGN KEY (`room_type_id`) REFERENCES `room_type` (`room_type_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1091,75 +881,23 @@ LOCK TABLES `room` WRITE;
 INSERT INTO `room`
 VALUES (
         1,
-        'A',
-        '2023-10-06 22:58:05.000000',
+        '2023-10-16 00:31:08.000000',
         1,
-        'A101',
-        '2023-10-06 22:58:05.000000',
+        '101',
+        500,
+        '2023-10-16 00:31:08.000000',
+        1,
         1
     ),
 (
         2,
-        'A',
-        '2023-10-06 22:58:05.000000',
-        1,
-        'A102',
-        '2023-10-06 22:58:05.000000',
+        '2023-10-16 00:31:08.000000',
+        2,
+        '201',
+        600,
+        '2023-10-16 00:31:08.000000',
+        2,
         2
-    ),
-(
-        3,
-        'B',
-        '2023-10-06 22:58:05.000000',
-        1,
-        'B101',
-        '2023-10-06 22:58:05.000000',
-        3
-    ),
-(
-        4,
-        'B',
-        '2023-10-06 22:58:05.000000',
-        1,
-        'B102',
-        '2023-10-06 22:58:05.000000',
-        4
-    ),
-(
-        5,
-        'C',
-        '2023-10-06 22:58:05.000000',
-        1,
-        'C101',
-        '2023-10-06 22:58:05.000000',
-        1
-    ),
-(
-        6,
-        'C',
-        '2023-10-06 22:58:05.000000',
-        1,
-        'C102',
-        '2023-10-06 22:58:05.000000',
-        2
-    ),
-(
-        7,
-        'D',
-        '2023-10-06 22:58:05.000000',
-        1,
-        'D101',
-        '2023-10-06 22:58:05.000000',
-        3
-    ),
-(
-        8,
-        'D',
-        '2023-10-06 22:58:05.000000',
-        1,
-        'D102',
-        '2023-10-06 22:58:05.000000',
-        4
     );
 /*!40000 ALTER TABLE `room` ENABLE KEYS */
 ;
@@ -1176,10 +914,11 @@ DROP TABLE IF EXISTS `room_type`;
 CREATE TABLE `room_type` (
     `room_type_id` bigint NOT NULL AUTO_INCREMENT,
     `created_at` datetime(6) DEFAULT NULL,
+    `room_type_description` varchar(255) DEFAULT NULL,
     `room_type_name` varchar(20) DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
     PRIMARY KEY (`room_type_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1192,27 +931,17 @@ LOCK TABLES `room_type` WRITE;
 INSERT INTO `room_type`
 VALUES (
         1,
-        '2023-10-06 22:58:05.000000',
-        '8 male',
-        '2023-10-06 22:58:05.000000'
+        '2023-10-16 00:31:08.000000',
+        'Single Room',
+        'Single',
+        '2023-10-16 00:31:08.000000'
     ),
 (
         2,
-        '2023-10-06 22:58:05.000000',
-        '8 female',
-        '2023-10-06 22:58:05.000000'
-    ),
-(
-        3,
-        '2023-10-06 22:58:05.000000',
-        '6 male',
-        '2023-10-06 22:58:05.000000'
-    ),
-(
-        4,
-        '2023-10-06 22:58:05.000000',
-        '6 female',
-        '2023-10-06 22:58:05.000000'
+        '2023-10-16 00:31:08.000000',
+        'Double Room',
+        'Double',
+        '2023-10-16 00:31:08.000000'
     );
 /*!40000 ALTER TABLE `room_type` ENABLE KEYS */
 ;
@@ -1234,7 +963,7 @@ CREATE TABLE `semester` (
     `start_date` date DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
     PRIMARY KEY (`semester_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 6 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1247,43 +976,19 @@ LOCK TABLES `semester` WRITE;
 INSERT INTO `semester`
 VALUES (
         1,
-        '2023-10-06 22:58:05.000000',
-        '2023-05-06',
-        'Spring23',
-        '2023-01-02',
-        '2023-10-06 22:58:05.000000'
+        '2023-10-16 00:31:08.000000',
+        '2023-12-31',
+        'Fall 2023',
+        '2023-09-01',
+        '2023-10-16 00:31:08.000000'
     ),
 (
         2,
-        '2023-10-06 22:58:05.000000',
-        '2023-09-02',
-        'Summer23',
-        '2023-05-08',
-        '2023-10-06 22:58:05.000000'
-    ),
-(
-        3,
-        '2023-10-06 22:58:05.000000',
-        '2023-12-23',
-        'Fall23',
-        '2023-09-04',
-        '2023-10-06 22:58:05.000000'
-    ),
-(
-        4,
-        '2023-10-06 22:58:05.000000',
-        '2024-05-08',
-        'Spring24',
-        '2024-01-04',
-        '2023-10-06 22:58:05.000000'
-    ),
-(
-        5,
-        '2023-10-06 22:58:05.000000',
-        '2024-09-04',
-        'Summer24',
-        '2024-05-11',
-        '2023-10-06 22:58:05.000000'
+        '2023-10-16 00:31:08.000000',
+        '2024-05-31',
+        'Spring 2024',
+        '2024-01-01',
+        '2023-10-16 00:31:08.000000'
     );
 /*!40000 ALTER TABLE `semester` ENABLE KEYS */
 ;
@@ -1304,12 +1009,12 @@ CREATE TABLE `student` (
     `parent_name` varchar(100) NOT NULL,
     `roll_number` varchar(8) DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
-    `user_id` int NOT NULL,
+    `user_id` bigint NOT NULL,
     PRIMARY KEY (`student_id`),
     UNIQUE KEY `UK_bkix9btnoi1n917ll7bplkvg5` (`user_id`),
     UNIQUE KEY `UK_o1g1spw0ecyidv94ka2dk88wf` (`roll_number`),
     CONSTRAINT `FKl0k3f11t4o6e28f8aw8bkd31s` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1322,109 +1027,23 @@ LOCK TABLES `student` WRITE;
 INSERT INTO `student`
 VALUES (
         1,
-        '2023-10-06 22:58:05.000000',
-        'Description 1',
-        'Parent 1',
-        'HE173334',
-        '2023-10-06 22:58:05.000000',
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'Jane Doe',
+        '12345678',
+        '2023-10-16 00:31:08.000000',
         2
+    ),
+(
+        2,
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'Jane Smith',
+        '87654321',
+        '2023-10-16 00:31:08.000000',
+        3
     );
 /*!40000 ALTER TABLE `student` ENABLE KEYS */
-;
-UNLOCK TABLES;
---
--- Table structure for table `student_request`
---
-
-DROP TABLE IF EXISTS `student_request`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */
-;
-/*!50503 SET character_set_client = utf8mb4 */
-;
-CREATE TABLE `student_request` (
-    `request_id` bigint NOT NULL AUTO_INCREMENT,
-    `created_at` datetime(6) DEFAULT NULL,
-    `request_content` text,
-    `status` varchar(255) DEFAULT NULL,
-    `updated_at` datetime(6) DEFAULT NULL,
-    `student_id` bigint DEFAULT NULL,
-    `student_request_type_id` bigint DEFAULT NULL,
-    PRIMARY KEY (`request_id`),
-    KEY `FKlpxdaeqgtjh5gmqqksl59565n` (`student_id`),
-    KEY `FK1pvk2ipjpcwsxgvpqrqrc5r5h` (`student_request_type_id`),
-    CONSTRAINT `FK1pvk2ipjpcwsxgvpqrqrc5r5h` FOREIGN KEY (`student_request_type_id`) REFERENCES `student_request_type` (`student_request_type_id`),
-    CONSTRAINT `FKlpxdaeqgtjh5gmqqksl59565n` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */
-;
---
--- Dumping data for table `student_request`
---
-
-LOCK TABLES `student_request` WRITE;
-/*!40000 ALTER TABLE `student_request` DISABLE KEYS */
-;
-INSERT INTO `student_request`
-VALUES (
-        1,
-        '2023-10-06 22:58:05.000000',
-        'Skill issues',
-        'pending',
-        '2023-10-06 22:58:05.000000',
-        1,
-        1
-    ),
-(
-        2,
-        '2023-10-06 22:58:05.000000',
-        'Fix devices',
-        'approved',
-        '2023-10-06 22:58:05.000000',
-        1,
-        2
-    );
-/*!40000 ALTER TABLE `student_request` ENABLE KEYS */
-;
-UNLOCK TABLES;
---
--- Table structure for table `student_request_type`
---
-
-DROP TABLE IF EXISTS `student_request_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */
-;
-/*!50503 SET character_set_client = utf8mb4 */
-;
-CREATE TABLE `student_request_type` (
-    `student_request_type_id` bigint NOT NULL AUTO_INCREMENT,
-    `created_at` datetime(6) DEFAULT NULL,
-    `student_request_type_name` varchar(300) DEFAULT NULL,
-    `updated_at` datetime(6) DEFAULT NULL,
-    PRIMARY KEY (`student_request_type_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */
-;
---
--- Dumping data for table `student_request_type`
---
-
-LOCK TABLES `student_request_type` WRITE;
-/*!40000 ALTER TABLE `student_request_type` DISABLE KEYS */
-;
-INSERT INTO `student_request_type`
-VALUES (
-        1,
-        '2023-10-06 22:58:05.000000',
-        'Skill issues',
-        '2023-10-06 22:58:05.000000'
-    ),
-(
-        2,
-        '2023-10-06 22:58:05.000000',
-        'Fix devices',
-        '2023-10-06 22:58:05.000000'
-    );
-/*!40000 ALTER TABLE `student_request_type` ENABLE KEYS */
 ;
 UNLOCK TABLES;
 --
@@ -1442,12 +1061,12 @@ CREATE TABLE `token` (
     `revoked` bit(1) NOT NULL,
     `token` varchar(255) DEFAULT NULL,
     `token_type` enum('BEARER') DEFAULT NULL,
-    `user_id` int DEFAULT NULL,
+    `user_id` bigint DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UK_pddrhgwxnms2aceeku9s2ewy5` (`token`),
     KEY `FKl10xjn274m2rkxo54knt2xqvy` (`user_id`),
     CONSTRAINT `FKl10xjn274m2rkxo54knt2xqvy` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 16 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1462,7 +1081,7 @@ VALUES (
         1,
         _binary '',
         _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjYwNzg3OCwiZXhwIjoxNjk2Njk0Mjc4fQ.WjxhZaavqdDhzvPyEzHJ0hzfvxvJNRHllrO34-XLogc',
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NzQxNjMyMSwiZXhwIjoxNjk3NTAyNzIxfQ.2ffDkPz7goKBJGscCXj3_zXxgI3ytIXefwZ5WM-a4Z0',
         'BEARER',
         1
     ),
@@ -1470,111 +1089,7 @@ VALUES (
         2,
         _binary '\0',
         _binary '\0',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50IiwiaWF0IjoxNjk2NjA3ODc4LCJleHAiOjE2OTY2OTQyNzh9.iDW7i-FROOAMIly970XrJnOmqNXjA0ejdtNtDGZsZI8',
-        'BEARER',
-        2
-    ),
-(
-        3,
-        _binary '\0',
-        _binary '\0',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyIiwiaWF0IjoxNjk2NjA3ODc4LCJleHAiOjE2OTY2OTQyNzh9.9M1H-NnJR3kVPTNzK5NRk7JaOBzb9VU3cSREd_H9prY',
-        'BEARER',
-        3
-    ),
-(
-        4,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjYwODc1NCwiZXhwIjoxNjk2Njk1MTU0fQ.8NuGi-mu8CxaGlgcqYJEYXFUL2mB0OeMmp8Wp7a_oxI',
-        'BEARER',
-        1
-    ),
-(
-        5,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjYwODc3OSwiZXhwIjoxNjk2Njk1MTc5fQ.BZXOgXepa4Zjx19U4vFjIoqrWIrtucRLMROHXaeMPZE',
-        'BEARER',
-        1
-    ),
-(
-        6,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY2OTM0MiwiZXhwIjoxNjk2NzU1NzQyfQ.MZiDSeNXQw-lArMABSt6x109fq5S9gFiCJIceldETZQ',
-        'BEARER',
-        1
-    ),
-(
-        7,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY2OTM5OSwiZXhwIjoxNjk2NzU1Nzk5fQ.4K6K4Kxu4JkNCxy4ZmNgDix6FE2Y8UWGjh7L9Gq71Es',
-        'BEARER',
-        1
-    ),
-(
-        8,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY3Mzc3MCwiZXhwIjoxNjk2NzYwMTcwfQ.3mR7DU-32E_J8YTHYmluPfxwgtgguNj7WSrtzrSmXtc',
-        'BEARER',
-        1
-    ),
-(
-        9,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY3NDU1MiwiZXhwIjoxNjk2NzYwOTUyfQ.drzRw2HEJlwLyTe0qvQQLs7zczqNj3MW8gEOQgc9VJE',
-        'BEARER',
-        1
-    ),
-(
-        10,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY3NDYyMywiZXhwIjoxNjk2NzYxMDIzfQ.4NJK7xr2kkBJPoLAD4GxmMbz6UyvYdpiUN85MKwmNkc',
-        'BEARER',
-        1
-    ),
-(
-        11,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY3NDY1MiwiZXhwIjoxNjk2NzYxMDUyfQ.oBECUui2s1YWp1wSM0L6qzniLfa2bJLBxFkzqI0RTIQ',
-        'BEARER',
-        1
-    ),
-(
-        12,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY3NTA4OSwiZXhwIjoxNjk2NzYxNDg5fQ.CobYk_OrqK_YGyOa1HPc2BFhdNRjuxYnbPL0SuMTMLk',
-        'BEARER',
-        1
-    ),
-(
-        13,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY3NTM0NiwiZXhwIjoxNjk2NzYxNzQ2fQ.7t8jDlifxTCBHm_SVYNPTsyStnx3C-L04QK-8STduKc',
-        'BEARER',
-        1
-    ),
-(
-        14,
-        _binary '',
-        _binary '',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY3NTQwMiwiZXhwIjoxNjk2NzYxODAyfQ.ch2SFvShqv4HG90jbrqy0syarBPEiQP7PeXbQA3hWQ4',
-        'BEARER',
-        1
-    ),
-(
-        15,
-        _binary '\0',
-        _binary '\0',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjY3NTYwNywiZXhwIjoxNjk2NzYyMDA3fQ.hGTxnXprDzR-C0J5Fx6tAljxOYQR1uR8QqP00Mwo2tE',
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NzQxNjQ3NSwiZXhwIjoxNjk3NTAyODc1fQ.4sOgKT8Z11ScvqY-uJPgnsTtORuL_1PyklIrxZfJOaU',
         'BEARER',
         1
     );
@@ -1591,7 +1106,7 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 CREATE TABLE `user` (
-    `id` int NOT NULL AUTO_INCREMENT,
+    `id` bigint NOT NULL AUTO_INCREMENT,
     `address` varchar(100) DEFAULT NULL,
     `avatar_image` varchar(300) DEFAULT NULL,
     `created_at` datetime(6) DEFAULT NULL,
@@ -1607,9 +1122,9 @@ CREATE TABLE `user` (
     `role_id` bigint DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UK_sb8bbouer5wak8vyiiy4pf2bx` (`username`),
-    KEY `FKdl9dqp078pc03g6kdnxmnlqpc` (`role_id`),
-    CONSTRAINT `FKdl9dqp078pc03g6kdnxmnlqpc` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 8 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+    KEY `FKcg8vm2yga4tm8kvsid9aqkt55` (`role_id`),
+    CONSTRAINT `FKcg8vm2yga4tm8kvsid9aqkt55` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 11 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1624,15 +1139,15 @@ VALUES (
         1,
         NULL,
         NULL,
-        '2023-10-06 22:57:57.982000',
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'haikn2@fpt.com',
+        'HaiKN',
+        NULL,
+        '$2a$12$L/ynEoPnjQNVuEWiPWUM...0/UlzshzMfIQETRe5p1FGHBWIQZlE.',
         NULL,
         NULL,
-        NULL,
-        NULL,
-        '$2a$10$bSNwWJXhfX/tsfRGc1.Fcu4BWVAxqqANVMjbOADaKJ2q2nftw464O',
-        NULL,
-        'inactive',
-        '2023-10-06 22:57:57.982000',
+        '2023-10-16 00:31:08.000000',
         'admin',
         1
     ),
@@ -1640,97 +1155,97 @@ VALUES (
         2,
         NULL,
         NULL,
-        '2023-10-06 22:57:58.083000',
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'john@example.com',
+        'John Doe',
+        NULL,
+        '$2a$12$L/ynEoPnjQNVuEWiPWUM...0/UlzshzMfIQETRe5p1FGHBWIQZlE.',
         NULL,
         NULL,
-        NULL,
-        NULL,
-        '$2a$10$83sAWeZKYPP23wI4iutszOMCt/9QY4XNtJ8YDlK5ljY9XZ1UPz5ly',
-        NULL,
-        'inactive',
-        '2023-10-06 22:57:58.083000',
-        'student',
+        '2023-10-16 00:31:08.000000',
+        'student1',
         2
     ),
 (
         3,
         NULL,
         NULL,
-        '2023-10-06 22:57:58.167000',
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'AliceSmith@example.com',
+        'Alice Smith',
+        NULL,
+        '$2a$12$L/ynEoPnjQNVuEWiPWUM...0/UlzshzMfIQETRe5p1FGHBWIQZlE.',
         NULL,
         NULL,
-        NULL,
-        NULL,
-        '$2a$10$srqHtkT.WV7kTSpFyLzpt.qdVXPnulxuojWouxtBoAolrRBBF6Bpa',
-        NULL,
-        'inactive',
-        '2023-10-06 22:57:58.167000',
-        'manager',
-        3
-    ),
-(
-        4,
-        'Admin Address',
-        'admin.jpg',
-        '2023-10-06 22:58:05.000000',
-        NULL,
-        'admin@example.com',
-        'Admin User',
-        'Male',
-        'admin',
-        '1234567890',
-        'active',
-        '2023-10-06 22:58:05.000000',
-        'admin1',
-        1
-    ),
-(
-        5,
-        'Student Address 1',
-        'student1.jpg',
-        '2023-10-06 22:58:05.000000',
-        NULL,
-        'student1@example.com',
-        'Student User 1',
-        'Female',
-        'hashed_password_2',
-        '9876543210',
-        'active',
-        '2023-10-06 22:58:05.000000',
-        'student1',
-        2
-    ),
-(
-        6,
-        'Student Address 2',
-        'student2.jpg',
-        '2023-10-06 22:58:05.000000',
-        NULL,
-        'student2@example.com',
-        'Student User 2',
-        'Male',
-        'hashed_password_3',
-        '5555555555',
-        'inactive',
-        '2023-10-06 22:58:05.000000',
+        '2023-10-16 00:31:08.000000',
         'student2',
         2
     ),
 (
-        7,
-        'Student Address 3',
-        'student3.jpg',
-        '2023-10-06 22:58:05.000000',
+        4,
         NULL,
-        'student3@example.com',
-        'Student User 3',
-        'Male',
-        'hashed_password_4',
-        '5555555555',
-        'active',
-        '2023-10-06 22:58:05.000000',
-        'student3',
-        2
+        NULL,
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'LoiCock@example.com',
+        'Loi Cock',
+        NULL,
+        '$2a$12$L/ynEoPnjQNVuEWiPWUM...0/UlzshzMfIQETRe5p1FGHBWIQZlE.',
+        NULL,
+        NULL,
+        '2023-10-16 00:31:08.000000',
+        'guard1',
+        3
+    ),
+(
+        5,
+        NULL,
+        NULL,
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'TimCock@example.com',
+        'Tim Cock',
+        NULL,
+        '$2a$12$L/ynEoPnjQNVuEWiPWUM...0/UlzshzMfIQETRe5p1FGHBWIQZlE.',
+        NULL,
+        NULL,
+        '2023-10-16 00:31:08.000000',
+        'guard2',
+        3
+    ),
+(
+        6,
+        NULL,
+        NULL,
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'LoiCock@example.com',
+        'Tom Nguyen',
+        NULL,
+        '$2a$12$L/ynEoPnjQNVuEWiPWUM...0/UlzshzMfIQETRe5p1FGHBWIQZlE.',
+        NULL,
+        NULL,
+        '2023-10-16 00:31:08.000000',
+        'manager1',
+        4
+    ),
+(
+        7,
+        NULL,
+        NULL,
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        'TimCock@example.com',
+        'Jerry Pham',
+        NULL,
+        '$2a$12$L/ynEoPnjQNVuEWiPWUM...0/UlzshzMfIQETRe5p1FGHBWIQZlE.',
+        NULL,
+        NULL,
+        '2023-10-16 00:31:08.000000',
+        'manager2',
+        4
     );
 /*!40000 ALTER TABLE `user` ENABLE KEYS */
 ;
@@ -1751,4 +1266,4 @@ UNLOCK TABLES;
 ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */
 ;
--- Dump completed on 2023-10-08 20:13:16
+-- Dump completed on 2023-10-16  7:36:13
