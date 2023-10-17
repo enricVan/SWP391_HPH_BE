@@ -36,6 +36,12 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private RoomTypeRepository roomTypeRepository;
+
+    @Autowired
+    private BuildingRepository buildingRepository;
+
     @PostMapping
     @PreAuthorize("hasAuthority('room:create')")
     public ResponseEntity<Room> createNewRoom(@RequestBody RoomDto roomReq) {
@@ -58,22 +64,23 @@ public class RoomController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // @PutMapping("/{id}")
-    // @PreAuthorize("hasAuthority('room:update')")
-    // public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody
-    // Room bedRequest) {
-    // Optional<Room> bedRequestOptional = roomRepository.findById(id);
-    // return bedRequestOptional.map(bedRequest1 -> {
-    // bedRequest.setStatus(bedRequest1.get());
-    // return new ResponseEntity<>(roomRepository.save(bedRequest), HttpStatus.OK);
-    // }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    // }
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('room:update')")
+    public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody RoomDto roomRequest) {
+        Optional<Room> roomRequestOptional = roomRepository.findById(id);
+        RoomType roomType = roomTypeRepository.findById(roomRequest.getRoomType()).get();
+        Building building = buildingRepository.findById(roomRequest.getBuilding()).get();
+        Room room = new Room(id, roomType, roomRequest.getRoomName(), roomRequest.getFloor(), building, roomRequestOptional.get().getBeds(), roomRequest.getRoomPrice(), roomRequestOptional.get().getCreatedAt(), new Date());
+        return roomRequestOptional.map(roomRequest1 -> {
+            return new ResponseEntity<>(roomRepository.save(room), HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('room:delete')")
     public ResponseEntity<Room> deleteRoomById(@PathVariable Long id) {
-        Optional<Room> bedRequestOptional = roomRepository.findById(id);
-        return bedRequestOptional.map(bedRequest -> {
+        Optional<Room> roomRequestOptional = roomRepository.findById(id);
+        return roomRequestOptional.map(bedRequest -> {
             roomRepository.deleteById(id);
             return new ResponseEntity<>(bedRequest, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
