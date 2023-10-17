@@ -45,10 +45,13 @@ public class RoomTypeController {
         return new ResponseEntity<>(roomTypeRepository.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('room-type:update')")
-    public ResponseEntity<RoomType> updateRoomTypeById(@RequestBody RoomType roomType) {
+    public ResponseEntity<RoomType> updateRoomTypeById(@PathVariable Long id, @RequestBody RoomType roomTypeRequest) {
+        RoomType roomType = roomTypeRepository.findById(id).get();
         roomType.setUpdatedAt(new Date());
+        roomType.setRoomTypeName(roomTypeRequest.getRoomTypeName());
+        roomType.setRoomTypeDescription(roomTypeRequest.getRoomTypeDescription());
         return new ResponseEntity<>(roomTypeService.save(roomType), HttpStatus.OK);
     }
 

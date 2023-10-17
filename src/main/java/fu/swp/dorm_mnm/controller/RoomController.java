@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.controller;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.RoomDto;
+import fu.swp.dorm_mnm.model.Building;
 import fu.swp.dorm_mnm.model.Room;
+import fu.swp.dorm_mnm.model.RoomType;
+import fu.swp.dorm_mnm.repository.BuildingRepository;
 import fu.swp.dorm_mnm.repository.RoomRepository;
+import fu.swp.dorm_mnm.repository.RoomTypeRepository;
+import fu.swp.dorm_mnm.service.RoomService;
+import fu.swp.dorm_mnm.service.serviceImpl.RoomServiceImpl;
 
 @RestController
 @RequestMapping("/api/v1/room")
@@ -25,10 +33,20 @@ public class RoomController {
     @Autowired
     private RoomRepository roomRepository;
 
+    @Autowired
+    private RoomService roomService;
+
+    @Autowired
+    private RoomTypeRepository roomTypeRepository;
+
+    @Autowired
+    private BuildingRepository buildingRepository;
+
     @PostMapping
     @PreAuthorize("hasAuthority('room:create')")
-    public ResponseEntity<Room> createNewRoom(@RequestBody Room bedRequest) {
-        return new ResponseEntity<>(roomRepository.save(bedRequest), HttpStatus.OK);
+    public ResponseEntity<Room> createNewRoom(@RequestBody RoomDto roomReq) {
+        Room room = roomService.createNewRoom(roomReq);
+        return new ResponseEntity<>(roomRepository.save(room), HttpStatus.OK);
     }
 
     @GetMapping
@@ -46,21 +64,23 @@ public class RoomController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // @PutMapping("/{id}")
-    // @PreAuthorize("hasAuthority('room:update')")
-    // public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody Room bedRequest) {
-    //     Optional<Room> bedRequestOptional = roomRepository.findById(id);
-    //     return bedRequestOptional.map(bedRequest1 -> {
-    //         bedRequest.setStatus(bedRequest1.get());
-    //         return new ResponseEntity<>(roomRepository.save(bedRequest), HttpStatus.OK);
-    //     }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    // }
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('room:update')")
+    public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody RoomDto roomRequest) {
+        Optional<Room> roomRequestOptional = roomRepository.findById(id);
+        RoomType roomType = roomTypeRepository.findById(roomRequest.getRoomType()).get();
+        Building building = buildingRepository.findById(roomRequest.getBuilding()).get();
+        Room room = new Room(id, roomType, roomRequest.getRoomName(), roomRequest.getFloor(), building, roomRequestOptional.get().getBeds(), roomRequest.getRoomPrice(), roomRequestOptional.get().getCreatedAt(), new Date());
+        return roomRequestOptional.map(roomRequest1 -> {
+            return new ResponseEntity<>(roomRepository.save(room), HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('room:delete')")
     public ResponseEntity<Room> deleteRoomById(@PathVariable Long id) {
-        Optional<Room> bedRequestOptional = roomRepository.findById(id);
-        return bedRequestOptional.map(bedRequest -> {
+        Optional<Room> roomRequestOptional = roomRepository.findById(id);
+        return roomRequestOptional.map(bedRequest -> {
             roomRepository.deleteById(id);
             return new ResponseEntity<>(bedRequest, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

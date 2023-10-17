@@ -25,7 +25,7 @@ public class Room {
     @Column(name = "room_id")
     private Long roomId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;
 
