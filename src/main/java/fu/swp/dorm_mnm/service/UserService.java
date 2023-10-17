@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.service;
 
+import fu.swp.dorm_mnm.model.Guard;
 import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.model.User;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,5 @@ public interface UserService {
     void remove(Integer id);
 
     Page<User> findAll(int pageNo);
-
 
 }

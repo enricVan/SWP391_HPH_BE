@@ -1,6 +1,7 @@
 package fu.swp.dorm_mnm.service.serviceImpl;
 
 import fu.swp.dorm_mnm.model.Guard;
+import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.GuardRepository;
 import fu.swp.dorm_mnm.repository.GuardRepository;
 import fu.swp.dorm_mnm.service.GuardService;
@@ -33,5 +34,9 @@ public class GuardServiceImpl implements GuardService {
     @Override
     public void remove(Long id) {
         guardRepository.deleteById(id);
+    }
+
+    public Guard getGuardByUserId(Integer userId) {
+        return guardRepository.findByUserId(userId);
     }
 }

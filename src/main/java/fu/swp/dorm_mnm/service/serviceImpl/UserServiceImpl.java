@@ -1,6 +1,8 @@
 package fu.swp.dorm_mnm.service.serviceImpl;
 
+import fu.swp.dorm_mnm.model.Guard;
 import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.GuardRepository;
 import fu.swp.dorm_mnm.repository.UserRepository;
 import fu.swp.dorm_mnm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private GuardRepository guardRepository;
 
     @Override
     public Optional<User> findById(Integer id) {
@@ -37,4 +42,5 @@ public class UserServiceImpl implements UserService {
         Pageable pageable = PageRequest.of(pageNo, 8, Sort.by(Sort.Direction.ASC, "id"));
         return userRepository.findAll(pageable);
     }
+
 }

@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.controller;
 import java.util.*;
 
 import fu.swp.dorm_mnm.dto.UserDto;
+import fu.swp.dorm_mnm.model.Guard;
 import fu.swp.dorm_mnm.model.News;
 import fu.swp.dorm_mnm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class UserController {
     
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     // @PreAuthorize("hasAuthority('user:read')")
@@ -68,7 +72,7 @@ public class UserController {
     // update employee rest api
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('user:put')")
+    @PreAuthorize("hasAuthority('user:update')")
     public ResponseEntity<User> updateStatus(@PathVariable Integer id, @RequestBody User userDetails) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
@@ -92,4 +96,5 @@ public class UserController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
 }
