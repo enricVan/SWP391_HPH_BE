@@ -21,7 +21,7 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@PreAuthorize("hasAnyRole('ADMIN','STUDENT', 'MANAGER', 'GUARD')")
+// @PreAuthorize("hasAnyRole('ADMIN','STUDENT', 'MANAGER', 'GUARD')")
 @RequestMapping("/api/v1/user")
 public class UserController {
     
@@ -29,7 +29,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('user:read')")
+    // @PreAuthorize("hasAuthority('user:read')")
     public ResponseEntity<List<UserDto>> getAllUser() {
         List<User> userList = userRepository.findAll();
         List<UserDto> userDtos = new ArrayList<>();
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @GetMapping("/userdetails")
-    @PreAuthorize("hasAuthority('user:read')")
+    // @PreAuthorize("hasAuthority('user:read')")
     public ResponseEntity<UserDto> getUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();

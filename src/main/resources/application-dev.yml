@@ -12,3 +12,18 @@ mail:
 
 frontend:
   url: http://localhost:5173
+
+spring:
+  mvc:
+    cors:
+      mapping:
+        - /** # Apply CORS configuration to all endpoints
+      allowed-origins:
+        - http://allowed-origin.com # Add the allowed origins here
+      allowed-methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+      allowed-headers:
+        - "*" # Allow all headers
