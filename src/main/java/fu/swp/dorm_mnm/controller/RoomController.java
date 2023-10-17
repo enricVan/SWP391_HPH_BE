@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.controller;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.RoomDto;
+import fu.swp.dorm_mnm.model.Building;
 import fu.swp.dorm_mnm.model.Room;
+import fu.swp.dorm_mnm.model.RoomType;
+import fu.swp.dorm_mnm.repository.BuildingRepository;
 import fu.swp.dorm_mnm.repository.RoomRepository;
+import fu.swp.dorm_mnm.repository.RoomTypeRepository;
+import fu.swp.dorm_mnm.service.RoomService;
+import fu.swp.dorm_mnm.service.serviceImpl.RoomServiceImpl;
 
 @RestController
 @RequestMapping("/api/v1/room")
@@ -25,10 +33,14 @@ public class RoomController {
     @Autowired
     private RoomRepository roomRepository;
 
+    @Autowired
+    private RoomService roomService;
+
     @PostMapping
     @PreAuthorize("hasAuthority('room:create')")
-    public ResponseEntity<Room> createNewRoom(@RequestBody Room bedRequest) {
-        return new ResponseEntity<>(roomRepository.save(bedRequest), HttpStatus.OK);
+    public ResponseEntity<Room> createNewRoom(@RequestBody RoomDto roomReq) {
+        Room room = roomService.createNewRoom(roomReq);
+        return new ResponseEntity<>(roomRepository.save(room), HttpStatus.OK);
     }
 
     @GetMapping
@@ -48,12 +60,13 @@ public class RoomController {
 
     // @PutMapping("/{id}")
     // @PreAuthorize("hasAuthority('room:update')")
-    // public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody Room bedRequest) {
-    //     Optional<Room> bedRequestOptional = roomRepository.findById(id);
-    //     return bedRequestOptional.map(bedRequest1 -> {
-    //         bedRequest.setStatus(bedRequest1.get());
-    //         return new ResponseEntity<>(roomRepository.save(bedRequest), HttpStatus.OK);
-    //     }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    // public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody
+    // Room bedRequest) {
+    // Optional<Room> bedRequestOptional = roomRepository.findById(id);
+    // return bedRequestOptional.map(bedRequest1 -> {
+    // bedRequest.setStatus(bedRequest1.get());
+    // return new ResponseEntity<>(roomRepository.save(bedRequest), HttpStatus.OK);
+    // }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     // }
 
     @DeleteMapping("/{id}")
