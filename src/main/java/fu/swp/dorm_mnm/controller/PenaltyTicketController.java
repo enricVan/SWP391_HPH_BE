@@ -6,11 +6,14 @@ import fu.swp.dorm_mnm.service.GuardService;
 import fu.swp.dorm_mnm.service.PenaltyTicketService;
 import fu.swp.dorm_mnm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +38,6 @@ public class PenaltyTicketController {
     @PreAuthorize("hasAuthority('penalty-ticket:create')")
     public ResponseEntity<PenaltyTicket> createNewPenaltyTicket(@RequestBody PenaltyTicketDto penaltyTicketDto) {
         PenaltyTicket penaltyTicket = new PenaltyTicket();
-        penaltyTicket.setPenaltyTicketId(penaltyTicketDto.getPenaltyTicketId());
         penaltyTicket.setStudent(studentService.findById(penaltyTicketDto.getStudentId()).get());
         penaltyTicket.setGuard(guardService.findById(penaltyTicketDto.getCreatedByGuardId()).get());
         penaltyTicket.setTitle(penaltyTicketDto.getTitle());
@@ -92,5 +94,31 @@ public class PenaltyTicketController {
             penaltyTicketService.remove(id);
             return new ResponseEntity<>(penaltyTicket, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+//    Get All Paging
+//    @GetMapping("/page")
+//    @PreAuthorize("hasAuthority('penalty-ticket:read')")
+//    public ResponseEntity<Page<PenaltyTicketDto>> getAllPenaltyTicketPaged(Pageable pageable) {
+//        Page<PenaltyTicket> penaltyTickets = penaltyTicketService.findAll(pageable);
+//        Page<PenaltyTicketDto> penaltyTicketDtos = penaltyTickets.map(PenaltyTicketDto::new);
+//        return new ResponseEntity<>(penaltyTicketDtos, HttpStatus.OK);
+//    }
+
+    @GetMapping("/page")
+    @PreAuthorize("hasAuthority('penalty-ticket:read')")
+    public ResponseEntity<Page<PenaltyTicketDto>> getAllPenaltyTicketPaged(
+            @RequestParam(value = "title", required = false) String title,
+            Pageable pageable) {
+        Page<PenaltyTicket> penaltyTickets;
+
+        if (title != null && !title.isEmpty()) {
+            penaltyTickets = penaltyTicketService.findByTitleContaining(title, pageable);
+        } else {
+            penaltyTickets = penaltyTicketService.findAll(pageable);
+        }
+
+        Page<PenaltyTicketDto> penaltyTicketDtos = penaltyTickets.map(PenaltyTicketDto::new);
+        return new ResponseEntity<>(penaltyTicketDtos, HttpStatus.OK);
     }
 }

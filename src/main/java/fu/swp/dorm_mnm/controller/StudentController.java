@@ -30,7 +30,7 @@ import org.springframework.stereotype.Controller;
      private UserRepository userRepository;
 
      @PutMapping
-     @PreAuthorize("hasAuthority('semester:update')")
+     @PreAuthorize("hasAuthority('student:update')")
      public ResponseEntity<User> createNewStudent(@RequestBody User studentRequest) {
          User user = userRepository.findByUsername(studentRequest.getUsername()).get();
          user.setFullName(studentRequest.getFullName());
@@ -47,7 +47,7 @@ import org.springframework.stereotype.Controller;
      }
 
      @GetMapping
-     @PreAuthorize("hasAuthority('semester:read')")
+     @PreAuthorize("hasAuthority('student:read')")
      public ResponseEntity<Iterable<Student>> getAllStudent() {
          return new ResponseEntity<>(studentRepository.findAll(), HttpStatus.OK);
      }
