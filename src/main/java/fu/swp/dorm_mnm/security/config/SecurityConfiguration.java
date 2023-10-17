@@ -50,6 +50,7 @@ public class SecurityConfiguration {
                         "/api/v1/admin/bed",
                         "/api/v1/admin/role",
                         "/api/v1/auth/**",
+                        "/api/v1/admin/user/userdetails",
                         "/v2/api-docs",
                         "/v3/api-docs",
                         "/v3/api-docs/**",

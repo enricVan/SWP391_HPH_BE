@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/admin/faq")
+@RequestMapping("/api/v1/faq")
 public class FaqController {
 
     @Autowired
