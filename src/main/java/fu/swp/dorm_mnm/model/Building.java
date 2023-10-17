@@ -27,6 +27,8 @@ public class Building {
 
     @Column(name = "building_name")
     private String buildingName;
+    @Column(name = "number_floor")
+    private Long numberFloor;
 
     @JsonIgnore
     @OneToMany(mappedBy = "building", targetEntity = Room.class)
