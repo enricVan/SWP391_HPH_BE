@@ -10,12 +10,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BedRequestRepository extends JpaRepository<BedRequest, Long> {
-    @Query(value = "SELECT * FROM bed_request WHERE (:status is null or status = :status)" +
-            "AND student_id=:studentId",
-            countQuery = "SELECT count(*) FROM bed_request WHERE (:status is null or status = :status)" +
-                    "AND student_id=:studentId",
-            nativeQuery = true)
-    Page<BedRequest> findByLastname(@Param("status") String status,@Param("studentId") Long studentId,
-                                    Pageable pageable);
+        @Query(value = "SELECT * FROM bed_request WHERE (:status is null or status = :status)" +
+                        "AND student_id=:studentId", countQuery = "SELECT count(*) FROM bed_request WHERE (:status is null or status = :status)"
+                                        +
+                                        "AND student_id=:studentId", nativeQuery = true)
+        Page<BedRequest> listBedRequest(@Param("status") String status, @Param("studentId") Long studentId,
+                        Pageable pageable);
 
 }

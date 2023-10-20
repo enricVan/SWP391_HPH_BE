@@ -1,7 +1,7 @@
 db:
   url: jdbc:mysql://localhost:3306/hph_db
   username: root
-  password: 1
+  password: root
   driver: com.mysql.jdbc.Driver
 server:
   port: 8888

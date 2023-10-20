@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +25,7 @@ public class News {
     @Column(name = "news_id")
     private Long newsId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "manager_id", nullable = false)
     private Manager manager;

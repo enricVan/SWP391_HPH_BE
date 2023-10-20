@@ -71,18 +71,18 @@ public class BedRequestServiceImpl implements BedRequestService {
     @Override
     public PageDto<BedRequestDto> findByUserId(String status, Long userId, Pageable pageable) {
         Optional<Student> studentOptional = studentService.findByUserId(userId);
-        Student student=new Student();
-        if(studentOptional.isPresent()){
-            student=studentOptional.get();
+        Student student = new Student();
+        if (studentOptional.isPresent()) {
+            student = studentOptional.get();
         }
         System.out.println(student.getStudentId());
-        Page<BedRequest> page=bedRequestRepository.findByLastname(status,student.getStudentId(),pageable);
-        List<BedRequest> bedRequestList=page.getContent();
-        List<BedRequestDto> bedRequestDtoList=new ArrayList<>();
-        for(BedRequest bedRequest:bedRequestList){
+        Page<BedRequest> page = bedRequestRepository.listBedRequest(status, student.getStudentId(), pageable);
+        List<BedRequest> bedRequestList = page.getContent();
+        List<BedRequestDto> bedRequestDtoList = new ArrayList<>();
+        for (BedRequest bedRequest : bedRequestList) {
             bedRequestDtoList.add(new BedRequestDto(bedRequest));
         }
-        PageDto<BedRequestDto> pageDto=new PageDto<>();
+        PageDto<BedRequestDto> pageDto = new PageDto<>();
         pageDto.setData(bedRequestDtoList);
         pageDto.setCurrentPage(page.getNumber());
         pageDto.setTotalPages(page.getTotalPages());

@@ -23,29 +23,34 @@ import java.util.Optional;
 @RequestMapping("/api/v1/bed-request")
 @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD')")
 public class BedRequestController {
+
     @Autowired
     private BedRequestService bedRequestService;
+
     @Autowired
     private BedRequestRepository bedRequestRepository;
+
     @PostMapping
     @PreAuthorize("hasAuthority('bed-request:create')")
     public ResponseEntity<BedRequest> createNewBedRequest(@RequestBody BedRequest bedRequest) {
         return new ResponseEntity<>(bedRequestService.save(bedRequest), HttpStatus.OK);
     }
-//    @GetMapping
-//    @PreAuthorize("hasAuthority('bed-request:read')")
-//    public ResponseEntity<Iterable<BedRequest>> getAllBedRequest() {
-//        return new ResponseEntity<>(bedRequestService.findAll(),HttpStatus.OK);
-//    }
+    
+    // @GetMapping
+    // @PreAuthorize("hasAuthority('bed-request:read')")
+    // public ResponseEntity<Iterable<BedRequest>> getAllBedRequest() {
+    // return new ResponseEntity<>(bedRequestService.findAll(),HttpStatus.OK);
+    // }
 
     @GetMapping("/user/{id}")
     @PreAuthorize("hasAuthority('bed-request:read')")
     public ResponseEntity<PageDto<BedRequestDto>> getBedRequestByUserId(@PathVariable(name = "id") Long userId,
-                                                             @RequestParam(required = false) String status,
-                                                             @RequestParam(value = "page", defaultValue = "0") int pageNo) {
-        if(status.isEmpty())status=null;
-        Pageable pageable=PageRequest.of(pageNo,2);
-        PageDto<BedRequestDto> pageDto=bedRequestService.findByUserId(status,userId,pageable);
+            @RequestParam(required = false) String status,
+            @RequestParam(value = "page", defaultValue = "0") int pageNo) {
+        if (status.isEmpty())
+            status = null;
+        Pageable pageable = PageRequest.of(pageNo, 2);
+        PageDto<BedRequestDto> pageDto = bedRequestService.findByUserId(status, userId, pageable);
         return new ResponseEntity<>(pageDto, HttpStatus.OK);
     }
 
