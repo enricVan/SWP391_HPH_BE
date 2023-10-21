@@ -30,6 +30,7 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
+    
     @Autowired
     private final UserRepository repository;
 
