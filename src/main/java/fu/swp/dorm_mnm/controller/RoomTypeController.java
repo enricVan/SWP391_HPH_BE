@@ -15,7 +15,8 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/v1/room-type")
+// @RequestMapping("/api/v1/room-type")
+@RequestMapping("/room-type")
 @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD', 'ADMIN')")
 public class RoomTypeController {
 

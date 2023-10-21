@@ -20,7 +20,8 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/bed-request")
+// @RequestMapping("/api/v1/bed-request")
+@RequestMapping("/bed-request")
 @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD')")
 public class BedRequestController {
 

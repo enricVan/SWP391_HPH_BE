@@ -19,7 +19,8 @@ import fu.swp.dorm_mnm.repository.BuildingRepository;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/v1/building")
+// @RequestMapping("/api/v1/building")
+@RequestMapping("/building")
 @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD', 'ADMIN')")
 public class BuildingController {
 

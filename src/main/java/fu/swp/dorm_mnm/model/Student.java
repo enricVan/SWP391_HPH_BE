@@ -25,6 +25,7 @@ public class Student {
     @Column(name = "student_id")
     private Long studentId;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;

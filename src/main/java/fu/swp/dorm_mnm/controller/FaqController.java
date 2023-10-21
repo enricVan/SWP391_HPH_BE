@@ -11,7 +11,8 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/faq")
+// @RequestMapping("/api/v1/faq")
+@RequestMapping("/feq")
 public class FaqController {
 
     @Autowired

@@ -46,11 +46,9 @@ public class SecurityConfiguration {
                 .cors().and()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "/api/v1/health-check",
-                        "/api/v1/admin/bed",
-                        "/api/v1/admin/role",
-                        "/api/v1/auth/**",
-                        "/api/v1/admin/user/userdetails",
+                        "/health-check",
+                        "/auth/**",
+                        "/admin/user/userdetails",
                         "/v2/api-docs",
                         "/v3/api-docs",
                         "/v3/api-docs/**",
@@ -62,33 +60,6 @@ public class SecurityConfiguration {
                         "/webjars/**",
                         "/swagger-ui.html")
                 .permitAll()
-
-                // .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(),
-                // MANAGER.name())
-
-                // .requestMatchers(GET,
-                // "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(),
-                // MANAGER_READ.name())
-                // .requestMatchers(POST,
-                // "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(),
-                // MANAGER_CREATE.name())
-                // .requestMatchers(PUT,
-                // "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(),
-                // MANAGER_UPDATE.name())
-                // .requestMatchers(DELETE,
-                // "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(),
-                // MANAGER_DELETE.name())
-
-                /*
-                 * .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
-                 * 
-                 * .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
-                 * .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(ADMIN_CREATE.name())
-                 * .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(ADMIN_UPDATE.name())
-                 * .requestMatchers(DELETE,
-                 * "/api/v1/admin/**").hasAuthority(ADMIN_DELETE.name())
-                 */
-
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -98,7 +69,7 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout()
-                .logoutUrl("/api/v1/auth/logout")
+                .logoutUrl("/auth/logout")
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
 

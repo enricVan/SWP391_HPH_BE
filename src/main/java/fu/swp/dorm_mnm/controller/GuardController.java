@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/guard")
+// @RequestMapping("/api/v1/guard")
+@RequestMapping("/guard")
 @PreAuthorize("hasAnyRole('MANAGER', 'GUARD')")
 public class GuardController {
 

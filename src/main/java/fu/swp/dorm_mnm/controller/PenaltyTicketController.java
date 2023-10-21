@@ -21,7 +21,8 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/penalty-ticket")
+// @RequestMapping("/api/v1/penalty-ticket")
+@RequestMapping("/penalty-ticket")
 @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD')")
 public class PenaltyTicketController {
 

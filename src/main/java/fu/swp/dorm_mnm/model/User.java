@@ -68,6 +68,12 @@ public class User implements UserDetails {
   @Column(name = "updated_at")
   private Date updatedAt;
 
+  @OneToOne(mappedBy = "user", targetEntity = Manager.class)
+  private Manager manager;
+
+  @OneToOne(mappedBy = "user", targetEntity = Student.class)
+  private Student student;
+
   @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "role_id")

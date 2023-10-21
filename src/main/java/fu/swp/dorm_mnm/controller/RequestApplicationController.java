@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/request-application")
+// @CrossOrigin(origins = "http://localhost:5173")
+// @RequestMapping("/api/v1/request-application")
+@RequestMapping("/request-application")
 @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER')")
 public class RequestApplicationController {
 

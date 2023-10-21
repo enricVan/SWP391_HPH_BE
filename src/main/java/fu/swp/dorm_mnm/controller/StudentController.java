@@ -18,7 +18,8 @@ import org.springframework.stereotype.Controller;
  import fu.swp.dorm_mnm.repository.UserRepository;
 
  @Controller
- @RequestMapping("/api/v1/student")
+//  @RequestMapping("/api/v1/student")
+@RequestMapping("/student")
  @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD', 'ADMIN')")
  public class StudentController {
      @Autowired

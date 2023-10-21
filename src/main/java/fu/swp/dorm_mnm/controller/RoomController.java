@@ -27,7 +27,8 @@ import fu.swp.dorm_mnm.service.RoomService;
 import fu.swp.dorm_mnm.service.serviceImpl.RoomServiceImpl;
 
 @RestController
-@RequestMapping("/api/v1/room")
+// @RequestMapping("/api/v1/room")
+@RequestMapping("/room")
 @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD', 'ADMIN')")
 public class RoomController {
     @Autowired

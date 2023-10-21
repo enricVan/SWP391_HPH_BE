@@ -15,7 +15,8 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/news")
+// @RequestMapping("/api/v1/news")
+@RequestMapping("/news")
 @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD')")
 public class NewsController {
     @Autowired

@@ -13,7 +13,8 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api/v1/semester")
+// @RequestMapping("/api/v1/semester")
+@RequestMapping("/semester")
 @PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD', 'ADMIN')")
 public class SemesterController {
 

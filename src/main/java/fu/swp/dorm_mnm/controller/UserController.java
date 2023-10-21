@@ -23,9 +23,10 @@ import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @PreAuthorize("hasAnyRole('ADMIN','STUDENT', 'MANAGER', 'GUARD')")
-@RequestMapping("/api/v2/user")
+// @RequestMapping("/api/v2/user")
+@RequestMapping("/user")
 public class UserController {
-    
+
     @Autowired
     private UserRepository userRepository;
 
@@ -35,12 +36,12 @@ public class UserController {
     // @GetMapping
     // @PreAuthorize("hasAuthority('user:read')")
     // public ResponseEntity<List<UserDto>> getAllUser() {
-    //     List<User> userList = userRepository.findAll();
-    //     List<UserDto> userDtos = new ArrayList<>();
-    //     for (User user : userList) {
-    //         userDtos.add(new UserDto(user));
-    //     }
-    //     return new ResponseEntity<>(userDtos, HttpStatus.OK);
+    // List<User> userList = userRepository.findAll();
+    // List<UserDto> userDtos = new ArrayList<>();
+    // for (User user : userList) {
+    // userDtos.add(new UserDto(user));
+    // }
+    // return new ResponseEntity<>(userDtos, HttpStatus.OK);
     // }
 
     // create employee rest api

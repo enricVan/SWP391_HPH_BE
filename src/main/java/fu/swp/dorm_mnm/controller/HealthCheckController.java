@@ -14,7 +14,8 @@ import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.UserRepository;
 
 @RestController
-@RequestMapping("/api/v1/health-check")
+// @RequestMapping("/api/v1/health-check")
+@RequestMapping("/health-check")
 public class HealthCheckController {
 
     @Autowired
