@@ -21,6 +21,9 @@ public class BedRequestDto {
     private String status;
     private String createdAt;
     private String updatedAt;
+    private StudentDto StudentDto;
+
+
     public BedRequestDto(BedRequest bedRequest){
         String pattern = "dd/MM/yyyy HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);

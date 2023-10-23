@@ -10,7 +10,5 @@ import fu.swp.dorm_mnm.model.Building;
 
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, Long> {
-
-    @PreAuthorize("hasAuthority('building:read')")
     List<Building> findAll();
 }

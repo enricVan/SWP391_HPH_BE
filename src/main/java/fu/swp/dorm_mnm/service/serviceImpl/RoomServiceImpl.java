@@ -17,7 +17,7 @@ import fu.swp.dorm_mnm.repository.RoomTypeRepository;
 import fu.swp.dorm_mnm.service.RoomService;
 
 @Service
-public class RoomServiceImpl implements RoomService{
+public class RoomServiceImpl implements RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
@@ -28,10 +28,11 @@ public class RoomServiceImpl implements RoomService{
     private BuildingRepository buildingRepository;
 
     @Override
-    public Room createNewRoom(RoomDto roomDto){
+    public Room createNewRoom(RoomDto roomDto) {
         RoomType roomType = roomTypeRepository.findById(roomDto.getRoomType()).get();
-        Building building = buildingRepository.findById(roomDto.getBuilding()).get();
-        Room room = new Room(null, roomType, roomDto.getRoomName(), roomDto.getFloor(), building, null, roomDto.getRoomPrice(), new Date(), null);
+        Building building = buildingRepository.findById(roomDto.getBuildingDto().getId()).get();
+        Room room = new Room(null, roomType, roomDto.getRoomName(), roomDto.getFloor(), building, null,
+                roomDto.getRoomPrice(), new Date(), null);
         return room;
     }
 }

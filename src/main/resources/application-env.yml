@@ -44,23 +44,23 @@ cors:
     *,
 
 
-spring:
-  mvc:
-    cors:
-      mapping:
-        - /**
-      allowed-origins:
-        - http://localhost:5173
-        - http://localhost:3000
-        - http://localhost:8888
-        - http://hph.quachuoitrenmay.online
-        - https://hph.quachuoitrenmay.online
-      allowed-methods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-      allowed-headers:
-        - "*"
-      allow-credentials: true # If you want to allow credentials (e.g., cookies)
-      max-age: 3600 # Max age of preflight request in seconds
+# spring:
+#   mvc:
+#     cors:
+#       mapping:
+#         - /**
+#       allowed-origins:
+#         - http://localhost:5173
+#         - http://localhost:3000
+#         - http://localhost:8888
+#         - http://hph.quachuoitrenmay.online
+#         - https://hph.quachuoitrenmay.online
+#       allowed-methods:
+#         - GET
+#         - POST
+#         - PUT
+#         - DELETE
+#       allowed-headers:
+#         - "*"
+#       allow-credentials: true # If you want to allow credentials (e.g., cookies)
+#       max-age: 3600 # Max age of preflight request in seconds

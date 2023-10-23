@@ -70,8 +70,10 @@ public class RoomController {
     public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody RoomDto roomRequest) {
         Optional<Room> roomRequestOptional = roomRepository.findById(id);
         RoomType roomType = roomTypeRepository.findById(roomRequest.getRoomType()).get();
-        Building building = buildingRepository.findById(roomRequest.getBuilding()).get();
-        Room room = new Room(id, roomType, roomRequest.getRoomName(), roomRequest.getFloor(), building, roomRequestOptional.get().getBeds(), roomRequest.getRoomPrice(), roomRequestOptional.get().getCreatedAt(), new Date());
+        Building building = buildingRepository.findById(roomRequest.getBuildingDto().getId()).get();
+        Room room = new Room(id, roomType, roomRequest.getRoomName(), roomRequest.getFloor(), building,
+                roomRequestOptional.get().getBeds(), roomRequest.getRoomPrice(),
+                roomRequestOptional.get().getCreatedAt(), new Date());
         return roomRequestOptional.map(roomRequest1 -> {
             return new ResponseEntity<>(roomRepository.save(room), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

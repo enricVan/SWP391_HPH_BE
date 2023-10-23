@@ -7,6 +7,7 @@ import fu.swp.dorm_mnm.service.RoomTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,7 +17,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     private RoomTypeRepository roomTypeRepository;
 
     @Override
-    public Iterable<RoomType> findAll() {
+    public List<RoomType> findAll() {
         return roomTypeRepository.findAll();
     }
 
@@ -27,7 +28,8 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 
     @Override
     public void remove(Long id) {
-        RoomType roomType=roomTypeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Room Type Not Found"));
+        RoomType roomType = roomTypeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Room Type Not Found"));
         roomTypeRepository.delete(roomType);
     }
 

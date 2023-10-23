@@ -24,6 +24,9 @@ public class UserDto {
     private String status;
     private String createdAt;
     private String updatedAt;
+    private StudentDto studentDto;
+    private ManagerDto managerDto;
+    private GuardDto guardDto;
 
     public UserDto(User user) {
         String pattern = "dd/MM/yyyy HH:mm:ss";
