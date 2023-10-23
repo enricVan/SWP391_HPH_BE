@@ -1,6 +1,9 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -25,9 +28,9 @@ public class Bed {
     @Column(name = "bed_id")
     private Long bedId;
 
-
     @ManyToOne
     @JoinColumn(name = "room_id")
+    @JsonBackReference
     private Room room;
 
     @Column(name = "bed_name", length = 20)
@@ -36,13 +39,14 @@ public class Bed {
     @Column(name = "status", length = 50)
     private String status;
 
-
     @OneToOne
     @JoinColumn(name = "student_id", unique = true)
+    @JsonBackReference
     private Student student;
 
-    @JsonIgnore
+    // @JsonIgnore
     @OneToMany(mappedBy = "bed")
+    @JsonManagedReference
     private List<BedRequest> bedRequest;
 
     @Temporal(TemporalType.TIMESTAMP)

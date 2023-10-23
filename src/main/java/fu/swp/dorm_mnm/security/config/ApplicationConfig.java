@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import fu.swp.dorm_mnm.repository.UserRepository;
+import fu.swp.dorm_mnm.repository.base.UserRepository;
 
 @Configuration
 @RequiredArgsConstructor

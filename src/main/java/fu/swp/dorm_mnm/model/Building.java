@@ -20,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "building")
 public class Building {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "building_id")
@@ -27,15 +28,16 @@ public class Building {
 
     @Column(name = "building_name")
     private String buildingName;
+
     @Column(name = "number_floor")
     private Integer numberFloor;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "building", targetEntity = Room.class)
+    // @JsonIgnore
+    @OneToMany(mappedBy = "building", targetEntity = Room.class, fetch = FetchType.LAZY)
     private List<Room> rooms;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "building", targetEntity = GuardShift.class)
+    // @JsonIgnore
+    @OneToMany(mappedBy = "building", targetEntity = GuardShift.class, fetch = FetchType.LAZY)
     private List<GuardShift> GuardShifts;
 
     @Temporal(TemporalType.TIMESTAMP)

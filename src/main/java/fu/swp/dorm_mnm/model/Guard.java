@@ -29,7 +29,7 @@ public class Guard {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
-    @JsonIgnore
+    // @JsonIgnore
     @OneToMany(mappedBy = "guard", targetEntity = GuardShift.class)
     private List<GuardShift> guardShifts;
 

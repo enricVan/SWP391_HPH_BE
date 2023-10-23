@@ -1,10 +1,10 @@
 package fu.swp.dorm_mnm.security.service;
 
-import fu.swp.dorm_mnm.dto.UserDto;
+import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
-import fu.swp.dorm_mnm.repository.RoleRepository;
-import fu.swp.dorm_mnm.repository.UserRepository;
+import fu.swp.dorm_mnm.repository.base.RoleRepository;
+import fu.swp.dorm_mnm.repository.base.UserRepository;
 import fu.swp.dorm_mnm.security.auth.AuthenticationRequest;
 import fu.swp.dorm_mnm.security.auth.AuthenticationResponse;
 import fu.swp.dorm_mnm.security.auth.RegisterRequest;

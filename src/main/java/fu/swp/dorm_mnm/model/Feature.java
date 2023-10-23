@@ -31,7 +31,7 @@ public class Feature {
     @Column(name = "url", nullable = false, length = 300)
     private String url;
 
-    @ManyToMany(mappedBy = "features", targetEntity = Role.class)
+    @ManyToMany(mappedBy = "features", targetEntity = Role.class, fetch = FetchType.LAZY)
     private List<Role> roles;
 
     @Temporal(TemporalType.TIMESTAMP)

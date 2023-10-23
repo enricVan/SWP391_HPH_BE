@@ -5,8 +5,6 @@ spring:
     password: ${db.password}
     # driver-class-name: ${db.driver}
 
-    ${DB_PASSWORD} = ${db.password}
-
   jpa:
     hibernate:
       ddl-auto: update
