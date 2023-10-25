@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -88,6 +89,12 @@ public class AuthenticationService {
     }
 
     private void saveUserToken(User user, String jwtToken) {
+        try {
+            Iterable<Token> token1 = tokenRepository.findAllByUser(user);
+            tokenRepository.deleteAll(token1);
+        } catch (Exception e) {
+
+        }
         var token = Token.builder()
                 .user(user)
                 .token(jwtToken)
