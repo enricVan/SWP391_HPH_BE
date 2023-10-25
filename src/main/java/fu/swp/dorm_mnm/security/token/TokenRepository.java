@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import fu.swp.dorm_mnm.model.User;
+
 public interface TokenRepository extends JpaRepository<Token, Integer> {
 
   @Query(value = """
@@ -15,4 +17,7 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
   List<Token> findAllValidTokenByUser(Long id);
 
   Optional<Token> findByToken(String token);
+
+  Iterable<Token> findAllByUser(User user);
+
 }
