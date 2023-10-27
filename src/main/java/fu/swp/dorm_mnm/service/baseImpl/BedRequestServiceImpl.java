@@ -1,5 +1,7 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,20 +43,50 @@ public class BedRequestServiceImpl implements BedRequestService {
     }
 
     @Override
-    public BedRequest save(BedRequest bedRequestReq) {
+    public BedRequest save(BedRequest bedRequestReq, Long studentId) {
+
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp sqlNow = Timestamp.valueOf(now);
+
         Optional<Bed> bedOptional = bedService.findById(bedRequestReq.getBed().getBedId());
-        Optional<Student> studentOptional = studentService.findByUserId(bedRequestReq.getStudent().getStudentId());
+        Optional<Student> studentOptional = studentService.findByUserId(studentId);
 
         if (bedOptional.isPresent() && studentOptional.isPresent()) {
             Bed bed = bedOptional.get();
             Student student = studentOptional.get();
 
             BedRequest bedRequest = new BedRequest();
-            bedRequest.setCreatedAt(new Date());
-            bedRequest.setUpdatedAt(new Date());
+            bedRequest.setCreatedAt(sqlNow);
+            bedRequest.setUpdatedAt(sqlNow);
             bedRequest.setBed(bed);
             bedRequest.setStudent(student);
-            bedRequest.setStatus("pending");
+            bedRequest.setStatus("Pending");
+            bedRequest.setSemester(bedRequestReq.getSemester());
+            return bedRequestRepository.save(bedRequest);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public BedRequest save(BedRequest bedRequestReq) {
+
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp sqlNow = Timestamp.valueOf(now);
+
+        Optional<Bed> bedOptional = bedService.findById(bedRequestReq.getBed().getBedId());
+        Optional<Student> studentOptional = studentService.findByUserId(bedOptional.get().getStudent().getStudentId());
+
+        if (bedOptional.isPresent() && studentOptional.isPresent()) {
+            Bed bed = bedOptional.get();
+            Student student = studentOptional.get();
+
+            BedRequest bedRequest = new BedRequest();
+            bedRequest.setCreatedAt(sqlNow);
+            bedRequest.setUpdatedAt(sqlNow);
+            bedRequest.setBed(bed);
+            bedRequest.setStudent(student);
+            bedRequest.setStatus("Pending");
             bedRequest.setSemester(bedRequestReq.getSemester());
             return bedRequestRepository.save(bedRequest);
         } else {
