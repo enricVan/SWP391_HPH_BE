@@ -1,23 +1,32 @@
 package fu.swp.dorm_mnm.controller.base;
 
-import fu.swp.dorm_mnm.model.RoomType;
-import fu.swp.dorm_mnm.repository.base.RoomTypeRepository;
-import fu.swp.dorm_mnm.service.base.RoomTypeService;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.Optional;
+import fu.swp.dorm_mnm.dto.base.RoomDto;
+import fu.swp.dorm_mnm.model.Room;
+import fu.swp.dorm_mnm.model.RoomType;
+import fu.swp.dorm_mnm.repository.base.RoomTypeRepository;
+import fu.swp.dorm_mnm.service.base.RoomService;
+import fu.swp.dorm_mnm.service.base.RoomTypeService;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-// @RequestMapping("/api/v1/room-type")
 @RequestMapping("/room-type")
-@PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD', 'ADMIN')")
 public class RoomTypeController {
 
     @Autowired
@@ -25,6 +34,9 @@ public class RoomTypeController {
 
     @Autowired
     private RoomTypeService roomTypeService;
+
+    @Autowired
+    private RoomService roomService;
 
     @PostMapping
     @PreAuthorize("hasAuthority('room-type:create')")
@@ -61,5 +73,18 @@ public class RoomTypeController {
     public ResponseEntity<String> deleteRoomTypeById(@PathVariable Long id) {
         roomTypeService.remove(id);
         return new ResponseEntity<>("Room Type Deleted", HttpStatus.OK);
+    }
+
+    @GetMapping("/{roomTypeId}/rooms")
+    @PreAuthorize("hasAuthority('room:read')")
+    public ResponseEntity<List<RoomDto>> listRoomsByRoomTypeId(@PathVariable Long roomTypeId) {
+        List<Room> roomList = roomService.getRoomsByRoomTypeId(roomTypeId);
+        List<RoomDto> respRoomDtoList = new ArrayList<>();
+        for (Room r : roomList) {
+            RoomDto rdto = new RoomDto(r);
+            respRoomDtoList.add(rdto);
+        }
+
+        return new ResponseEntity<List<RoomDto>>(respRoomDtoList, HttpStatus.OK);
     }
 }

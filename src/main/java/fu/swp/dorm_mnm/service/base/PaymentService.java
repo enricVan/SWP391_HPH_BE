@@ -1,6 +1,6 @@
 package fu.swp.dorm_mnm.service.base;
 
-import fu.swp.dorm_mnm.dto.base.PageDto;
+import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.PaymentDto;
 import fu.swp.dorm_mnm.model.Payment;
 import org.springframework.data.domain.Pageable;

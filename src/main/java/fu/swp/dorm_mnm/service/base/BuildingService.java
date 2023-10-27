@@ -1,16 +1,19 @@
 package fu.swp.dorm_mnm.service.base;
 
-import fu.swp.dorm_mnm.model.Building;
-
 import java.util.List;
 import java.util.Optional;
 
+import fu.swp.dorm_mnm.dto.base.BuildingDto;
+import fu.swp.dorm_mnm.model.Building;
+
 public interface BuildingService {
-    List<Building> findAll();
+    public List<Building> findAll();
 
-    Optional<Building> findById(Long id);
+    public Optional<Building> findById(Long id);
 
-    Building save(Building building);
+    public Building save(Building building);
 
-    void remove(Long id);
+    public void remove(Long id);
+
+    public BuildingDto save(BuildingDto bdto);
 }

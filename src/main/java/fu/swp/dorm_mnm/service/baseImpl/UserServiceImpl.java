@@ -1,10 +1,6 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
-import fu.swp.dorm_mnm.model.Guard;
-import fu.swp.dorm_mnm.model.User;
-import fu.swp.dorm_mnm.repository.base.GuardRepository;
-import fu.swp.dorm_mnm.repository.base.UserRepository;
-import fu.swp.dorm_mnm.service.base.UserService;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,10 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.base.GuardRepository;
+import fu.swp.dorm_mnm.repository.base.UserRepository;
+import fu.swp.dorm_mnm.service.base.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
+    
     @Autowired
     private UserRepository userRepository;
 

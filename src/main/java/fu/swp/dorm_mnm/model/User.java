@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import fu.swp.dorm_mnm.security.token.Token;
 
@@ -31,7 +33,6 @@ public class User implements UserDetails {
   @Column(name = "username", nullable = false, unique = true, length = 20)
   private String username;
 
-  @JsonIgnore
   @Column(name = "password", nullable = false, length = 255)
   private String password;
 
@@ -68,13 +69,23 @@ public class User implements UserDetails {
   @Column(name = "updated_at")
   private Date updatedAt;
 
+  @JsonIgnore
+  // @JsonBackReference
   @OneToOne(mappedBy = "user", targetEntity = Manager.class)
   private Manager manager;
 
+  @JsonIgnore
+  // @JsonBackReference
   @OneToOne(mappedBy = "user", targetEntity = Student.class)
   private Student student;
 
   @JsonIgnore
+  // @JsonBackReference
+  @OneToOne(mappedBy = "user", targetEntity = Guard.class)
+  private Guard guard;
+
+  @JsonIgnore
+  // @JsonManagedReference
   @ManyToOne
   @JoinColumn(name = "role_id")
   private Role role;

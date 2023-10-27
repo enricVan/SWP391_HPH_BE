@@ -1,6 +1,8 @@
 package fu.swp.dorm_mnm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 // import lombok.Getter;
@@ -43,6 +45,7 @@ public class Role {
         private String name;
 
         @JsonIgnore
+        // @JsonManagedReference
         @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "role_feature", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "feature_id"))
         private List<Feature> features;
@@ -63,13 +66,13 @@ public class Role {
 
         public List<SimpleGrantedAuthority> getAuthorities() {
                 var authorities = getFeatures()
-                .stream()
-                .map(feature -> new SimpleGrantedAuthority(feature.getFeatureName()))
-                .collect(Collectors.toList());
+                                .stream()
+                                .map(feature -> new SimpleGrantedAuthority(feature.getFeatureName()))
+                                .collect(Collectors.toList());
                 // List<SimpleGrantedAuthority> authorities = new ArrayList<>();
                 authorities.add(new SimpleGrantedAuthority("ROLE_" + name));
-                        // authorities.add(new SimpleGrantedAuthority("admin:read"));
-                        // authorities.add(new SimpleGrantedAuthority("admin:create"));
+                // authorities.add(new SimpleGrantedAuthority("admin:read"));
+                // authorities.add(new SimpleGrantedAuthority("admin:create"));
                 return authorities;
         }
 }

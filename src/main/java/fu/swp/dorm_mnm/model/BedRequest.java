@@ -28,24 +28,27 @@ public class BedRequest {
     @Column(name = "bed_request_id")
     private Long bedRequestId;
 
-    // @JsonIgnore
+    @JsonIgnore
     @OneToOne(mappedBy = "bedRequest", targetEntity = Payment.class)
-    @JsonManagedReference
+    // @JsonManagedReference
     private Payment payment;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "bed_id")
-    @JsonManagedReference
+    // @JsonManagedReference
     private Bed bed;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
-    @JsonBackReference
+    // @JsonBackReference
     private Student student;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "semester_id")
-    @JsonBackReference
+    // @JsonBackReference
     private Semester semester;
 
     @Column(name = "status", length = 20)

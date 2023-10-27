@@ -24,11 +24,12 @@ public class UserDto {
     private String status;
     private String createdAt;
     private String updatedAt;
-    private StudentDto studentDto;
-    private ManagerDto managerDto;
-    private GuardDto guardDto;
+    private Long studentId;
+    private Long managerId;
+    private Long guardId;
 
     public UserDto(User user) {
+
         String pattern = "dd/MM/yyyy HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);
 
@@ -38,12 +39,16 @@ public class UserDto {
         this.role = user.getRole().getName();
         this.email = user.getEmail();
         this.gender = user.getGender();
-//        this.dob = df.format(user.getDateOfBirth());
+        // this.dob = df.format(user.getDateOfBirth());
         this.phone = user.getPhone();
         this.address = user.getAddress();
         this.status = user.getStatus();
         this.createdAt = df.format(user.getCreatedAt());
         this.updatedAt = df.format(user.getUpdatedAt());
+
+        this.studentId = user.getStudent() != null ? user.getStudent().getStudentId() : null;
+        this.managerId = user.getManager() != null ? user.getManager().getManagerId() : null;
+        this.guardId = user.getGuard() != null ? user.getGuard().getGuardId() : null;
     }
 
 }

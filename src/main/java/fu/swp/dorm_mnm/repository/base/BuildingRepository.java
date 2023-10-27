@@ -3,7 +3,6 @@ package fu.swp.dorm_mnm.repository.base;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
 import fu.swp.dorm_mnm.model.Building;

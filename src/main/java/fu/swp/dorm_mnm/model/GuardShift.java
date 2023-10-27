@@ -3,8 +3,13 @@ package fu.swp.dorm_mnm.model;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,15 +40,21 @@ public class GuardShift {
     @Column(name = "guard_shift_id")
     private Long guardShiftId;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    // @JsonManagedReference
     @JoinColumn(name = "building")
     private Building building;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    // @JsonManagedReference
     @JoinColumn(name = "guard_id")
     private Guard guard;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    // @JsonManagedReference
     @JoinColumn(name = "assign_by_manager_id")
     private Manager manager;
 

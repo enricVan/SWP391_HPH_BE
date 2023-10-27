@@ -1,28 +1,34 @@
 package fu.swp.dorm_mnm.controller.base;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
-import fu.swp.dorm_mnm.model.Building;
-import fu.swp.dorm_mnm.repository.base.BuildingRepository;
-import fu.swp.dorm_mnm.service.base.BuildingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.base.BuildingDto;
+import fu.swp.dorm_mnm.dto.base.RoomDto;
 import fu.swp.dorm_mnm.model.Building;
+import fu.swp.dorm_mnm.model.Room;
+import fu.swp.dorm_mnm.repository.base.BuildingRepository;
+import fu.swp.dorm_mnm.service.base.BuildingService;
+import fu.swp.dorm_mnm.service.base.RoomService;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-// @RequestMapping("/api/v1/building")
 @RequestMapping("/building")
-@PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD', 'ADMIN')")
 public class BuildingController {
-
 
     @Autowired
     private BuildingRepository buildingRepository;
@@ -30,12 +36,14 @@ public class BuildingController {
     @Autowired
     private BuildingService buildingService;
 
+    @Autowired
+    private RoomService roomService;
+
     @PostMapping
     @PreAuthorize("hasAuthority('building:create')")
-    public ResponseEntity<Building> createBuilding(@RequestBody Building building) {
-        building.setCreatedAt(new Date());
-        building.setUpdatedAt(new Date());
-        return new ResponseEntity<>(buildingRepository.save(building), HttpStatus.OK);
+    public ResponseEntity<BuildingDto> createBuilding(@RequestBody BuildingDto bdto) {
+
+        return new ResponseEntity<>(buildingService.save(bdto), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -65,5 +73,29 @@ public class BuildingController {
     public ResponseEntity<String> deleteBuildingById(@PathVariable Long id) {
         buildingService.remove(id);
         return new ResponseEntity<>("Building Deleted", HttpStatus.OK);
+    }
+
+    @GetMapping("/{buildingId}/rooms")
+    @PreAuthorize("hasAuthority('room:read')")
+    public ResponseEntity<List<RoomDto>> getRoomsByBuildingId(@PathVariable Long buildingId) {
+        List<Room> roomList = roomService.getRoomsByBuildingId(buildingId);
+        List<RoomDto> roomDtoList = new ArrayList<>();
+        for (Room r : roomList) {
+            RoomDto rdto = new RoomDto(r);
+            roomDtoList.add(rdto);
+        }
+        return new ResponseEntity<>(roomDtoList, HttpStatus.OK);
+    }
+
+    @PostMapping("/add-buildings")
+    @PreAuthorize("hasAuthority('building:create')")
+    public ResponseEntity<List<BuildingDto>> createListBuilding(@RequestBody List<BuildingDto> bdtoList) {
+        List<BuildingDto> resp = new ArrayList<>();
+
+        for (BuildingDto bdto : bdtoList) {
+            resp.add(buildingService.save(bdto));
+        }
+
+        return new ResponseEntity<>(resp, HttpStatus.CREATED);
     }
 }

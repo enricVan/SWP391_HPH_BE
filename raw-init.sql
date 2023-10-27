@@ -1,17 +1,3 @@
--- drop database hph_db;
--- create database hph_db;
--- use hph_db;
-
--- INSERT INTO `role`(created_at, updated_at, role_name, `description`)
--- VALUES (NOW(), NOW(), 'ADMIN', 'no des');
-
--- INSERT INTO `user` (role_id, username, updated_at, `status`, phone, `password`, gender, full_name, email, date_of_birth, created_at, avatar_image, address) VALUES
--- ( 1,'johndoe', NOW(), 'active', '1234567890', 'password123', 'male', 'John Doe', 'johndoe@example.com', '1990-01-15', NOW(), 'john_doe.jpg', '123 Main St, City, Country'),
--- ( 1, 'janesmith', NOW(), 'active', '9876543210', 'password456', 'female', 'Jane Smith', 'janesmith@example.com', '1985-03-20', NOW(), 'jane_smith.jpg', '456 Elm St, City, Country'),
--- (1, 'bobjohnson', NOW(), 'active', '5555555555', 'password789', 'male', 'Bob Johnson', 'bobjohnson@example.com', '1988-11-10', NOW(), 'bob_johnson.jpg', '789 Oak St, City, Country'),
--- (1, 'admin', NOW(), 'active', '5555555555', '$2a$12$L/ynEoPnjQNVuEWiPWUM...0/UlzshzMfIQETRe5p1FGHBWIQZlE.', 'male', 'Bob Johnson', 'bobjohnson@example.com', '1988-11-10', NOW(), 'bob_johnson.jpg', '789 Oak St, City, Country');
-
-
 -- Sample data for 'building' table
 INSERT INTO `hph_db`.`building` (`building_name`, `created_at`, `updated_at`) VALUES
     ('Building A', NOW(), NOW()),
@@ -51,8 +37,8 @@ INSERT INTO `hph_db`.`student` (`parent_name`, `roll_number`, `user_id`, `create
 
 -- Sample data for 'bed' table
 INSERT INTO `hph_db`.`bed` (`bed_name`, `created_at`, `status`, `updated_at`, `room_id`, `student_id`) VALUES
-    ('Bed A1', NOW(), 'Occupied', NOW(), 1, 1),
-    ('Bed B2', NOW(), 'Vacant', NOW(), 2, 2);
+    ('Bed A', NOW(), 'Occupied', NOW(), 1, 1),
+    ('Bed B', NOW(), 'Vacant', NOW(), 1, null);
 
 -- Sample data for 'semester' table
 INSERT INTO `hph_db`.`semester` (`semester_name`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES
@@ -72,7 +58,8 @@ INSERT INTO `hph_db`.`faq` (`title`, `sub_title`, `content`, `created_at`, `upda
 -- Sample data for 'feature' table
 INSERT INTO `hph_db`.`feature` (`feature_name`, `url`, `created_at`, `updated_at`) VALUES
     ('Feature 1', '/feature1', NOW(), NOW()),
-    ('Feature 2', '/feature2', NOW(), NOW());
+    ('Feature 2', '/feature2', NOW(), NOW()),
+    
 
 -- Sample data for 'guard' table
 INSERT INTO `hph_db`.`guard` (`user_id`, `created_at`, `updated_at`) VALUES
@@ -102,7 +89,7 @@ INSERT INTO `hph_db`.`news` (`title`, `category`, `content`, `image`, `created_a
 -- Sample data for 'payment' table
 INSERT INTO `hph_db`.`payment` (`amount`, `status`, `created_at`, `updated_at`, `bed_request_id`, `checked_by_manager_id`, `student_id`) VALUES
     (500.00, 'Paid', NOW(), NOW(), 1, 1, 1),
-    (600.00, 'Pending', NOW(), NOW(), 2, 2, 2);
+    (600.00, 'Pending', NOW(), NOW(), 2, 2, 2); 
 
 -- Sample data for 'penalty_ticket' table
 INSERT INTO `hph_db`.`penalty_ticket` (`title`, `content`, `status`, `created_at`, `updated_at`, `created_by_guard_id`, `student_id`) VALUES
@@ -119,6 +106,3 @@ INSERT INTO `hph_db`.`request_application` (`request_content`, `status`, `text_r
     ('Request for vacation leave', 'Pending', NULL, NOW(), NOW(), 1, 1, 1),
     ('Noise Complaint', 'Resolved', 'Resolved the noise issue', NOW(), NOW(), 2, 2, 2);
     
-    
-    select * from bed;
-    select * from `user`;

@@ -1,6 +1,9 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -32,12 +35,14 @@ public class Building {
     @Column(name = "number_floor")
     private Integer numberFloor;
 
-    // @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "building", targetEntity = Room.class, fetch = FetchType.LAZY)
+    // @JsonBackReference
     private List<Room> rooms;
 
-    // @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "building", targetEntity = GuardShift.class, fetch = FetchType.LAZY)
+    // @JsonBackReference
     private List<GuardShift> GuardShifts;
 
     @Temporal(TemporalType.TIMESTAMP)

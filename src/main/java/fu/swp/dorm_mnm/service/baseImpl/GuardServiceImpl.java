@@ -1,15 +1,14 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
-import fu.swp.dorm_mnm.model.Guard;
-import fu.swp.dorm_mnm.model.User;
-import fu.swp.dorm_mnm.repository.base.GuardRepository;
-import fu.swp.dorm_mnm.service.base.GuardService;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import fu.swp.dorm_mnm.model.Guard;
+import fu.swp.dorm_mnm.repository.base.GuardRepository;
+import fu.swp.dorm_mnm.service.base.GuardService;
 
 @Service
 public class GuardServiceImpl implements GuardService {

@@ -1,11 +1,10 @@
-package fu.swp.dorm_mnm.dto.base;
+package fu.swp.dorm_mnm.dto;
+
+import java.util.List;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
-import java.util.Objects;
 
 @NoArgsConstructor
 @Getter

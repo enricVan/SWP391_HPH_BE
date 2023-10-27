@@ -1,17 +1,20 @@
 package fu.swp.dorm_mnm.service.base;
 
-import fu.swp.dorm_mnm.model.Bed;
-
 import java.util.Optional;
 
+import fu.swp.dorm_mnm.dto.base.BedDto;
+import fu.swp.dorm_mnm.model.Bed;
 
 public interface BedService {
-    Iterable<Bed> findAll();
 
-    Optional<Bed> findById(Long id);
+    public BedDto createBed(BedDto bedto);
 
-    Bed save(Bed bed);
+    public Iterable<Bed> findAll();
 
-    void remove(Long id);
+    public Optional<Bed> findById(Long id);
+
+    public Bed save(Bed bed);
+
+    public void remove(Long id);
 
 }

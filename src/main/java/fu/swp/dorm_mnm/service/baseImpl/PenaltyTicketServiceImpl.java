@@ -1,17 +1,16 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
-import fu.swp.dorm_mnm.model.PenaltyTicket;
-import fu.swp.dorm_mnm.model.Semester;
-import fu.swp.dorm_mnm.repository.base.PenaltyTicketRepository;
-import fu.swp.dorm_mnm.service.base.PenaltyTicketService;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import fu.swp.dorm_mnm.model.PenaltyTicket;
+import fu.swp.dorm_mnm.repository.base.PenaltyTicketRepository;
+import fu.swp.dorm_mnm.service.base.PenaltyTicketService;
 
 @Service
 public class PenaltyTicketServiceImpl implements PenaltyTicketService {

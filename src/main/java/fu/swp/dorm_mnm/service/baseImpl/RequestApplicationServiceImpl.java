@@ -1,22 +1,22 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
-import fu.swp.dorm_mnm.model.BedRequest;
-import fu.swp.dorm_mnm.model.Student;
-import fu.swp.dorm_mnm.repository.base.RequestApplicationRepository;
-import fu.swp.dorm_mnm.repository.base.RequestApplicationTypeRepository;
-import fu.swp.dorm_mnm.repository.base.StudentRepository;
-import fu.swp.dorm_mnm.model.RequestApplication;
-import fu.swp.dorm_mnm.model.RequestApplicationType;
-import fu.swp.dorm_mnm.service.base.RequestApplicationService;
+import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Optional;
+import fu.swp.dorm_mnm.model.RequestApplication;
+import fu.swp.dorm_mnm.model.RequestApplicationType;
+import fu.swp.dorm_mnm.model.Student;
+import fu.swp.dorm_mnm.repository.base.RequestApplicationRepository;
+import fu.swp.dorm_mnm.repository.base.RequestApplicationTypeRepository;
+import fu.swp.dorm_mnm.repository.base.StudentRepository;
+import fu.swp.dorm_mnm.service.base.RequestApplicationService;
 
 @Service
 public class RequestApplicationServiceImpl implements RequestApplicationService {
+    
     @Autowired
     private RequestApplicationRepository requestApplicationRepository;
 

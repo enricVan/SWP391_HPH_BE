@@ -1,6 +1,6 @@
 package fu.swp.dorm_mnm.controller.bedBooking;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fu.swp.dorm_mnm.dto.base.BuildingDto;
+import fu.swp.dorm_mnm.dto.BedBookingDto;
 import fu.swp.dorm_mnm.model.Building;
+import fu.swp.dorm_mnm.model.RoomType;
 import fu.swp.dorm_mnm.service.base.BuildingService;
+import fu.swp.dorm_mnm.service.base.RoomTypeService;
 import jakarta.annotation.security.PermitAll;
 
 @RestController
@@ -22,27 +25,29 @@ public class BedBookingController {
     @Autowired
     private BuildingService buildingService;
 
-    @GetMapping("/get-all-bed")
+    @Autowired
+    private RoomTypeService roomTypeService;
+
+    
+
+    @GetMapping("/get-param")
     // @PreAuthorize("hasAuthority('bed-request:read')")
     @PermitAll
-    public ResponseEntity<List<BuildingDto>> getAllBedByParam() {
-        List<Building> listBuilding = buildingService.findAll();
-        List<BuildingDto> respBuildingDtos = new ArrayList<>();
-        for (Building b : listBuilding) {
-            BuildingDto bdto = new BuildingDto(b);
-            respBuildingDtos.add(bdto);
-        }
+    public ResponseEntity<HashMap<String, Object>> getBuildingRoomType(
+            @RequestParam Long buildingId, @RequestParam Long roomTypeId, @RequestParam Integer floorNumber,
+            @RequestParam Long roomId, @RequestParam Long bedId) {
+        List<Building> buildingList = buildingService.findAll();
+        List<RoomType> roomTypeList = roomTypeService.findAll();
+        Integer floors = buildingService.findById(bedId).get().getNumberFloor();
 
-        
-        return new ResponseEntity<>(respBuildingDtos, HttpStatus.OK);
+
+        BedBookingDto bbdto = new BedBookingDto(buildingList, roomTypeList);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("bedBooking", bbdto);
+        map.put("floors", floors);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    // @PostMapping("/book-bed")
-    // @PreAuthorize("hasAuthority('bed-request:create')")
-    // public ResponseEntity<> bookBed(@RequestParam(required = true) Long bedId,
-    // @RequestParam(required = true) Long semester_id, @RequestParam(required =
-    // true) Long studentId) {
-
-    // return
-    // }
 }

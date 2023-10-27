@@ -13,7 +13,7 @@ application:
   security:
     jwt:
       secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-      expiration: 86400000 # a day
+      expiration: 604800000 # 7 day || # a day 86400000
       refresh-token:
         expiration: 604800000 # 7 days
 
@@ -42,25 +42,3 @@ cors:
 
   allowed-headers: >
     *,
-
-
-# spring:
-#   mvc:
-#     cors:
-#       mapping:
-#         - /**
-#       allowed-origins:
-#         - http://localhost:5173
-#         - http://localhost:3000
-#         - http://localhost:8888
-#         - http://hph.quachuoitrenmay.online
-#         - https://hph.quachuoitrenmay.online
-#       allowed-methods:
-#         - GET
-#         - POST
-#         - PUT
-#         - DELETE
-#       allowed-headers:
-#         - "*"
-#       allow-credentials: true # If you want to allow credentials (e.g., cookies)
-#       max-age: 3600 # Max age of preflight request in seconds

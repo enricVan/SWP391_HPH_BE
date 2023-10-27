@@ -1,11 +1,8 @@
 package fu.swp.dorm_mnm.service.base;
 
-import fu.swp.dorm_mnm.model.FAQ;
-import fu.swp.dorm_mnm.model.Role;
-
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
+import fu.swp.dorm_mnm.model.FAQ;
 
 public interface FaqService {
 

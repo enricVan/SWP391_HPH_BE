@@ -5,29 +5,29 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fu.swp.dorm_mnm.model.User;
-import fu.swp.dorm_mnm.repository.base.UserRepository;
+import fu.swp.dorm_mnm.model.Semester;
+import fu.swp.dorm_mnm.service.base.SemesterService;
 
 @RestController
 @RequestMapping("/health-check")
 public class HealthCheckController {
 
     @Autowired
-    private UserRepository userRepository;
+    private SemesterService semesterService;
 
     @GetMapping
     public ResponseEntity<HashMap<String, String>> healthCheck() {
         HashMap<String, String> response = new HashMap<>();
         response.put("status", "unhealthy");
         try {
-            List<User> users = userRepository.findAll();
+            List<Semester> semesters = semesterService.findAll();
             response.clear();
-            response.put("1st user from db", users.get(0).getFullName());
+
+            response.put("check db", semesters.get(0).getSemesterName());
             response.put("status", "healthy");
         } catch (Exception error) {
             response.clear();

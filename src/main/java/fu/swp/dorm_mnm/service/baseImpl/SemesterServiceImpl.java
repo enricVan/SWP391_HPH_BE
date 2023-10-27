@@ -1,14 +1,15 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
-import fu.swp.dorm_mnm.model.Semester;
-import fu.swp.dorm_mnm.repository.base.SemesterRepository;
-import fu.swp.dorm_mnm.service.base.SemesterService;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Optional;
+import fu.swp.dorm_mnm.model.Semester;
+import fu.swp.dorm_mnm.repository.base.SemesterRepository;
+import fu.swp.dorm_mnm.service.base.SemesterService;
 
 @Service
 public class SemesterServiceImpl implements SemesterService {
@@ -17,7 +18,7 @@ public class SemesterServiceImpl implements SemesterService {
     private SemesterRepository semesterRepository;
 
     @Override
-    public Iterable<Semester> findAll() {
+    public List<Semester> findAll() {
         return semesterRepository.findAll();
     }
 

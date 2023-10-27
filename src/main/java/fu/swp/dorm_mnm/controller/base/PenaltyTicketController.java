@@ -1,30 +1,34 @@
 package fu.swp.dorm_mnm.controller.base;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import fu.swp.dorm_mnm.dto.base.PenaltyTicketDto;
 import fu.swp.dorm_mnm.model.PenaltyTicket;
 import fu.swp.dorm_mnm.service.base.GuardService;
 import fu.swp.dorm_mnm.service.base.PenaltyTicketService;
 import fu.swp.dorm_mnm.service.base.StudentService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
-// @RequestMapping("/api/v1/penalty-ticket")
 @RequestMapping("/penalty-ticket")
-@PreAuthorize("hasAnyRole('STUDENT', 'MANAGER', 'GUARD')")
 public class PenaltyTicketController {
 
     @Autowired
@@ -55,8 +59,7 @@ public class PenaltyTicketController {
     public ResponseEntity<List<PenaltyTicketDto>> getAllPenaltyTicket() {
         List<PenaltyTicket> penaltyTickets = penaltyTicketService.findAll();
         List<PenaltyTicketDto> penaltyTicketDtos = new ArrayList<>();
-        for (PenaltyTicket penaltyTicket : penaltyTickets
-        ) {
+        for (PenaltyTicket penaltyTicket : penaltyTickets) {
             penaltyTicketDtos.add(new PenaltyTicketDto(penaltyTicket));
         }
         return new ResponseEntity<>(penaltyTicketDtos, HttpStatus.OK);
@@ -98,14 +101,16 @@ public class PenaltyTicketController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-//    Get All Paging
-//    @GetMapping("/page")
-//    @PreAuthorize("hasAuthority('penalty-ticket:read')")
-//    public ResponseEntity<Page<PenaltyTicketDto>> getAllPenaltyTicketPaged(Pageable pageable) {
-//        Page<PenaltyTicket> penaltyTickets = penaltyTicketService.findAll(pageable);
-//        Page<PenaltyTicketDto> penaltyTicketDtos = penaltyTickets.map(PenaltyTicketDto::new);
-//        return new ResponseEntity<>(penaltyTicketDtos, HttpStatus.OK);
-//    }
+    // Get All Paging
+    // @GetMapping("/page")
+    // @PreAuthorize("hasAuthority('penalty-ticket:read')")
+    // public ResponseEntity<Page<PenaltyTicketDto>>
+    // getAllPenaltyTicketPaged(Pageable pageable) {
+    // Page<PenaltyTicket> penaltyTickets = penaltyTicketService.findAll(pageable);
+    // Page<PenaltyTicketDto> penaltyTicketDtos =
+    // penaltyTickets.map(PenaltyTicketDto::new);
+    // return new ResponseEntity<>(penaltyTicketDtos, HttpStatus.OK);
+    // }
 
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('penalty-ticket:read')")

@@ -1,12 +1,14 @@
 package fu.swp.dorm_mnm.service.base;
 
-import fu.swp.dorm_mnm.model.Semester;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+
+import fu.swp.dorm_mnm.model.Semester;
 
 public interface SemesterService {
 
-    Iterable<Semester> findAll();
+    List<Semester> findAll();
 
     Optional<Semester> findById(Long id);
 

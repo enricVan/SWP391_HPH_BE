@@ -1,12 +1,12 @@
 package fu.swp.dorm_mnm.dto.base;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import fu.swp.dorm_mnm.model.BedRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 @NoArgsConstructor
 @Getter
 @Setter
