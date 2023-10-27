@@ -54,8 +54,17 @@ public class BuildingController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('building:read')")
-    public ResponseEntity<Optional<Building>> getBuildingById(@PathVariable Long id) {
-        return new ResponseEntity<>(buildingRepository.findById(id), HttpStatus.OK);
+    public ResponseEntity<BuildingDto> getBuildingById(@PathVariable Long id) {
+        Optional<Building> building = buildingRepository.findById(id);
+        BuildingDto bdto = new BuildingDto(building.get());
+
+        List<Integer> floors = new ArrayList<>();
+        for (int i = 1; i <= bdto.getNumberFloor(); i++) {
+            floors.add(i);
+        }
+        bdto.setFloors(floors);
+
+        return new ResponseEntity<>(bdto, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
