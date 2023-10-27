@@ -18,23 +18,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
-import fu.swp.dorm_mnm.service.base.UserService;
 
 @RestController
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private UserService userService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('user:read')")

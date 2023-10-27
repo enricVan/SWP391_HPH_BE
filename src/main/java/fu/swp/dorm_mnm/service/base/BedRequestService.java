@@ -14,6 +14,8 @@ public interface BedRequestService {
 
     Optional<BedRequest> findById(Long id);
 
+    BedRequest save(BedRequest bedRequest, Long studentId);
+
     BedRequest save(BedRequest bedRequest);
 
     void remove(Long id);
