@@ -1,6 +1,9 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +27,7 @@ public class Manager {
     @Column(name = "manager_id")
     private Long managerId;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
     private User user;
@@ -32,19 +36,21 @@ public class Manager {
     private String description;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "manager", targetEntity = News.class)
+    @OneToMany(mappedBy = "manager", targetEntity = News.class, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<News> news;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "manager", targetEntity = GuardShift.class)
+    @JsonBackReference
+    @OneToMany(mappedBy = "manager", targetEntity = GuardShift.class, fetch = FetchType.LAZY)
     private List<GuardShift> guardShifts;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "manager", targetEntity = RequestApplication.class)
+    @OneToMany(mappedBy = "manager", targetEntity = RequestApplication.class, fetch = FetchType.LAZY)
     private List<RequestApplication> requestApplications;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "manager", targetEntity = MaintenanceReport.class)
+    @OneToMany(mappedBy = "manager", targetEntity = MaintenanceReport.class, fetch = FetchType.LAZY)
     private List<MaintenanceReport> maintenanceReports;
 
     @Temporal(TemporalType.TIMESTAMP)

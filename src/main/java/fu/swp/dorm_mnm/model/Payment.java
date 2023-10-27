@@ -3,6 +3,8 @@ package fu.swp.dorm_mnm.model;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,19 +19,23 @@ import lombok.Setter;
 @Entity
 @Table(name = "payment")
 public class Payment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id")
     private Long paymentId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "checked_by_manager_id", nullable = false)
     private Manager manager;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "bed_request_id", nullable = false, unique = true)
     private BedRequest bedRequest;

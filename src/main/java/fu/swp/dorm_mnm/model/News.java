@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,13 +21,16 @@ import lombok.Setter;
 @Entity
 @Table(name = "news")
 public class News {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "news_id")
     private Long newsId;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", nullable = false)
+    // @JsonBackReference
     private Manager manager;
 
     @Column(name = "category", length = 50)
@@ -49,4 +55,3 @@ public class News {
 
     // Constructors, getters, and setters
 }
-

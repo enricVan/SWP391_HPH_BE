@@ -1,11 +1,24 @@
 package fu.swp.dorm_mnm.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,29 +31,35 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "room")
+@Table(name = "room", uniqueConstraints = @UniqueConstraint(columnNames = { "room_name", "building_id" }))
 public class Room {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id")
     private Long roomId;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "room_type_id")
+    // @JsonManagedReference
     private RoomType roomType;
 
-    @Column(name = "room_name", unique = true, length = 20)
+    @Column(name = "room_name", length = 20)
     private String roomName;
 
     @Column(name = "floor")
     private Long floor;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "building_id")
+    // @JsonManagedReference
     private Building building;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "room", targetEntity = Bed.class)
+    // @JsonBackReference
+    @OneToMany(mappedBy = "room", targetEntity = Bed.class, fetch = FetchType.LAZY)
     private List<Bed> beds;
 
     @Column(name = "room_price")

@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,7 +34,9 @@ public class Feature {
     @Column(name = "url", nullable = false, length = 300)
     private String url;
 
-    @ManyToMany(mappedBy = "features", targetEntity = Role.class)
+    @JsonIgnore
+    // @JsonBackReference
+    @ManyToMany(mappedBy = "features", targetEntity = Role.class, fetch = FetchType.LAZY)
     private List<Role> roles;
 
     @Temporal(TemporalType.TIMESTAMP)

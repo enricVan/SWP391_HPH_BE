@@ -1,4 +1,4 @@
-FROM maven:3.6.3-openjdk-11 AS builder
+FROM maven:3.6.3-openjdk-17 AS builder
 
 WORKDIR /app    
 
@@ -7,7 +7,7 @@ COPY src ./src
 
 RUN mvn clean package
 
-FROM openjdk:11-jdk
+FROM openjdk:17-jdk
 
 WORKDIR /app
 

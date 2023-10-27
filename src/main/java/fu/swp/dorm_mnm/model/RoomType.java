@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -21,6 +22,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "room_type")
 public class RoomType {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_type_id")
@@ -33,6 +35,7 @@ public class RoomType {
     private String roomTypeDescription;
 
     @JsonIgnore
+    // @JsonBackReference
     @OneToMany(mappedBy = "roomType")
     private List<Room> rooms;
 
@@ -44,7 +47,5 @@ public class RoomType {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-
     // Constructors, getters, and setters
 }
-

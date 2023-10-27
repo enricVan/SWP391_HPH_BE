@@ -1,6 +1,9 @@
 package fu.swp.dorm_mnm.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -19,6 +22,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "bed_request")
 public class BedRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bed_request_id")
@@ -26,18 +30,25 @@ public class BedRequest {
 
     @JsonIgnore
     @OneToOne(mappedBy = "bedRequest", targetEntity = Payment.class)
+    // @JsonManagedReference
     private Payment payment;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "bed_id")
+    // @JsonManagedReference
     private Bed bed;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
+    // @JsonBackReference
     private Student student;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "semester_id")
+    // @JsonBackReference
     private Semester semester;
 
     @Column(name = "status", length = 20)

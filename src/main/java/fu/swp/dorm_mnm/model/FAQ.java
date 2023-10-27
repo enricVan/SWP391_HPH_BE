@@ -18,6 +18,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "faq")
 public class FAQ {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "faq_id")

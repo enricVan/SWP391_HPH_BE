@@ -20,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "semester")
 public class Semester {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "semester_id")
