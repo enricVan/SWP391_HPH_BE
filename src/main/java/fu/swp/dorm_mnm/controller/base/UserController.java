@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fu.swp.dorm_mnm.dto.base.UserDto;
@@ -26,6 +27,7 @@ import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -61,7 +63,7 @@ public class UserController {
     // get user by id rest api
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('user:read')")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" +
                         id));
@@ -72,7 +74,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('user:update')")
-    public ResponseEntity<User> updateStatus(@PathVariable Integer id, @RequestBody User userDetails) {
+    public ResponseEntity<User> updateStatus(@PathVariable Long id, @RequestBody User userDetails) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
 
@@ -86,7 +88,7 @@ public class UserController {
     // delete employee rest api
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('user:delete')")
-    public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
 

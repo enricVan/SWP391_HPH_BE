@@ -16,7 +16,7 @@ import fu.swp.dorm_mnm.service.base.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-    
+
     @Autowired
     private UserRepository userRepository;
 
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private GuardRepository guardRepository;
 
     @Override
-    public Optional<User> findById(Integer id) {
+    public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void remove(Long id) {
         userRepository.deleteById(id);
     }
 
