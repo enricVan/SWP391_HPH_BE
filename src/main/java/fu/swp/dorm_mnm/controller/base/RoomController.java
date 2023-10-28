@@ -91,9 +91,11 @@ public class RoomController {
             @RequestParam(required = false) Integer floor,
             @RequestParam(required = false) String status) {
 
-        List<Room> roomList = roomService.getRoomsByRoomTypeIdBuildingIdFloorStatus(buildingId, roomTypeId, floor,
+        List<Room> roomList = roomService.getRoomsByRoomTypeIdBuildingIdFloorStatus(roomTypeId, buildingId, floor,
                 status);
+                
         List<RoomDto> roomDtoList = new ArrayList<>();
+
         for (Room r : roomList) {
             RoomDto rdto = new RoomDto(r);
             roomDtoList.add(rdto);
