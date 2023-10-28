@@ -1,18 +1,18 @@
 package fu.swp.dorm_mnm.service.base;
 
-import fu.swp.dorm_mnm.model.Bed;
-import fu.swp.dorm_mnm.model.Semester;
-import fu.swp.dorm_mnm.model.Student;
-
 import java.util.Optional;
 
+import fu.swp.dorm_mnm.model.Student;
+
 public interface StudentService {
-    
-    Iterable<Student> findAll();
 
-    Optional<Student> findById(Long id);
+    public Iterable<Student> findAll();
 
-    Student save(Student student);
+    public Optional<Student> findById(Long id);
 
-    void remove(Long id);
+    public Student save(Student student);
+
+    public void remove(Long id);
+
+    public Optional<Student> findByUserId(Long id);
 }

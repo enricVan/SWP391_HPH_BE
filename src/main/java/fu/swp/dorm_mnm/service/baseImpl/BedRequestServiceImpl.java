@@ -3,7 +3,6 @@ package fu.swp.dorm_mnm.service.baseImpl;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +15,13 @@ import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.BedRequestDto;
 import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.BedRequest;
+import fu.swp.dorm_mnm.model.Semester;
 import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.repository.base.BedRequestRepository;
 import fu.swp.dorm_mnm.service.base.BedRequestService;
+import fu.swp.dorm_mnm.service.base.BedService;
+import fu.swp.dorm_mnm.service.base.SemesterService;
+import fu.swp.dorm_mnm.service.base.StudentService;
 
 @Service
 public class BedRequestServiceImpl implements BedRequestService {
@@ -27,10 +30,13 @@ public class BedRequestServiceImpl implements BedRequestService {
     private BedRequestRepository bedRequestRepository;
 
     @Autowired
-    private BedServiceImpl bedService;
+    private BedService bedService;
 
     @Autowired
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
+
+    @Autowired
+    private SemesterService semesterService;
 
     @Override
     public Iterable<BedRequest> findAll() {
@@ -43,17 +49,19 @@ public class BedRequestServiceImpl implements BedRequestService {
     }
 
     @Override
-    public BedRequest save(BedRequest bedRequestReq, Long studentId) {
+    public BedRequestDto save( Long studentId, Long bedId, Long semesterId) {
 
         LocalDateTime now = LocalDateTime.now();
         Timestamp sqlNow = Timestamp.valueOf(now);
 
-        Optional<Bed> bedOptional = bedService.findById(bedRequestReq.getBed().getBedId());
-        Optional<Student> studentOptional = studentService.findByUserId(studentId);
+        Optional<Bed> bedOptional = bedService.findById(bedId);
+        Optional<Student> studentOptional = studentService.findById(studentId);
+        Optional<Semester> semesterOptional = semesterService.findById(semesterId);
 
-        if (bedOptional.isPresent() && studentOptional.isPresent()) {
+        if (bedOptional.isPresent() && studentOptional.isPresent() && semesterOptional.isPresent()) {
             Bed bed = bedOptional.get();
             Student student = studentOptional.get();
+            Semester semester = semesterOptional.get();
 
             BedRequest bedRequest = new BedRequest();
             bedRequest.setCreatedAt(sqlNow);
@@ -61,8 +69,8 @@ public class BedRequestServiceImpl implements BedRequestService {
             bedRequest.setBed(bed);
             bedRequest.setStudent(student);
             bedRequest.setStatus("Pending");
-            bedRequest.setSemester(bedRequestReq.getSemester());
-            return bedRequestRepository.save(bedRequest);
+            bedRequest.setSemester(semester);
+            return new BedRequestDto( bedRequestRepository.save(bedRequest));
         } else {
             return null;
         }

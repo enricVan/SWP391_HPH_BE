@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.base.BedRequestDto;
+import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.BedRequest;
+import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.service.base.BedRequestService;
+import fu.swp.dorm_mnm.service.base.BedService;
 import fu.swp.dorm_mnm.service.base.StudentService;
 
 @RestController
@@ -28,16 +32,15 @@ public class BedRequestController {
     @Autowired
     private BedRequestService bedRequestService;
 
-    @Autowired
-    private StudentService studentService;
-
     @PostMapping
     @PreAuthorize("hasAuthority('bed-request:create')")
-    public ResponseEntity<String> createNewBedRequest(@RequestParam(required = true) Long studentId,
-            @RequestBody BedRequest bedRequest) {
-        BedRequest resp = bedRequestService.save(bedRequest, studentId);
-        return new ResponseEntity<>("Ticket created! id = " + resp.getBedRequestId(), HttpStatus.OK);
-        
+    public ResponseEntity<BedRequestDto> createNewBedRequest(@RequestParam(required = true) Long studentId,
+            @RequestParam(required = true) Long bedId, @RequestParam(required = true) Long semesterId) {
+
+        BedRequestDto resp = bedRequestService.save(studentId, bedId, semesterId);
+
+        return resp != null ? new ResponseEntity<>(resp, HttpStatus.CREATED)
+                : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     // @GetMapping("/user/{id}")

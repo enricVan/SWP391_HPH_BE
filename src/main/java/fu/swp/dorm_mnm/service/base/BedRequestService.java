@@ -10,15 +10,15 @@ import fu.swp.dorm_mnm.model.BedRequest;
 
 public interface BedRequestService {
 
-    Iterable<BedRequest> findAll();
+    public Iterable<BedRequest> findAll();
 
-    Optional<BedRequest> findById(Long id);
+    public Optional<BedRequest> findById(Long id);
 
-    BedRequest save(BedRequest bedRequest, Long studentId);
+    public BedRequestDto save(Long studentId, Long bedId, Long semesterId);
 
-    BedRequest save(BedRequest bedRequest);
+    public BedRequest save(BedRequest bedRequest);
 
-    void remove(Long id);
+    public void remove(Long id);
 
-    PageDto<BedRequestDto> findByUserId(String status, Long userId, Pageable pageable);
+    public PageDto<BedRequestDto> findByUserId(String status, Long userId, Pageable pageable);
 }
