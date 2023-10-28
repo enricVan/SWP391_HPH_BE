@@ -1,5 +1,7 @@
 package fu.swp.dorm_mnm.security.config;
 
+import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.base.UserRepository;
 import fu.swp.dorm_mnm.security.service.JwtService;
 import fu.swp.dorm_mnm.security.token.TokenRepository;
 import jakarta.servlet.FilterChain;
@@ -34,6 +36,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Autowired
   private final TokenRepository tokenRepository;
 
+  @Autowired
+  private final UserRepository userRepository;
+
   @Override
   protected void doFilterInternal(
       @NonNull HttpServletRequest request,
@@ -52,7 +57,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     jwt = authHeader.substring(7);
     userEmail = jwtService.extractUsername(jwt);
-    if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+    User user = userRepository.findByUsername(userEmail).get();
+    if (userEmail != null &&
+     user.getStatus().equalsIgnoreCase("active") && 
+     SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
       var isTokenValid = tokenRepository.findByToken(jwt)
           .map(t -> !t.isExpired() && !t.isRevoked())
