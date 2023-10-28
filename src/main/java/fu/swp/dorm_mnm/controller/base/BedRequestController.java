@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fu.swp.dorm_mnm.model.BedRequest;
-import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.service.base.BedRequestService;
 import fu.swp.dorm_mnm.service.base.StudentService;
 

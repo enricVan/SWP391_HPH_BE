@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.base.BedDto;
 import fu.swp.dorm_mnm.dto.base.RoomDto;
+import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.Building;
 import fu.swp.dorm_mnm.model.Room;
 import fu.swp.dorm_mnm.model.RoomType;
@@ -111,6 +113,23 @@ public class RoomController {
         }
 
         return new ResponseEntity<>(resp, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{roomId}/beds")
+    @PreAuthorize("hasAuthority('bed:read')")
+    public ResponseEntity<List<BedDto>> getBedsByRoomId(@PathVariable Long roomId) {
+        Optional<Room> room = roomService.findById(roomId);
+        List<BedDto> resp = new ArrayList();
+
+        if (room.isPresent()) {
+            List<Bed> beds = room.get().getBeds();
+            for (Bed b : beds) {
+                BedDto bdto = new BedDto(b);
+                resp.add(bdto);
+            }
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

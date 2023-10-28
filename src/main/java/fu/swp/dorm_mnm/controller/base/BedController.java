@@ -1,7 +1,5 @@
 package fu.swp.dorm_mnm.controller.base;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,9 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fu.swp.dorm_mnm.dto.base.BedDto;
 import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 import fu.swp.dorm_mnm.model.Bed;
-import fu.swp.dorm_mnm.model.Room;
 import fu.swp.dorm_mnm.service.base.BedService;
-import fu.swp.dorm_mnm.service.base.RoomService;
 
 @RestController
 @RequestMapping("/bed")
