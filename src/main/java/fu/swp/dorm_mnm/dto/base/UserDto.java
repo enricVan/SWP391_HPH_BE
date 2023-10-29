@@ -42,7 +42,8 @@ public class UserDto {
         this.role = user.getRole().getName();
         this.email = user.getEmail();
         this.gender = user.getGender();
-        this.dob = dfDob.format(user.getDateOfBirth());
+        if (user.getDateOfBirth() != null)
+            this.dob = dfDob.format(user.getDateOfBirth());
         this.phone = user.getPhone();
         this.address = user.getAddress();
         this.status = user.getStatus();
