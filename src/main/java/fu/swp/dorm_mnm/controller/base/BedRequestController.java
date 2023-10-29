@@ -3,6 +3,8 @@ package fu.swp.dorm_mnm.controller.base;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.BedRequestDto;
 import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.service.base.BedRequestService;
@@ -37,6 +40,19 @@ public class BedRequestController {
 
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.CREATED)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('bed-request:read')")
+    public ResponseEntity<PageDto<BedRequestDto>> getAllBedRequest(
+            @RequestParam(required = false) String studentRollNumber,
+            @RequestParam(required = false) String status, @RequestParam(required = false) Long semesterId,
+            @RequestParam(defaultValue = "0") int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 8);
+        PageDto<BedRequestDto> pageDto = bedRequestService.getAllBedRequest(studentRollNumber, status, semesterId,
+                pageable);
+        return new ResponseEntity<>(pageDto, HttpStatus.OK);
+
     }
 
     // @GetMapping("/user/{id}")

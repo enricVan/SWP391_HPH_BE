@@ -44,7 +44,6 @@ public class UserController {
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 
-    // create employee rest api
     @PostMapping
     @PreAuthorize("hasAuthority('user:create')")
     public User createUser(@RequestBody User user) {
@@ -60,7 +59,6 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-    // get user by id rest api
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('user:read')")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
@@ -69,8 +67,6 @@ public class UserController {
                         id));
         return new ResponseEntity<>((new UserDto(user)), HttpStatus.OK);
     }
-
-    // update employee rest api
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('user:update')")
@@ -85,7 +81,6 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    // delete employee rest api
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('user:delete')")
     public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {

@@ -219,4 +219,23 @@ public class BedRequestServiceImpl implements BedRequestService {
             }
         }
     }
+
+    @Override
+    public PageDto<BedRequestDto> getAllBedRequest(String studentRollNumber, String status, Long semesterId,
+            Pageable pageable) {
+
+        Page<BedRequest> page = bedRequestRepository.getAllBedRequest(status, studentRollNumber, semesterId, pageable);
+        List<BedRequest> bedRequestList = page.getContent();
+        List<BedRequestDto> bedRequestDtoList = new ArrayList<>();
+        for (BedRequest bedRequest : bedRequestList) {
+            bedRequestDtoList.add(new BedRequestDto(bedRequest));
+        }
+        PageDto<BedRequestDto> pageDto = new PageDto<>();
+        pageDto.setData(bedRequestDtoList);
+        pageDto.setCurrentPage(page.getNumber());
+        pageDto.setTotalPages(page.getTotalPages());
+        pageDto.setTotalItems(page.getTotalElements());
+        return pageDto;
+
+    }
 }

@@ -17,4 +17,22 @@ public interface BedRequestRepository extends JpaRepository<BedRequest, Long> {
         Page<BedRequest> listBedRequest(@Param("status") String status, @Param("studentId") Long studentId,
                         Pageable pageable);
 
+        @Query(value = "SELECT br.* FROM bed_request br\n" +
+                        "JOIN student s on s.student_id = br.student_id\n" +
+                        "JOIN semester se on se.semester_id = br.semester_id\n" +
+                        "WHERE (:status IS NULL OR `status` = :status)\n" +
+                        "  AND (:studentRollNumber IS NULL OR :studentRollNumber = '' OR s.roll_number LIKE :studentRollNumber)\n"
+                        +
+                        "  AND (:semesterId IS NULL OR se.semester_id = :semesterId)", countQuery = "SELECT count(*) FROM bed_request br\n"
+                                        +
+                                        "JOIN student s on s.student_id = br.student_id\n" +
+                                        "JOIN semester se on se.semester_id = br.semester_id\n" +
+                                        "WHERE (:status IS NULL OR `status` = :status)\n" +
+                                        "  AND (:studentRollNumber IS NULL OR :studentRollNumber = '' OR s.roll_number LIKE :studentRollNumber)\n"
+                                        +
+                                        "  AND (:semesterId IS NULL OR se.semester_id = :semesterId)", nativeQuery = true)
+        Page<BedRequest> getAllBedRequest(@Param("status") String status,
+                        @Param("studentRollNumber") String studentRollNumber,
+                        @Param("semesterId") Long semesterId, Pageable pageable);
+
 }
