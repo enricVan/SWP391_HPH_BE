@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import fu.swp.dorm_mnm.model.User;
-import fu.swp.dorm_mnm.repository.base.GuardRepository;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
 import fu.swp.dorm_mnm.service.base.UserService;
 
@@ -20,8 +19,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private GuardRepository guardRepository;
 
     @Override
     public Optional<User> findById(Long id) {

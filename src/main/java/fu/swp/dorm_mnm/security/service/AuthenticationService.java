@@ -1,21 +1,7 @@
 package fu.swp.dorm_mnm.security.service;
 
-import fu.swp.dorm_mnm.dto.base.UserDto;
-import fu.swp.dorm_mnm.model.Role;
-import fu.swp.dorm_mnm.model.User;
-import fu.swp.dorm_mnm.repository.base.RoleRepository;
-import fu.swp.dorm_mnm.repository.base.UserRepository;
-import fu.swp.dorm_mnm.security.auth.AuthenticationRequest;
-import fu.swp.dorm_mnm.security.auth.AuthenticationResponse;
-import fu.swp.dorm_mnm.security.auth.RegisterRequest;
-import fu.swp.dorm_mnm.security.token.Token;
-import fu.swp.dorm_mnm.security.token.TokenRepository;
-import fu.swp.dorm_mnm.security.token.TokenType;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
+import java.io.IOException;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,14 +10,27 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.Optional;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import fu.swp.dorm_mnm.dto.base.UserDto;
+import fu.swp.dorm_mnm.model.Role;
+import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.base.UserRepository;
+import fu.swp.dorm_mnm.security.auth.AuthenticationRequest;
+import fu.swp.dorm_mnm.security.auth.AuthenticationResponse;
+import fu.swp.dorm_mnm.security.auth.RegisterRequest;
+import fu.swp.dorm_mnm.security.token.Token;
+import fu.swp.dorm_mnm.security.token.TokenRepository;
+import fu.swp.dorm_mnm.security.token.TokenType;
+import fu.swp.dorm_mnm.service.base.RoleService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    
+
     @Autowired
     private final UserRepository repository;
 
@@ -48,10 +47,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    private final RoleRepository roleRepository;
+    private RoleService roleService;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        Role role = roleRepository.findByRoleName(request.getRole());
+        Role role = roleService.findByRoleName(request.getRole());
         var user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))

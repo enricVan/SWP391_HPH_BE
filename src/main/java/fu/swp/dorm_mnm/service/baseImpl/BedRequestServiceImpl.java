@@ -70,6 +70,10 @@ public class BedRequestServiceImpl implements BedRequestService {
             bedRequest.setStudent(student);
             bedRequest.setStatus("Pending");
             bedRequest.setSemester(semester);
+
+            
+
+
             return new BedRequestDto( bedRequestRepository.save(bedRequest));
         } else {
             return null;

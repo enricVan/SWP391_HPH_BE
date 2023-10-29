@@ -34,6 +34,7 @@ public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
 
   @Column(name = "username", nullable = false, unique = true, length = 20)
@@ -76,22 +77,18 @@ public class User implements UserDetails {
   private Date updatedAt;
 
   @JsonIgnore
-  // @JsonBackReference
   @OneToOne(mappedBy = "user", targetEntity = Manager.class)
   private Manager manager;
 
   @JsonIgnore
-  // @JsonBackReference
   @OneToOne(mappedBy = "user", targetEntity = Student.class)
   private Student student;
 
   @JsonIgnore
-  // @JsonBackReference
   @OneToOne(mappedBy = "user", targetEntity = Guard.class)
   private Guard guard;
 
   @JsonIgnore
-  // @JsonManagedReference
   @ManyToOne
   @JoinColumn(name = "role_id")
   private Role role;

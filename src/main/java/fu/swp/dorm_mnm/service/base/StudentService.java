@@ -2,6 +2,7 @@ package fu.swp.dorm_mnm.service.base;
 
 import java.util.Optional;
 
+import fu.swp.dorm_mnm.dto.base.StudentDto;
 import fu.swp.dorm_mnm.model.Student;
 
 public interface StudentService {
@@ -15,4 +16,8 @@ public interface StudentService {
     public void remove(Long id);
 
     public Optional<Student> findByUserId(Long id);
+
+    public StudentDto findByRollNumberDto(String rollNumber);
+
+    public Student findByRollNumber(String rollNumber);
 }

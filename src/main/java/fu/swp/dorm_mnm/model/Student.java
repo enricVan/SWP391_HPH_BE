@@ -41,7 +41,6 @@ public class Student {
     private List<Payment> payments;
 
     @JsonIgnore
-    // @JsonBackReference
     @OneToOne(mappedBy = "student", targetEntity = Bed.class)
     private Bed bed;
 
@@ -61,5 +60,4 @@ public class Student {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-    // Constructors, getters, and setters
 }

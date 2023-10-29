@@ -1,17 +1,16 @@
 package fu.swp.dorm_mnm.service.base;
 
-import fu.swp.dorm_mnm.model.Semester;
-import fu.swp.dorm_mnm.model.RequestApplication;
-
 import java.util.Optional;
 
+import fu.swp.dorm_mnm.model.RequestApplication;
+
 public interface RequestApplicationService {
-    
-    Iterable<RequestApplication> findAll();
 
-    Optional<RequestApplication> findById(Long id);
+    public Iterable<RequestApplication> findAll();
 
-    RequestApplication save(RequestApplication studentRequest);
+    public Optional<RequestApplication> findById(Long id);
 
-    void remove(Long id);
+    public RequestApplication save(RequestApplication studentRequest);
+
+    public void remove(Long id);
 }

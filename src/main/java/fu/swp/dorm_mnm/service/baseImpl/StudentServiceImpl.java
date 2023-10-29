@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
+import fu.swp.dorm_mnm.dto.base.StudentDto;
 import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.repository.base.StudentRepository;
 import fu.swp.dorm_mnm.service.base.StudentService;
@@ -38,5 +39,17 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void remove(Long id) {
         studentRepository.deleteById(id);
+    }
+
+    @Override
+    public StudentDto findByRollNumberDto(String rollNumber) {
+        Optional<Student> student = studentRepository.findByRollNumber(rollNumber);
+        return student.isPresent() ? new StudentDto(student.get()) : null;
+    }
+
+    @Override
+    public Student findByRollNumber(String rollNumber) {
+        Optional<Student> student = studentRepository.findByRollNumber(rollNumber);
+        return student.isPresent() ? student.get() : null;
     }
 }
