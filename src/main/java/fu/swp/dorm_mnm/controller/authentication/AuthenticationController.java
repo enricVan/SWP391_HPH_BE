@@ -7,10 +7,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.ChangePasswordDto;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.repository.base.RoleRepository;
 import fu.swp.dorm_mnm.security.auth.AuthenticationRequest;
@@ -50,6 +52,17 @@ public class AuthenticationController {
         AuthenticationResponse response = authenticationService.authenticate(authenticationRequest);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<String> changePassword(
+            @RequestBody ChangePasswordDto changePasswordDto) {
+        // String response = authenticationService.authenticate(authenticationRequest);
+        boolean change = authenticationService.changePassword(changePasswordDto);
+        if (!change) {
+            return ResponseEntity.badRequest().body("Incorrect Password!");
+        }
+        return ResponseEntity.ok("Change Password Successfully!");
     }
 
     @PostMapping("/refresh-token")
