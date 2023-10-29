@@ -33,8 +33,8 @@ public class RoomServiceImpl implements RoomService {
     public Room createNewRoom(RoomDto roomDto) {
         RoomType roomType = roomTypeRepository.findById(roomDto.getRoomTypeId()).get();
         Building building = buildingRepository.findById(roomDto.getBuildingId()).get();
-        Room room = new Room(null, roomType, roomDto.getRoomName(), roomDto.getFloor(), building, null,
-                roomDto.getRoomPrice(), new java.util.Date(), null);
+        Room room = new Room();
+        
         return room;
     }
 

@@ -65,9 +65,8 @@ public class RoomController {
         Optional<Room> roomRequestOptional = roomRepository.findById(id);
         RoomType roomType = roomTypeRepository.findById(roomRequest.getRoomTypeId()).get();
         Building building = buildingRepository.findById(roomRequest.getBuildingId()).get();
-        Room room = new Room(id, roomType, roomRequest.getRoomName(), roomRequest.getFloor(), building,
-                roomRequestOptional.get().getBeds(), roomRequest.getRoomPrice(),
-                roomRequestOptional.get().getCreatedAt(), new java.util.Date());
+        Room room = new Room();
+
         return roomRequestOptional.map(roomRequest1 -> {
             return new ResponseEntity<>(roomRepository.save(room), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

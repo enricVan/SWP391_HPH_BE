@@ -1,13 +1,8 @@
 package fu.swp.dorm_mnm.dto.base;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.FloatControl;
-
-import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.Building;
-import fu.swp.dorm_mnm.model.Room;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

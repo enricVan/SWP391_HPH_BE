@@ -2,22 +2,29 @@ package fu.swp.dorm_mnm.service.baseImpl;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.BedRequestDto;
 import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.BedRequest;
+import fu.swp.dorm_mnm.model.Payment;
 import fu.swp.dorm_mnm.model.Semester;
 import fu.swp.dorm_mnm.model.Student;
+import fu.swp.dorm_mnm.repository.base.BedRepository;
 import fu.swp.dorm_mnm.repository.base.BedRequestRepository;
+import fu.swp.dorm_mnm.repository.base.PaymentRepository;
 import fu.swp.dorm_mnm.service.base.BedRequestService;
 import fu.swp.dorm_mnm.service.base.BedService;
 import fu.swp.dorm_mnm.service.base.SemesterService;
@@ -38,6 +45,12 @@ public class BedRequestServiceImpl implements BedRequestService {
     @Autowired
     private SemesterService semesterService;
 
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Autowired
+    private BedRepository bedRepository;
+
     @Override
     public Iterable<BedRequest> findAll() {
         return bedRequestRepository.findAll();
@@ -49,7 +62,7 @@ public class BedRequestServiceImpl implements BedRequestService {
     }
 
     @Override
-    public BedRequestDto save( Long studentId, Long bedId, Long semesterId) {
+    public BedRequestDto createTicket(Long studentId, Long bedId, Long semesterId) {
 
         LocalDateTime now = LocalDateTime.now();
         Timestamp sqlNow = Timestamp.valueOf(now);
@@ -71,10 +84,7 @@ public class BedRequestServiceImpl implements BedRequestService {
             bedRequest.setStatus("Pending");
             bedRequest.setSemester(semester);
 
-            
-
-
-            return new BedRequestDto( bedRequestRepository.save(bedRequest));
+            return new BedRequestDto(bedRequestRepository.save(bedRequest));
         } else {
             return null;
         }
@@ -131,5 +141,82 @@ public class BedRequestServiceImpl implements BedRequestService {
         pageDto.setTotalPages(page.getTotalPages());
         pageDto.setTotalItems(page.getTotalElements());
         return pageDto;
+    }
+
+    @Transactional
+    @Override
+    public BedRequestDto bookBed(Long studentId, Long bedId, Long semesterId) {
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp sqlNow = Timestamp.valueOf(now);
+
+        Optional<Bed> bedOptional = bedService.findById(bedId);
+        Optional<Student> studentOptional = studentService.findById(studentId);
+        Optional<Semester> semesterOptional = semesterService.findById(semesterId);
+
+        if (bedOptional.isPresent() && studentOptional.isPresent() && semesterOptional.isPresent()) {
+            Bed bed = bedOptional.get();
+            Student student = studentOptional.get();
+            Semester semester = semesterOptional.get();
+
+            if (student.getBed() != null || !bed.getStatus().equalsIgnoreCase("vacant")) {
+                return new BedRequestDto();
+            }
+
+            BedRequest bedRequest = new BedRequest();
+            bedRequest.setCreatedAt(sqlNow);
+            bedRequest.setUpdatedAt(sqlNow);
+            bedRequest.setBed(bed);
+            bedRequest.setStudent(student);
+            bedRequest.setStatus("pending");
+            bedRequest.setSemester(semester);
+
+            Payment payment = new Payment();
+            payment.setCreatedAt(sqlNow);
+            payment.setUpdatedAt(sqlNow);
+            payment.setAmount(bed.getRoom().getRoomType().getPrice());
+            payment.setStatus("pending");
+            payment.setStudent(student);
+            payment.setBedRequest(bedRequest);
+            payment.setSemester(semester);
+            payment.setAmount(bed.getRoom().getRoomType().getPrice());
+            Timestamp sqlExpiredTime = Timestamp.valueOf(now.plus(30, ChronoUnit.MINUTES)); // 30 min
+            payment.setExpirationDate(sqlExpiredTime);
+
+            bed.setStatus("reserved");
+            bed.setStudent(student);
+
+            bedRequestRepository.save(bedRequest);
+            paymentRepository.save(payment);
+            bedRepository.save(bed);
+
+            scanForExpiredPayment();
+            return new BedRequestDto(bedRequest);
+        } else
+            return null;
+    }
+
+    @Transactional
+    @Override
+    @Scheduled(fixedDelay = 600000) // 10 min
+    public void scanForExpiredPayment() {
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp sqlNow = Timestamp.valueOf(now);
+
+        List<Payment> pays = paymentRepository.findAllExpiredPayment(sqlNow);
+        if (!pays.isEmpty()) {
+
+            for (Payment p : pays) {
+                p.setStatus("expired");
+                BedRequest breq = p.getBedRequest();
+                breq.setStatus("expired");
+                Bed bed = breq.getBed();
+                bed.setStudent(null);
+                bed.setStatus("vacant");
+
+                paymentRepository.save(p);
+                bedRequestRepository.save(breq);
+                bedRepository.save(bed);
+            }
+        }
     }
 }

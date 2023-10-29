@@ -1,7 +1,6 @@
 package fu.swp.dorm_mnm.dto.base;
 
 import fu.swp.dorm_mnm.model.Room;
-import jakarta.annotation.Nonnull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

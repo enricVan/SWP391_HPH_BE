@@ -28,12 +28,12 @@ public class BedRequestController {
     @Autowired
     private BedRequestService bedRequestService;
 
-    @PostMapping
+    @PostMapping("/book")
     @PreAuthorize("hasAuthority('bed-request:create')")
     public ResponseEntity<BedRequestDto> createNewBedRequest(@RequestParam(required = true) Long studentId,
             @RequestParam(required = true) Long bedId, @RequestParam(required = true) Long semesterId) {
 
-        BedRequestDto resp = bedRequestService.save(studentId, bedId, semesterId);
+        BedRequestDto resp = bedRequestService.bookBed(studentId, bedId, semesterId);
 
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.CREATED)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
