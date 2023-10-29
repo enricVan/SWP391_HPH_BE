@@ -33,13 +33,16 @@ public class UserDto {
         String pattern = "dd/MM/yyyy HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);
 
+        String dobPattern = "dd/MM/yyyy";
+        DateFormat dfDob = new SimpleDateFormat(dobPattern);
+
         this.id = user.getId();
         this.username = user.getUsername();
         this.fullName = user.getFullName();
         this.role = user.getRole().getName();
         this.email = user.getEmail();
         this.gender = user.getGender();
-        // this.dob = df.format(user.getDateOfBirth());
+         this.dob = dfDob.format(user.getDateOfBirth());
         this.phone = user.getPhone();
         this.address = user.getAddress();
         this.status = user.getStatus();
