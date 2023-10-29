@@ -1,14 +1,22 @@
 package fu.swp.dorm_mnm.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,14 +38,12 @@ public class Guard {
     private Long guardId;
 
     @JsonIgnore
-    // @JsonBackReference
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
     @JsonIgnore
     @OneToMany(mappedBy = "guard", targetEntity = GuardShift.class, fetch = FetchType.LAZY)
-    // @JsonBackReference
     private List<GuardShift> guardShifts;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -47,5 +53,4 @@ public class Guard {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-    // Constructors, getters, and setters
 }

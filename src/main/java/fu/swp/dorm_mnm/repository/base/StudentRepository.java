@@ -1,6 +1,5 @@
 package fu.swp.dorm_mnm.repository.base;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;

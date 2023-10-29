@@ -1,10 +1,9 @@
 package fu.swp.dorm_mnm.service.base;
 
-import fu.swp.dorm_mnm.model.Guard;
-import fu.swp.dorm_mnm.model.User;
-
 import java.util.List;
 import java.util.Optional;
+
+import fu.swp.dorm_mnm.model.Guard;
 
 public interface GuardService {
     List<Guard> findAll();

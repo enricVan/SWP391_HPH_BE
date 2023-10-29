@@ -93,7 +93,7 @@ public class RoomController {
 
         List<Room> roomList = roomService.getRoomsByRoomTypeIdBuildingIdFloorStatus(roomTypeId, buildingId, floor,
                 status);
-                
+
         List<RoomDto> roomDtoList = new ArrayList<>();
 
         for (Room r : roomList) {
@@ -121,7 +121,7 @@ public class RoomController {
     @PreAuthorize("hasAuthority('bed:read')")
     public ResponseEntity<List<BedDto>> getBedsByRoomId(@PathVariable Long roomId) {
         Optional<Room> room = roomService.findById(roomId);
-        List<BedDto> resp = new ArrayList();
+        List<BedDto> resp = new ArrayList<>();
 
         if (room.isPresent()) {
             List<Bed> beds = room.get().getBeds();
@@ -130,8 +130,8 @@ public class RoomController {
                 resp.add(bdto);
             }
             return new ResponseEntity<>(resp, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
