@@ -24,7 +24,7 @@ public class UserDto {
     private String status;
     private String createdAt;
     private String updatedAt;
-    private Long studentId;
+    private String studentRollNumber;
     private Long managerId;
     private Long guardId;
 
@@ -46,7 +46,7 @@ public class UserDto {
         this.createdAt = df.format(user.getCreatedAt());
         this.updatedAt = df.format(user.getUpdatedAt());
 
-        this.studentId = user.getStudent() != null ? user.getStudent().getStudentId() : null;
+        this.studentRollNumber = user.getStudent() != null ? user.getStudent().getRollNumber() : null;
         this.managerId = user.getManager() != null ? user.getManager().getManagerId() : null;
         this.guardId = user.getGuard() != null ? user.getGuard().getGuardId() : null;
     }
