@@ -42,7 +42,6 @@ public class Room {
     @JsonIgnore
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "room_type_id")
-    // @JsonManagedReference
     private RoomType roomType;
 
     @Column(name = "room_name", length = 20)
@@ -54,16 +53,11 @@ public class Room {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "building_id")
-    // @JsonManagedReference
     private Building building;
 
     @JsonIgnore
-    // @JsonBackReference
     @OneToMany(mappedBy = "room", targetEntity = Bed.class, fetch = FetchType.LAZY)
     private List<Bed> beds;
-
-    @Column(name = "room_price")
-    private Float roomPrice;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -73,5 +67,4 @@ public class Room {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    // Constructors, getters, and setters
 }

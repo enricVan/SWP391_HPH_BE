@@ -28,7 +28,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "room_type")
 public class RoomType {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_type_id")
@@ -40,8 +40,13 @@ public class RoomType {
     @Column(name = "room_type_description")
     private String roomTypeDescription;
 
+    @Column(name = "number_of_beds")
+    private Integer numberOfBeds;
+
+    @Column(name = "price")
+    private Float price;
+
     @JsonIgnore
-    // @JsonBackReference
     @OneToMany(mappedBy = "roomType")
     private List<Room> rooms;
 

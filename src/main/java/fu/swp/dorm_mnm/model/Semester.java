@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -28,7 +29,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "semester")
 public class Semester {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "semester_id")
@@ -40,6 +41,10 @@ public class Semester {
     @JsonIgnore
     @OneToMany(mappedBy = "semester", targetEntity = BedRequest.class)
     private List<BedRequest> bedRequests;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "semester", targetEntity = Payment.class)
+    private List<Payment> payment;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "start_date")

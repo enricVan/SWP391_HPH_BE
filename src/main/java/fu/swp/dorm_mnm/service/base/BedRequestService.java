@@ -14,11 +14,15 @@ public interface BedRequestService {
 
     public Optional<BedRequest> findById(Long id);
 
-    public BedRequestDto save(Long studentId, Long bedId, Long semesterId);
+    public BedRequestDto createTicket(Long studentId, Long bedId, Long semesterId);
 
     public BedRequest save(BedRequest bedRequest);
 
     public void remove(Long id);
 
+    public BedRequestDto bookBed(Long studentId, Long bedId, Long semesterId);
+
     public PageDto<BedRequestDto> findByUserId(String status, Long userId, Pageable pageable);
+
+    public void scanForExpiredPayment();
 }

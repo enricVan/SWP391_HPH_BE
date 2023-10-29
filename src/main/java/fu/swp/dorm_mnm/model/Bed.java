@@ -41,7 +41,6 @@ public class Bed {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
-    // @JsonBackReference
     private Room room;
 
     @Column(name = "bed_name", length = 20)
@@ -53,12 +52,10 @@ public class Bed {
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", unique = true)
-    // @JsonBackReference
     private Student student;
 
     @JsonIgnore
     @OneToMany(mappedBy = "bed", fetch = FetchType.LAZY)
-    // @JsonManagedReference
     private List<BedRequest> bedRequest;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -68,5 +65,4 @@ public class Bed {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-    // Constructors, getters, and setters
 }

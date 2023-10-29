@@ -1,8 +1,8 @@
 package fu.swp.dorm_mnm.controller.authentication;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,23 +17,18 @@ import fu.swp.dorm_mnm.security.auth.AuthenticationRequest;
 import fu.swp.dorm_mnm.security.auth.AuthenticationResponse;
 import fu.swp.dorm_mnm.security.auth.RegisterRequest;
 import fu.swp.dorm_mnm.security.service.AuthenticationService;
-import fu.swp.dorm_mnm.service.base.UserService;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/auth")
-// @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
     @Autowired
     private final AuthenticationService authenticationService;
 
-    @Autowired
-    private final UserService userService;
 
     @Autowired
     private final RoleRepository roleRepository;

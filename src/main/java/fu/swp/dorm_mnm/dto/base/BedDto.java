@@ -1,10 +1,6 @@
 package fu.swp.dorm_mnm.dto.base;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import fu.swp.dorm_mnm.model.Bed;
-import fu.swp.dorm_mnm.model.Room;
-import fu.swp.dorm_mnm.model.Student;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
