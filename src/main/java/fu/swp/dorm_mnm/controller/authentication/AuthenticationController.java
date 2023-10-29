@@ -105,4 +105,16 @@ public class AuthenticationController {
         return ResponseEntity.ok().body(registerRequests);
     }
 
+    @PutMapping("/change-password")
+    public ResponseEntity<String> changePassword(
+            @RequestBody ChangePasswordDto changePasswordDto) {
+        // String response = authenticationService.authenticate(authenticationRequest);
+        boolean change = authenticationService.changePassword(changePasswordDto);
+        if (!change) {
+            return ResponseEntity.badRequest().body("Incorrect Password!");
+        }
+        return ResponseEntity.ok("Change Password Successfully!");
+    }
+
+
 }
