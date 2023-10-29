@@ -7,7 +7,7 @@ USE `hph_db`;
 --
 -- Host: 127.0.0.1    Database: hph_db
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.1.0
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
 ;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
@@ -65,7 +65,7 @@ VALUES (
         6,
         'Bed AB1',
         '2023-10-27 07:33:39.791448',
-        'Vacant',
+        'vacant',
         '2023-10-27 07:33:39.791448',
         1,
         NULL
@@ -74,7 +74,7 @@ VALUES (
         7,
         'Bed AB2',
         '2023-10-27 07:34:20.924433',
-        'Vacant',
+        'vacant',
         '2023-10-27 07:34:20.924433',
         2,
         NULL
@@ -250,7 +250,7 @@ CREATE TABLE `bed_request` (
     CONSTRAINT `FK61lhdae6b14pavjvwqsvcn8gj` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`),
     CONSTRAINT `FK9mh01gkerx5rc54mgtx2yc34s` FOREIGN KEY (`bed_id`) REFERENCES `bed` (`bed_id`),
     CONSTRAINT `FKftatpe9cprf80cgwnctmm5u3b` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`semester_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -262,12 +262,39 @@ LOCK TABLES `bed_request` WRITE;
 ;
 INSERT INTO `bed_request`
 VALUES (
-        3,
-        '2023-10-29 13:04:08.681552',
-        'Pending',
-        '2023-10-29 13:04:08.681552',
+        19,
+        '2023-10-30 00:50:30.939651',
+        'expired',
+        '2023-10-30 00:50:30.939651',
         6,
-        2,
+        1,
+        2
+    ),
+(
+        20,
+        '2023-10-30 00:55:57.047953',
+        'expired',
+        '2023-10-30 00:55:57.047953',
+        6,
+        1,
+        2
+    ),
+(
+        21,
+        '2023-10-30 01:01:24.059162',
+        'expired',
+        '2023-10-30 01:01:24.059162',
+        6,
+        1,
+        2
+    ),
+(
+        22,
+        '2023-10-30 01:01:31.475972',
+        'expired',
+        '2023-10-30 01:01:31.475972',
+        7,
+        1,
         1
     );
 /*!40000 ALTER TABLE `bed_request` ENABLE KEYS */
@@ -1135,21 +1162,25 @@ DROP TABLE IF EXISTS `payment`;
 ;
 CREATE TABLE `payment` (
     `payment_id` bigint NOT NULL AUTO_INCREMENT,
-    `amount` double DEFAULT NULL,
+    `amount` float DEFAULT NULL,
     `created_at` datetime(6) DEFAULT NULL,
     `status` varchar(255) DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
     `bed_request_id` bigint NOT NULL,
-    `checked_by_manager_id` bigint NOT NULL,
+    `checked_by_manager_id` bigint DEFAULT NULL,
     `student_id` bigint NOT NULL,
+    `semester_id` bigint NOT NULL,
+    `expiration_date` datetime(6) DEFAULT NULL,
     PRIMARY KEY (`payment_id`),
     UNIQUE KEY `UK_6jd4oa8467p4k5nedh6uxm0ey` (`bed_request_id`),
     KEY `FKlgi22d9smuknidkpy77grwvhr` (`checked_by_manager_id`),
     KEY `FKq0mpbhvyrwyggk1gwjams69wf` (`student_id`),
+    KEY `FK1oxlvukl6v49sb2qgacdhf9jn` (`semester_id`),
+    CONSTRAINT `FK1oxlvukl6v49sb2qgacdhf9jn` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`semester_id`),
     CONSTRAINT `FKi5hitqdbcf7vxw7a242tjgays` FOREIGN KEY (`bed_request_id`) REFERENCES `bed_request` (`bed_request_id`),
     CONSTRAINT `FKlgi22d9smuknidkpy77grwvhr` FOREIGN KEY (`checked_by_manager_id`) REFERENCES `manager` (`manager_id`),
     CONSTRAINT `FKq0mpbhvyrwyggk1gwjams69wf` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1159,6 +1190,55 @@ CREATE TABLE `payment` (
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */
 ;
+INSERT INTO `payment`
+VALUES (
+        17,
+        NULL,
+        '2023-10-30 00:50:30.939651',
+        'expired',
+        '2023-10-30 00:50:30.939651',
+        19,
+        NULL,
+        2,
+        1,
+        '2023-10-30 00:51:30.939651'
+    ),
+(
+        18,
+        NULL,
+        '2023-10-30 00:55:57.047953',
+        'expired',
+        '2023-10-30 00:55:57.047953',
+        20,
+        NULL,
+        2,
+        1,
+        '2023-10-30 00:56:57.047953'
+    ),
+(
+        19,
+        NULL,
+        '2023-10-30 01:01:24.059162',
+        'expired',
+        '2023-10-30 01:01:24.059162',
+        21,
+        NULL,
+        2,
+        1,
+        '2023-10-30 01:02:24.059162'
+    ),
+(
+        20,
+        NULL,
+        '2023-10-30 01:01:31.475972',
+        'expired',
+        '2023-10-30 01:01:31.475972',
+        22,
+        NULL,
+        1,
+        1,
+        '2023-10-30 01:02:31.475972'
+    );
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */
 ;
 UNLOCK TABLES;
@@ -1526,7 +1606,6 @@ CREATE TABLE `room` (
     `created_at` datetime(6) DEFAULT NULL,
     `floor` bigint DEFAULT NULL,
     `room_name` varchar(20) DEFAULT NULL,
-    `room_price` float DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
     `building_id` bigint DEFAULT NULL,
     `room_type_id` bigint DEFAULT NULL,
@@ -1551,7 +1630,6 @@ VALUES (
         '2023-10-16 00:31:08.000000',
         1,
         '101',
-        500,
         '2023-10-16 00:31:08.000000',
         1,
         1
@@ -1561,7 +1639,6 @@ VALUES (
         '2023-10-16 00:31:08.000000',
         2,
         '201',
-        600,
         '2023-10-16 00:31:08.000000',
         2,
         2
@@ -1571,7 +1648,6 @@ VALUES (
         '2023-10-22 16:33:37.000000',
         1,
         '102',
-        500,
         '2023-10-22 16:33:37.000000',
         1,
         1
@@ -1579,7 +1655,6 @@ VALUES (
 (
         43,
         '2023-10-27 00:00:00.000000',
-        NULL,
         NULL,
         NULL,
         '2023-10-27 00:00:00.000000',
@@ -1591,7 +1666,6 @@ VALUES (
         '2023-10-27 00:00:00.000000',
         NULL,
         NULL,
-        NULL,
         '2023-10-27 00:00:00.000000',
         1,
         1
@@ -1599,7 +1673,6 @@ VALUES (
 (
         45,
         '2023-10-27 00:00:00.000000',
-        NULL,
         NULL,
         NULL,
         '2023-10-27 00:00:00.000000',
@@ -1611,7 +1684,6 @@ VALUES (
         '2023-10-27 00:00:00.000000',
         NULL,
         NULL,
-        NULL,
         '2023-10-27 00:00:00.000000',
         1,
         1
@@ -1621,7 +1693,6 @@ VALUES (
         '2023-10-27 00:00:00.000000',
         NULL,
         'Room 101',
-        NULL,
         '2023-10-27 00:00:00.000000',
         1,
         1
@@ -1631,7 +1702,6 @@ VALUES (
         '2023-10-27 01:05:10.388728',
         1,
         'Room 101 2',
-        NULL,
         '2023-10-27 01:05:10.388728',
         1,
         1
@@ -1641,7 +1711,6 @@ VALUES (
         '2023-10-27 01:10:26.324292',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:10:26.324292',
         1,
         1
@@ -1651,7 +1720,6 @@ VALUES (
         '2023-10-27 01:10:27.591608',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:10:27.591608',
         1,
         1
@@ -1661,7 +1729,6 @@ VALUES (
         '2023-10-27 01:10:28.389478',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:10:28.389478',
         1,
         1
@@ -1671,7 +1738,6 @@ VALUES (
         '2023-10-27 01:10:29.285531',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:10:29.285531',
         1,
         1
@@ -1681,7 +1747,6 @@ VALUES (
         '2023-10-27 01:10:30.197141',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:10:30.197141',
         1,
         1
@@ -1691,7 +1756,6 @@ VALUES (
         '2023-10-27 01:10:30.883706',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:10:30.883706',
         1,
         1
@@ -1701,7 +1765,6 @@ VALUES (
         '2023-10-27 01:10:31.508253',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:10:31.508253',
         1,
         1
@@ -1711,7 +1774,6 @@ VALUES (
         '2023-10-27 01:14:06.183947',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:14:06.183947',
         1,
         1
@@ -1721,7 +1783,6 @@ VALUES (
         '2023-10-27 01:14:07.483873',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:14:07.483873',
         1,
         1
@@ -1731,7 +1792,6 @@ VALUES (
         '2023-10-27 01:14:08.490435',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:14:08.490435',
         1,
         1
@@ -1741,7 +1801,6 @@ VALUES (
         '2023-10-27 01:14:09.339925',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:14:09.339925',
         1,
         1
@@ -1751,7 +1810,6 @@ VALUES (
         '2023-10-27 01:14:10.076251',
         1,
         'Room 101',
-        NULL,
         '2023-10-27 01:14:10.076251',
         1,
         1
@@ -1761,7 +1819,6 @@ VALUES (
         '2023-10-27 07:38:05.381030',
         3,
         'Room 301',
-        NULL,
         '2023-10-27 07:38:05.381030',
         5,
         4
@@ -1771,7 +1828,6 @@ VALUES (
         '2023-10-27 07:59:08.101902',
         4,
         'Room 301',
-        NULL,
         '2023-10-27 07:59:08.101902',
         6,
         4
@@ -1781,7 +1837,6 @@ VALUES (
         '2023-10-27 07:59:08.193922',
         5,
         'Room 401',
-        NULL,
         '2023-10-27 07:59:08.193922',
         7,
         4
@@ -1804,6 +1859,8 @@ CREATE TABLE `room_type` (
     `room_type_description` varchar(255) DEFAULT NULL,
     `room_type_name` varchar(20) DEFAULT NULL,
     `updated_at` datetime(6) DEFAULT NULL,
+    `number_of_beds` int DEFAULT NULL,
+    `price` float DEFAULT NULL,
     PRIMARY KEY (`room_type_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -1821,28 +1878,36 @@ VALUES (
         '2023-10-16 00:31:08.000000',
         'Single Room',
         'Single',
-        '2023-10-16 00:31:08.000000'
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        NULL
     ),
 (
         2,
         '2023-10-16 00:31:08.000000',
         'Double Room',
         'Double',
-        '2023-10-16 00:31:08.000000'
+        '2023-10-16 00:31:08.000000',
+        NULL,
+        NULL
     ),
 (
         4,
         '2023-10-26 09:12:36.000000',
         'Single Room',
         'Single',
-        '2023-10-26 09:12:36.000000'
+        '2023-10-26 09:12:36.000000',
+        NULL,
+        NULL
     ),
 (
         5,
         '2023-10-26 09:12:36.000000',
         'Double Room',
         'Double',
-        '2023-10-26 09:12:36.000000'
+        '2023-10-26 09:12:36.000000',
+        NULL,
+        NULL
     );
 /*!40000 ALTER TABLE `room_type` ENABLE KEYS */
 ;
@@ -1967,7 +2032,7 @@ CREATE TABLE `token` (
     UNIQUE KEY `UK_pddrhgwxnms2aceeku9s2ewy5` (`token`),
     KEY `FKl10xjn274m2rkxo54knt2xqvy` (`user_id`),
     CONSTRAINT `FKl10xjn274m2rkxo54knt2xqvy` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 169 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 170 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 --
@@ -1995,20 +2060,20 @@ VALUES (
         4
     ),
 (
-        167,
-        _binary '\0',
-        _binary '\0',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsImlhdCI6MTY5ODU3OTg2NywiZXhwIjoxNjk5MTg0NjY3fQ.GnbeFjZi_UcE67xHRbzoyPv8XY8Mnwhtkfe1Z-NB2d0',
-        'BEARER',
-        2
-    ),
-(
         168,
         _binary '\0',
         _binary '\0',
         'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyMSIsImlhdCI6MTY5ODU3OTg4MCwiZXhwIjoxNjk5MTg0NjgwfQ.XbhVNfUYG2331UprI5Q-ssFVW_jgkmSGdv1nZPPGve8',
         'BEARER',
         6
+    ),
+(
+        169,
+        _binary '\0',
+        _binary '\0',
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50MSIsImlhdCI6MTY5ODU5MzI5NywiZXhwIjoxNjk5MTk4MDk3fQ.BFMi7E3cSGpX4jP2zV0jABxb9xO75jDWbLiW0TrQJjM',
+        'BEARER',
+        2
     );
 /*!40000 ALTER TABLE `token` ENABLE KEYS */
 ;
@@ -2183,4 +2248,4 @@ UNLOCK TABLES;
 ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */
 ;
--- Dump completed on 2023-10-29 20:42:07
+-- Dump completed on 2023-10-30  1:36:28
