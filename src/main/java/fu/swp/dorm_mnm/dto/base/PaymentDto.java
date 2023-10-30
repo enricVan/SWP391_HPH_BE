@@ -25,11 +25,11 @@ public class PaymentDto {
         String pattern = "dd/MM/yyyy HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);
         this.paymentId = payment.getPaymentId();
-        this.managerId = payment.getManager().getManagerId();
+        this.managerId = payment.getManager() != null ? payment.getManager().getManagerId() : null;
         this.studentId = payment.getStudent().getStudentId();
         this.bedRequestDto = new BedRequestDto(payment.getBedRequest());
         this.amount = payment.getAmount();
-        this.createdAt = df.format(payment.getCreatedAt());
+        this.createdAt = df.format(payment.getCreatedAt()); 
         this.updatedAt = df.format(payment.getUpdatedAt());
     }
 }

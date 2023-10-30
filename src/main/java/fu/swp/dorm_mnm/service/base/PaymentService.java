@@ -20,4 +20,6 @@ public interface PaymentService {
     PageDto<PaymentDto> findByUserId(Long userId, Pageable pageable);
 
     Payment checkPaymentBedRequest(Long id, Long managerId);
+
+    Payment unCheckPaymentBedRequest(Long id, Long managerId);
 }

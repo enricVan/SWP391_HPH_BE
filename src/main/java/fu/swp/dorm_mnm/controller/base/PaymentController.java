@@ -32,7 +32,7 @@ public class PaymentController {
     @PutMapping("/uncheck/{id}")
     public ResponseEntity<PaymentDto> unCheckPaymentBedRequest(@PathVariable Long id,
             @RequestParam(required = true) Long managerId) {
-        Payment payment = paymentService.checkPaymentBedRequest(id, managerId);
+        Payment payment = paymentService.unCheckPaymentBedRequest(id, managerId);
         return payment != null ? new ResponseEntity<>(new PaymentDto(payment), HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }

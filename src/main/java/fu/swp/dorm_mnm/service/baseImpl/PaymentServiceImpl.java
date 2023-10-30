@@ -115,4 +115,37 @@ public class PaymentServiceImpl implements PaymentService {
         }
         return null;
     }
+
+    @Transactional
+    @Override
+    public Payment unCheckPaymentBedRequest(Long id, Long managerId) {
+
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp sqlNow = Timestamp.valueOf(now);
+
+        Optional<Payment> payOptional = paymentRepository.findById(id);
+        Optional<Manager> managerOptional = managerRepository.findById(managerId);
+
+        if (payOptional.isPresent() && payOptional.isPresent()) {
+
+            Payment pay = payOptional.get();
+            if (pay.getExpirationDate().after(sqlNow)) // check expiration date
+                return null;
+            pay.setManager(managerOptional.get());
+            pay.setStatus("not paid");
+
+            BedRequest breq = pay.getBedRequest();
+            breq.setStatus("reject");
+
+            Bed bed = breq.getBed();
+            bed.setStatus("vacant");
+
+            paymentRepository.save(pay);
+            bedRequestRepository.save(breq);
+            bedRepository.save(bed);
+
+            return pay;
+        }
+        return null;
+    }
 }
