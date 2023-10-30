@@ -75,8 +75,8 @@ public class UserServiceImpl implements UserService {
 
             LocalDateTime now = LocalDateTime.now();
             Timestamp sqlNow = Timestamp.valueOf(now);
-            Date parsedDate = new SimpleDateFormat("yyyy/MM/dd").parse(dateString);
-            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+//            Date parsedDate = new SimpleDateFormat("yyyy/MM/dd").parse(dateString);
+//            Timestamp timestamp = new Timestamp(parsedDate.getTime());
 
             User user = new User();
             user.setUsername(userDto.getUsername());
