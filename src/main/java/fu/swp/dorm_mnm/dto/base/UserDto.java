@@ -27,6 +27,7 @@ public class UserDto {
     private String studentRollNumber;
     private Long managerId;
     private Long guardId;
+    private Long studentId;
 
     public UserDto(User user) {
 
@@ -53,6 +54,8 @@ public class UserDto {
         this.studentRollNumber = user.getStudent() != null ? user.getStudent().getRollNumber() : null;
         this.managerId = user.getManager() != null ? user.getManager().getManagerId() : null;
         this.guardId = user.getGuard() != null ? user.getGuard().getGuardId() : null;
+        this.studentId = user.getStudent() != null ? user.getStudent().getStudentId() : null;
+
     }
 
 }
