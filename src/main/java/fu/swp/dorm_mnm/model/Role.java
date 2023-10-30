@@ -42,7 +42,6 @@ public class Role {
         private String name;
 
         @JsonIgnore
-        // @JsonManagedReference
         @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "role_feature", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "feature_id"))
         private List<Feature> features;
@@ -57,9 +56,6 @@ public class Role {
 
         @Column(name = "description", length = 200)
         private String description;
-
-        // @Getter
-        // private final Set<Permission> permissions;
 
         public List<SimpleGrantedAuthority> getAuthorities() {
                 var authorities = getFeatures()

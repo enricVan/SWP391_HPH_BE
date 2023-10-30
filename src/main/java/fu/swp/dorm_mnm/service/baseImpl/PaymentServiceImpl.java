@@ -93,19 +93,22 @@ public class PaymentServiceImpl implements PaymentService {
         Optional<Payment> payOptional = paymentRepository.findById(id);
         Optional<Manager> managerOptional = managerRepository.findById(managerId);
 
-        if (payOptional.isPresent() && payOptional.isPresent()) {
+        if (payOptional.isPresent() && managerOptional.isPresent()) {
 
-            Payment pay = payOptional.get();
-            if (pay.getExpirationDate().after(sqlNow)) // check expiration date
+             Payment pay = payOptional.get();
+            if (pay.getExpirationDate().before(sqlNow)) // check expiration date
                 return null;
             pay.setManager(managerOptional.get());
             pay.setStatus("paid");
+            pay.setUpdatedAt(sqlNow);
 
             BedRequest breq = pay.getBedRequest();
             breq.setStatus("approved");
+            breq.setUpdatedAt(sqlNow);
 
             Bed bed = breq.getBed();
             bed.setStatus("occupied");
+            bed.setUpdatedAt(sqlNow);
 
             paymentRepository.save(pay);
             bedRequestRepository.save(breq);

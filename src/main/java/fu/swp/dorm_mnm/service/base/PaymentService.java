@@ -9,17 +9,17 @@ import java.util.Optional;
 
 public interface PaymentService {
 
-    Iterable<Payment> findAll();
+    public Iterable<Payment> findAll();
 
-    Optional<Payment> findById(Long id);
+    public Optional<Payment> findById(Long id);
 
-    Payment save(Payment payment);
+    public Payment save(Payment payment);
 
-    void remove(Long id);
+    public void remove(Long id);
 
-    PageDto<PaymentDto> findByUserId(Long userId, Pageable pageable);
+    public PageDto<PaymentDto> findByUserId(Long userId, Pageable pageable);
 
-    Payment checkPaymentBedRequest(Long id, Long managerId);
+    public Payment checkPaymentBedRequest(Long id, Long managerId);
 
-    Payment unCheckPaymentBedRequest(Long id, Long managerId);
+    public Payment unCheckPaymentBedRequest(Long id, Long managerId);
 }

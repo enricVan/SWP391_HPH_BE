@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.controller.base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,8 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PutMapping("/check/{id}")
+    @PutMapping("/{id}/check")
+    @PreAuthorize("hasAuthority('bed-request:update')")
     public ResponseEntity<PaymentDto> checkPaymentBedRequest(@PathVariable Long id,
             @RequestParam(required = true) Long managerId) {
         Payment payment = paymentService.checkPaymentBedRequest(id, managerId);
@@ -28,7 +30,8 @@ public class PaymentController {
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PutMapping("/uncheck/{id}")
+    @PutMapping("/{id}/uncheck")
+    @PreAuthorize("hasAuthority('bed-request:update')")
     public ResponseEntity<PaymentDto> unCheckPaymentBedRequest(@PathVariable Long id,
             @RequestParam(required = true) Long managerId) {
         Payment payment = paymentService.unCheckPaymentBedRequest(id, managerId);

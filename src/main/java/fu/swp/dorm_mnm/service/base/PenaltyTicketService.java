@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PenaltyTicketService {
-    Page<PenaltyTicket> findAll(Pageable pageable);
 
-    List<PenaltyTicket> findAll();
+    public Page<PenaltyTicket> findAll(Pageable pageable);
 
-    Optional<PenaltyTicket> findById(Long id);
+    public List<PenaltyTicket> findAll();
 
-    PenaltyTicket save(PenaltyTicket penaltyTicket);
+    public Optional<PenaltyTicket> findById(Long id);
 
-    void remove(Long id);
+    public PenaltyTicket save(PenaltyTicket penaltyTicket);
 
-    Page<PenaltyTicket> findByTitleContaining(String title, Pageable pageable);
+    public void remove(Long id);
+
+    public Page<PenaltyTicket> findByTitleContaining(String title, Pageable pageable);
 }

@@ -5,12 +5,12 @@ import fu.swp.dorm_mnm.model.RequestApplicationType;
 import java.util.Optional;
 
 public interface RequestApplicationTypeService {
-    
-    Iterable<RequestApplicationType> findAll();
 
-    Optional<RequestApplicationType> findById(Long id);
+    public Iterable<RequestApplicationType> findAll();
 
-    RequestApplicationType save(RequestApplicationType requestApplicationType);
+    public Optional<RequestApplicationType> findById(Long id);
 
-    void remove(Long id);
+    public RequestApplicationType save(RequestApplicationType requestApplicationType);
+
+    public void remove(Long id);
 }

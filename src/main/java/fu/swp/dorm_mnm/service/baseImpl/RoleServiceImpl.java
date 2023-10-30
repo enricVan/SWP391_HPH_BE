@@ -19,18 +19,7 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Override
-    public List<UserDto> getUserByRoleId(Long roleId) {
-
-        List<User> users = roleRepository.getUserByRole(roleId);
-
-        List<UserDto> udtos = new ArrayList<>();
-        for (User u : users) {
-            UserDto udto = new UserDto(u);
-            udtos.add(udto);
-        }
-        return udtos;
-    }
+  
 
     @Override
     public List<Role> findAll() {

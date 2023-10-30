@@ -8,7 +8,7 @@ import fu.swp.dorm_mnm.model.Role;
 
 public interface RoleService {
 
-    public List<UserDto> getUserByRoleId(Long roleId);
+
 
     public List<Role> findAll();
 

@@ -206,11 +206,16 @@ public class BedRequestServiceImpl implements BedRequestService {
 
             for (Payment p : pays) {
                 p.setStatus("expired");
+                p.setUpdatedAt(sqlNow);
+
                 BedRequest breq = p.getBedRequest();
                 breq.setStatus("expired");
+                breq.setUpdatedAt(sqlNow);
+
                 Bed bed = breq.getBed();
                 bed.setStudent(null);
                 bed.setStatus("vacant");
+                bed.setUpdatedAt(sqlNow);
 
                 paymentRepository.save(p);
                 bedRequestRepository.save(breq);

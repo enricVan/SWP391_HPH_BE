@@ -1,19 +1,23 @@
 package fu.swp.dorm_mnm.service.base;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 
+import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.User;
 
 public interface UserService {
 
-    Optional<User> findById(Long id);
+    public List<UserDto> getUserByRoleId(Long roleId);
 
-    User save(User news);
+    public Optional<User> findById(Long id);
 
-    void remove(Long id);
+    public User save(User news);
 
-    Page<User> findAll(int pageNo);
+    public void remove(Long id);
+
+    public Page<User> findAll(int pageNo);
 
 }

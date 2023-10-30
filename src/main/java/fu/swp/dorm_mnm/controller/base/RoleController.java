@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fu.swp.dorm_mnm.dto.base.RoleDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.service.base.RoleService;
+import fu.swp.dorm_mnm.service.base.UserService;
 
 @RestController
 @RequestMapping("/role")
@@ -21,7 +22,10 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping()
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
     public ResponseEntity<List<RoleDto>> getRoles() {
         List<RoleDto> resp = roleService.findAllDto();
         return !resp.isEmpty() ? new ResponseEntity<>(resp, HttpStatus.OK)
@@ -30,7 +34,7 @@ public class RoleController {
 
     @GetMapping("{roleId}/users")
     public ResponseEntity<List<UserDto>> getUserByRole(@PathVariable Long roleId) {
-        List<UserDto> resp = roleService.getUserByRoleId(roleId);
+        List<UserDto> resp = userService.getUserByRoleId(roleId);
         return !resp.isEmpty() ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
     }
