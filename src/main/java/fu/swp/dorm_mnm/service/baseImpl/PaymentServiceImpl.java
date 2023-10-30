@@ -1,5 +1,7 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,10 +86,18 @@ public class PaymentServiceImpl implements PaymentService {
     @Transactional
     @Override
     public Payment checkPaymentBedRequest(Long id, Long managerId) {
+
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp sqlNow = Timestamp.valueOf(now);
+
         Optional<Payment> payOptional = paymentRepository.findById(id);
         Optional<Manager> managerOptional = managerRepository.findById(managerId);
+
         if (payOptional.isPresent() && payOptional.isPresent()) {
+
             Payment pay = payOptional.get();
+            if (pay.getExpirationDate().after(sqlNow)) // check expiration date
+                return null;
             pay.setManager(managerOptional.get());
             pay.setStatus("paid");
 
@@ -101,6 +111,8 @@ public class PaymentServiceImpl implements PaymentService {
             bedRequestRepository.save(breq);
             bedRepository.save(bed);
 
+            return pay;
         }
+        return null;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface PaymentService {
+
     Iterable<Payment> findAll();
 
     Optional<Payment> findById(Long id);
@@ -18,5 +19,5 @@ public interface PaymentService {
 
     PageDto<PaymentDto> findByUserId(Long userId, Pageable pageable);
 
-    Payment updatePaymentBedRequest(Long id, Long managerId);
+    Payment checkPaymentBedRequest(Long id, Long managerId);
 }
