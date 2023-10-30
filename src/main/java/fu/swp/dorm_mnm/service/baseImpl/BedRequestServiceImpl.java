@@ -179,7 +179,7 @@ public class BedRequestServiceImpl implements BedRequestService {
             payment.setBedRequest(bedRequest);
             payment.setSemester(semester);
             payment.setAmount(bed.getRoom().getRoomType().getPrice());
-            Timestamp sqlExpiredTime = Timestamp.valueOf(now.plus(30, ChronoUnit.MINUTES)); // 30 min
+            Timestamp sqlExpiredTime = Timestamp.valueOf(now.plus(15, ChronoUnit.MINUTES)); // 15 min
             payment.setExpirationDate(sqlExpiredTime);
 
             bed.setStatus("reserved");
@@ -197,7 +197,7 @@ public class BedRequestServiceImpl implements BedRequestService {
 
     @Transactional
     @Override
-    @Scheduled(fixedDelay = 600000) // 10 min
+    @Scheduled(fixedDelay = 60000) // 1 min
     public void scanForExpiredPayment() {
         LocalDateTime now = LocalDateTime.now();
         Timestamp sqlNow = Timestamp.valueOf(now);
