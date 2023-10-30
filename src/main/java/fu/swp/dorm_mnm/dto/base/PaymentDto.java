@@ -19,7 +19,8 @@ public class PaymentDto {
     private float amount;
     private String createdAt;
     private String updatedAt;
-    private BedRequestDto bedRequestDto;
+    private Long bedRequestId;
+    private String status;
 
     public PaymentDto(Payment payment) {
         String pattern = "dd/MM/yyyy HH:mm:ss";
@@ -27,9 +28,10 @@ public class PaymentDto {
         this.paymentId = payment.getPaymentId();
         this.managerId = payment.getManager() != null ? payment.getManager().getManagerId() : null;
         this.studentId = payment.getStudent().getStudentId();
-        this.bedRequestDto = new BedRequestDto(payment.getBedRequest());
+        this.bedRequestId = payment.getBedRequest().getBedRequestId();
         this.amount = payment.getAmount();
-        this.createdAt = df.format(payment.getCreatedAt()); 
+        this.createdAt = df.format(payment.getCreatedAt());
         this.updatedAt = df.format(payment.getUpdatedAt());
+        this.setStatus(payment.getStatus());
     }
 }
