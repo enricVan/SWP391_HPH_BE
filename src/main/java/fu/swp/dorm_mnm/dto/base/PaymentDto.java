@@ -12,22 +12,24 @@ import java.text.SimpleDateFormat;
 @Getter
 @Setter
 public class PaymentDto {
+
     private Long paymentId;
     private Long managerId;
     private Long studentId;
-    private double amount;
+    private float amount;
     private String createdAt;
     private String updatedAt;
     private BedRequestDto bedRequestDto;
-    public PaymentDto(Payment payment){
+
+    public PaymentDto(Payment payment) {
         String pattern = "dd/MM/yyyy HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);
-        this.paymentId=payment.getPaymentId();
-        this.managerId=payment.getManager().getManagerId();
-        this.studentId=payment.getStudent().getStudentId();
-        this.bedRequestDto=new BedRequestDto(payment.getBedRequest());
-        this.amount=payment.getAmount();
-        this.createdAt= df.format(payment.getCreatedAt());
-        this.updatedAt= df.format(payment.getUpdatedAt());
+        this.paymentId = payment.getPaymentId();
+        this.managerId = payment.getManager().getManagerId();
+        this.studentId = payment.getStudent().getStudentId();
+        this.bedRequestDto = new BedRequestDto(payment.getBedRequest());
+        this.amount = payment.getAmount();
+        this.createdAt = df.format(payment.getCreatedAt());
+        this.updatedAt = df.format(payment.getUpdatedAt());
     }
 }

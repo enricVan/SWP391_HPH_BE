@@ -15,6 +15,8 @@ public interface PaymentService {
     Payment save(Payment payment);
 
     void remove(Long id);
-    
+
     PageDto<PaymentDto> findByUserId(Long userId, Pageable pageable);
+
+    Payment updatePaymentBedRequest(Long id, Long managerId);
 }

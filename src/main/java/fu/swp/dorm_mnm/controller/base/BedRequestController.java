@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.BedRequestDto;
+import fu.swp.dorm_mnm.dto.base.PaymentDto;
 import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.model.Payment;
 import fu.swp.dorm_mnm.service.base.BedRequestService;
@@ -58,11 +59,12 @@ public class BedRequestController {
 
     @GetMapping("{beRqId}/payment")
     @PreAuthorize("hasAuthority('bed-request:read')")
-    public ResponseEntity<Payment> getAllBedRequest(@PathVariable(value = "beRqId") Long beRqId) {
+    public ResponseEntity<PaymentDto> getAllBedRequest(@PathVariable(value = "beRqId") Long beRqId) {
         Optional<BedRequest> breq = bedRequestService.findById(beRqId);
         if (breq.isPresent()) {
             Payment pay = breq.get().getPayment();
-            return new ResponseEntity<>(pay, HttpStatus.OK);
+            PaymentDto resp = new PaymentDto(pay);
+            return new ResponseEntity<>(resp, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
