@@ -21,7 +21,7 @@ public class BedRequestDto {
     private String status;
     private String createdAt;
     private String updatedAt;
-    private StudentDto StudentDto;
+    private String studentRollNumber;
 
     public BedRequestDto(BedRequest bedRequest) {
         String pattern = "dd/MM/yyyy HH:mm:ss";
@@ -35,5 +35,6 @@ public class BedRequestDto {
         this.createdAt = bedRequest.getCreatedAt() != null ? df.format(bedRequest.getCreatedAt()) : null;
         this.updatedAt = bedRequest.getUpdatedAt() != null ? df.format(bedRequest.getUpdatedAt()) : null;
         this.bedName = bedRequest.getBed().getBedName();
+        this.studentRollNumber = bedRequest.getStudent().getRollNumber();
     }
 }
