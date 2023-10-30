@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fu.swp.dorm_mnm.dto.base.RoleDto;
-import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.Role;
-import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.base.RoleRepository;
 import fu.swp.dorm_mnm.service.base.RoleService;
 

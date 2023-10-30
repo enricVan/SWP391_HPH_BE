@@ -1,5 +1,8 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +15,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import fu.swp.dorm_mnm.dto.base.UserDto;
+import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.base.RoleRepository;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
 import fu.swp.dorm_mnm.service.base.UserService;
 
@@ -21,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public Optional<User> findById(Long id) {
@@ -54,6 +62,39 @@ public class UserServiceImpl implements UserService {
             udtos.add(udto);
         }
         return udtos;
+    }
+
+    @Override
+    public UserDto createUser(UserDto userDto) {
+
+        Optional<Role> roleOptional = roleRepository.findById(userDto.getRoleId());
+
+        if (userDto.getUsername().isEmpty() || userDto.getPassword().isEmpty() || !roleOptional.isPresent())
+            return null;
+        else {
+
+            LocalDateTime now = LocalDateTime.now();
+            Timestamp sqlNow = Timestamp.valueOf(now);
+            Date parsedDate = new SimpleDateFormat("yyyy/MM/dd").parse(dateString);
+            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+
+            User user = new User();
+            user.setUsername(userDto.getUsername());
+            user.setPassword(userDto.getPassword());
+            user.setRole(roleOptional.get());
+            user.setAddress(userDto.getAddress());
+            user.setCreatedAt(sqlNow);
+            user.setUpdatedAt(sqlNow);
+            user.setDateOfBirth(Timestamp.valueOf(userDto.getDob()));
+            user.setEmail(userDto.getEmail());
+            user.setFullName(userDto.getFullName());
+            user.setGender(userDto.getGender());
+            user.setPhone(userDto.getPhone());
+            user.setStatus("active");
+
+            return new UserDto(userRepository.save(user));
+        }
+
     }
 
 }

@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import fu.swp.dorm_mnm.model.Bed;
 
-
-
 @Repository
 public interface BedRepository extends JpaRepository<Bed, Long> {
 

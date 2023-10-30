@@ -20,4 +20,6 @@ public interface UserService {
 
     public Page<User> findAll(int pageNo);
 
+    public UserDto createUser(UserDto userDto);
+
 }

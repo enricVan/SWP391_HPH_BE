@@ -12,11 +12,11 @@ import java.text.SimpleDateFormat;
 @Setter
 @NoArgsConstructor
 public class UserDto {
-    
+
     private Long id;
     private String username;
+    private String password;
     private String fullName;
-    private String role;
     private String email;
     private String gender;
     private String dob;
@@ -26,6 +26,7 @@ public class UserDto {
     private String createdAt;
     private String updatedAt;
     private String studentRollNumber;
+    private Long roleId;
     private Long managerId;
     private Long guardId;
     private Long studentId;
@@ -41,7 +42,7 @@ public class UserDto {
         this.id = user.getId();
         this.username = user.getUsername();
         this.fullName = user.getFullName();
-        this.role = user.getRole().getName();
+        this.roleId = user.getRole().getId();
         this.email = user.getEmail();
         this.gender = user.getGender();
         if (user.getDateOfBirth() != null)

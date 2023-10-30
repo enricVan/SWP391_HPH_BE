@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -25,6 +26,7 @@ import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
+import fu.swp.dorm_mnm.service.base.UserService;
 
 @RestController
 @RequestMapping("/user")
@@ -32,6 +34,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('user:read')")
@@ -46,8 +51,10 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('user:create')")
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+        UserDto resp = userService.createUser(userDto);
+        return resp != null ? new ResponseEntity<>(resp, HttpStatus.CREATED)
+                : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/userdetails")
