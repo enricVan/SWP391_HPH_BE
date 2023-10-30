@@ -21,11 +21,18 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PutMapping("/{id}")
+    @PutMapping("/check/{id}")
     public ResponseEntity<PaymentDto> checkPaymentBedRequest(@PathVariable Long id,
             @RequestParam(required = true) Long managerId) {
         Payment payment = paymentService.checkPaymentBedRequest(id, managerId);
+        return payment != null ? new ResponseEntity<>(new PaymentDto(payment), HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
+    @PutMapping("/uncheck/{id}")
+    public ResponseEntity<PaymentDto> unCheckPaymentBedRequest(@PathVariable Long id,
+            @RequestParam(required = true) Long managerId) {
+        Payment payment = paymentService.checkPaymentBedRequest(id, managerId);
         return payment != null ? new ResponseEntity<>(new PaymentDto(payment), HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
