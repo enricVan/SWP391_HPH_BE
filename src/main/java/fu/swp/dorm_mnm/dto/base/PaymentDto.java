@@ -1,12 +1,13 @@
 package fu.swp.dorm_mnm.dto.base;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import fu.swp.dorm_mnm.model.Manager;
 import fu.swp.dorm_mnm.model.Payment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 @NoArgsConstructor
 @Getter
@@ -21,6 +22,9 @@ public class PaymentDto {
     private String updatedAt;
     private Long bedRequestId;
     private String status;
+    private String managerName;
+    private String studentRollNumber;
+
     public String vnp_OrderInfo = "Parrot";
     public String vnp_OrderType = "200000";
     public String vnp_TxnRef;
@@ -31,10 +35,15 @@ public class PaymentDto {
         this.paymentId = payment.getPaymentId();
         this.managerId = payment.getManager() != null ? payment.getManager().getManagerId() : null;
         this.studentId = payment.getStudent().getStudentId();
+        this.studentRollNumber = payment.getStudent().getRollNumber();
         this.bedRequestId = payment.getBedRequest().getBedRequestId();
         this.amount = payment.getAmount();
         this.createdAt = df.format(payment.getCreatedAt());
         this.updatedAt = df.format(payment.getUpdatedAt());
+
+        Manager manager = payment.getManager();
+        this.managerName = manager != null ? manager.getUser().getFullName() : null;
+
         this.setStatus(payment.getStatus());
     }
 }

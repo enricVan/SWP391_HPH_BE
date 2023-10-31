@@ -42,17 +42,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // @GetMapping
-    // @PreAuthorize("hasAuthority('user:read')")
-    // public ResponseEntity<List<UserDto>> getAllUser() {
-    // List<User> userList = userRepository.findAll();
-    // List<UserDto> userDtos = new ArrayList<>();
-    // for (User user : userList) {
-    // userDtos.add(new UserDto(user));
-    // }
-    // return new ResponseEntity<>(userDtos, HttpStatus.OK);
-    // }
-
     @GetMapping
     @PreAuthorize("hasAuthority('user:read')")
     public ResponseEntity<PageDto<UserDto>> getAllUser(

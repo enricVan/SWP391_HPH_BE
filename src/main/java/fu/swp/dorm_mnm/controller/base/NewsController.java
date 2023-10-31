@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.controller.base;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -11,9 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import fu.swp.dorm_mnm.model.News;
 import fu.swp.dorm_mnm.service.base.NewsService;
@@ -54,5 +57,12 @@ public class NewsController {
         return newsOptional.map(newsRequest -> new ResponseEntity<>(newsRequest, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    // @PostMapping
+    // @PreAuthorize("hasAuthority('news:create')")
+    // public ResponseEntity<String> createNews(MultipartFile file) {
+    //     String resp = newsService.createNews(file);
+
+    // }
 
 }
