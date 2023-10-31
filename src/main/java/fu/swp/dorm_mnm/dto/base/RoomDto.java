@@ -29,7 +29,7 @@ public class RoomDto {
     public RoomDto(Room room) {
         this.id = room.getRoomId();
         this.roomName = room.getRoomName();
-        // this.roomPrice = room.getRoomPrice();
+//      this.roomPrice = room.getRoomPrice();
         this.floor = room.getFloor();
         this.createdAt = room.getCreatedAt().toString();
         this.updateAt = room.getUpdatedAt().toString();
