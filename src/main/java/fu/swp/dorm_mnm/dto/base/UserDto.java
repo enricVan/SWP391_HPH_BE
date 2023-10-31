@@ -26,6 +26,7 @@ public class UserDto {
     private String createdAt;
     private String updatedAt;
     private String studentRollNumber;
+    private String roleName;
     private Long roleId;
     private Long managerId;
     private Long guardId;
@@ -50,6 +51,7 @@ public class UserDto {
         this.phone = user.getPhone();
         this.address = user.getAddress();
         this.status = user.getStatus();
+        this.roleName = user.getRole().getName();
         this.createdAt = df.format(user.getCreatedAt());
         this.updatedAt = df.format(user.getUpdatedAt());
 

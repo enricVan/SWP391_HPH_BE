@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import java.util.Optional;
 
 public interface NewsService {
+    
     Optional<News> findById(Long id);
 
     News save(News news);
