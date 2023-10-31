@@ -77,8 +77,10 @@ public class AuthenticationService {
                         request.getPassword()));
         var user = repository.findByUsername(request.getUsername())
                 .orElseThrow();
+
         if (!user.getStatus().equalsIgnoreCase("active"))
             return null;
+
         var userdto = new UserDto(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);

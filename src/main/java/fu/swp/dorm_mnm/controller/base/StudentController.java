@@ -3,6 +3,8 @@ package fu.swp.dorm_mnm.controller.base;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.StudentDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.Student;
@@ -24,8 +28,6 @@ import fu.swp.dorm_mnm.service.base.StudentService;
 @RestController
 @RequestMapping("/student")
 public class StudentController {
-    @Autowired
-    private StudentRepository studentRepository;
 
     @Autowired
     private StudentService studentService;
@@ -52,8 +54,20 @@ public class StudentController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('student:read')")
-    public ResponseEntity<Iterable<Student>> getAllStudent() {
-        return new ResponseEntity<>(studentRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<PageDto<StudentDto>> getAllStudent(
+            @RequestParam(required = false) String rollNumber,
+            @RequestParam(required = false) Long buildingId,
+            @RequestParam(required = false) Long roomId,
+            @RequestParam(required = false) Integer floor,
+            @RequestParam(required = false) Long bedId,
+            @RequestParam(defaultValue = "0") int pageNo) {
+
+        Pageable pageable = PageRequest.of(pageNo, 8);
+
+        PageDto<StudentDto> resp = studentService.findAllByFilter(rollNumber, buildingId, roomId, floor, bedId,
+                pageable);
+
+        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
     // @GetMapping
