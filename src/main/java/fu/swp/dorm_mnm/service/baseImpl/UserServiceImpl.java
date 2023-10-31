@@ -1,7 +1,6 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +76,6 @@ public class UserServiceImpl implements UserService {
 
             LocalDateTime now = LocalDateTime.now();
             Timestamp sqlNow = Timestamp.valueOf(now);
-            // Date parsedDate = new SimpleDateFormat("yyyy/MM/dd").parse(userDto.);
-            // Timestamp timestamp = new Timestamp(parsedDate.getTime());
 
             User user = new User();
             user.setUsername(userDto.getUsername());

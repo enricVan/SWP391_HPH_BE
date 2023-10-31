@@ -24,6 +24,7 @@ public class StudentDto {
         this.rollNumber = student.getRollNumber();
         this.createdAt = student.getCreatedAt().toString();
         this.updateAt = student.getUpdatedAt().toString();
+        this.userDto = new UserDto(student.getUser());
     }
 
     public StudentDto(User user) {
@@ -32,8 +33,6 @@ public class StudentDto {
         this.rollNumber = student.getRollNumber();
         this.createdAt = student.getCreatedAt().toString();
         this.updateAt = student.getUpdatedAt().toString();
-        // UserDto userDto = new UserDto(user);
-        // this.userDto = userDto;
     }
 
 }

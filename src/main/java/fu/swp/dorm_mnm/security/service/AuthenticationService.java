@@ -77,6 +77,10 @@ public class AuthenticationService {
                         request.getPassword()));
         var user = repository.findByUsername(request.getUsername())
                 .orElseThrow();
+
+        if (!user.getStatus().equalsIgnoreCase("active"))
+            return null;
+
         var userdto = new UserDto(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
@@ -144,9 +148,9 @@ public class AuthenticationService {
         }
     }
 
-    public boolean changePassword(ChangePasswordDto changePasswordDto){
+    public boolean changePassword(ChangePasswordDto changePasswordDto) {
         var user = repository.findById(changePasswordDto.getUserid()).orElseThrow();
-        if(passwordEncoder.matches(changePasswordDto.getOldPassword(), user.getPassword())){
+        if (passwordEncoder.matches(changePasswordDto.getOldPassword(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
             repository.save(user);
             return true;
