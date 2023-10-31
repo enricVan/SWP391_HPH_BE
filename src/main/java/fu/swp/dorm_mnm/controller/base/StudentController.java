@@ -70,12 +70,6 @@ public class StudentController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
-    // @GetMapping
-    // @PreAuthorize("hasAuthority('student:read')")
-    // public ResponseEntity<Iterable<Student>> getAllStudent() {
-    // return new ResponseEntity<>(studentRepository.findAll(), HttpStatus.OK);
-    // }
-
     @GetMapping("/{rollNumber}")
     @PreAuthorize("hasAuthority('student:read')")
     public ResponseEntity<StudentDto> getStudentByRollNumber(@PathVariable(required = true) String rollNumber) {

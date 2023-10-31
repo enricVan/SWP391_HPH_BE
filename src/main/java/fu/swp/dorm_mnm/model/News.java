@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -49,8 +50,9 @@ public class News {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "image", columnDefinition = "TEXT")
-    private String image;
+    @Lob
+    @Column(name = "file_data", length = 1000)
+    private byte[] fileData;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")

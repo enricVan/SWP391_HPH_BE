@@ -21,8 +21,9 @@ import fu.swp.dorm_mnm.service.base.NewsService;
 @RestController
 @RequestMapping("/news")
 public class NewsController {
+
     @Autowired
-    NewsService newsService;
+    private NewsService newsService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('news:read')")
@@ -53,4 +54,5 @@ public class NewsController {
         return newsOptional.map(newsRequest -> new ResponseEntity<>(newsRequest, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
 }
