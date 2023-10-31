@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.User;
@@ -75,8 +77,8 @@ public class UserServiceImpl implements UserService {
 
             LocalDateTime now = LocalDateTime.now();
             Timestamp sqlNow = Timestamp.valueOf(now);
-            Date parsedDate = new SimpleDateFormat("yyyy/MM/dd").parse(dateString);
-            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+            // Date parsedDate = new SimpleDateFormat("yyyy/MM/dd").parse(userDto.);
+            // Timestamp timestamp = new Timestamp(parsedDate.getTime());
 
             User user = new User();
             user.setUsername(userDto.getUsername());
@@ -95,6 +97,22 @@ public class UserServiceImpl implements UserService {
             return new UserDto(userRepository.save(user));
         }
 
+    }
+
+    @Override
+    public PageDto<UserDto> getAllUser(Long roleId, String partialName, Pageable pageable) {
+        Page<User> page = userRepository.getAllUser(roleId, partialName, pageable);
+        List<User> users = page.getContent();
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user : users) {
+            userDtos.add(new UserDto(user));
+        }
+        PageDto<UserDto> pageDto = new PageDto<>();
+        pageDto.setData(userDtos);
+        pageDto.setCurrentPage(page.getNumber());
+        pageDto.setTotalPages(page.getTotalPages());
+        pageDto.setTotalItems(page.getTotalElements());
+        return pageDto;
     }
 
 }
