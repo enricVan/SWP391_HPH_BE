@@ -24,6 +24,7 @@ public class PaymentDto {
     private String status;
     private String managerName;
     private String studentRollNumber;
+    private String expirationDate;
 
     public String vnp_OrderInfo = "Parrot";
     public String vnp_OrderType = "200000";
@@ -38,6 +39,7 @@ public class PaymentDto {
         this.studentRollNumber = payment.getStudent().getRollNumber();
         this.bedRequestId = payment.getBedRequest().getBedRequestId();
         this.amount = payment.getAmount();
+        this.expirationDate = df.format(payment.getExpirationDate());
         this.createdAt = df.format(payment.getCreatedAt());
         this.updatedAt = df.format(payment.getUpdatedAt());
 

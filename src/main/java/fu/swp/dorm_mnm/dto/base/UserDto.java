@@ -3,8 +3,6 @@ package fu.swp.dorm_mnm.dto.base;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import fu.swp.dorm_mnm.model.Manager;
-import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

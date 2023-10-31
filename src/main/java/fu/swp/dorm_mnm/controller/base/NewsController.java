@@ -59,7 +59,7 @@ public class NewsController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<?> uploadImage(@RequestParam MultipartFile file,
             @RequestParam(required = true) Long managerId) throws IOException {
         String resp = newsService.createNews(file, managerId);
@@ -74,5 +74,7 @@ public class NewsController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(resp);
     }
+
+
 
 }

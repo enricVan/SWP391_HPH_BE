@@ -41,6 +41,16 @@ public class News {
     @JoinColumn(name = "manager_id", nullable = false)
     private Manager manager;
 
+    @Column(name = "file_name", length = 50)
+    private String fileName;
+
+    @Column(name = "file_type", length = 50)
+    private String fileType;
+
+    @Lob
+    @Column(name = "file_data", length = 100000)
+    private byte[] fileData;
+
     @Column(name = "category", length = 50)
     private String category;
 
@@ -49,10 +59,6 @@ public class News {
 
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
-
-    @Lob
-    @Column(name = "file_data", length = 100000)
-    private byte[] fileData;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")

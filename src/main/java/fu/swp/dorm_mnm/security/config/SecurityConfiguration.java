@@ -47,9 +47,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/health-check",
-                        "/news/**",
                         "/vpnpay/**",
-                        "/**",
                         "/auth/**",
                         "/admin/user/userdetails",
                         "/v2/api-docs",

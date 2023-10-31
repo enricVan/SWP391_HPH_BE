@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -62,8 +63,15 @@ public class User implements UserDetails {
     @Column(name = "address", length = 100)
     private String address;
 
-    @Column(name = "avatar_image", length = 300)
-    private String avatarImage;
+    @Column(name = "file_name", length = 50)
+    private String fileName;
+
+    @Column(name = "file_type", length = 50)
+    private String fileType;
+
+    @Lob
+    @Column(name = "file_data", length = 100000)
+    private byte[] fileData;
 
     @Column(name = "status", length = 50)
     private String status;
