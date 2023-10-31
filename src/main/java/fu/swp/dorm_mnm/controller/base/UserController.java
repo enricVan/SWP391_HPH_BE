@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
 import fu.swp.dorm_mnm.model.User;
@@ -38,15 +42,27 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // @GetMapping
+    // @PreAuthorize("hasAuthority('user:read')")
+    // public ResponseEntity<List<UserDto>> getAllUser() {
+    // List<User> userList = userRepository.findAll();
+    // List<UserDto> userDtos = new ArrayList<>();
+    // for (User user : userList) {
+    // userDtos.add(new UserDto(user));
+    // }
+    // return new ResponseEntity<>(userDtos, HttpStatus.OK);
+    // }
+
     @GetMapping
     @PreAuthorize("hasAuthority('user:read')")
-    public ResponseEntity<List<UserDto>> getAllUser() {
-        List<User> userList = userRepository.findAll();
-        List<UserDto> userDtos = new ArrayList<>();
-        for (User user : userList) {
-            userDtos.add(new UserDto(user));
-        }
-        return new ResponseEntity<>(userDtos, HttpStatus.OK);
+    public ResponseEntity<PageDto<UserDto>> getAllUser(
+            @RequestParam(required = false) String partialName,
+            @RequestParam(required = false) Long roleId,
+            @RequestParam(defaultValue = "0") int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 8);
+        PageDto<UserDto> pageDto = userService.getAllUser(roleId, partialName, pageable);
+        return new ResponseEntity<>(pageDto, HttpStatus.OK);
+
     }
 
     @PostMapping

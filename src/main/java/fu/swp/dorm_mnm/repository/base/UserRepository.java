@@ -27,4 +27,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findByUsernameContaining(String partialUsername, Pageable pageable);
 
+    @Query(value = "SELECT * FROM user \n" + //
+            "WHERE (:roleid is null or role_id = :roleid)\n" + //
+            "AND (:partialname is null or username like concat('%', :partialname, '%'))", nativeQuery = true)
+    Page<User> getAllUser(@Param("roleid")Long roleId, @Param("partialname")String partialUsername, Pageable pageable); 
 }
