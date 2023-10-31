@@ -1,11 +1,13 @@
 package fu.swp.dorm_mnm.service.base;
 
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.PaymentDto;
 import fu.swp.dorm_mnm.model.Payment;
-import org.springframework.data.domain.Pageable;
-
-import java.util.Optional;
 
 public interface PaymentService {
 
@@ -22,4 +24,7 @@ public interface PaymentService {
     public Payment checkPaymentBedRequest(Long id, Long managerId);
 
     public Payment unCheckPaymentBedRequest(Long id, Long managerId);
+
+    public PageDto<PaymentDto> getAllPaymentByFilter(String rollNumber, String status, Pageable pageable);
+
 }

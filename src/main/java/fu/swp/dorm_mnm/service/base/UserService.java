@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import fu.swp.dorm_mnm.dto.PageDto;
-import fu.swp.dorm_mnm.dto.base.BedRequestDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.User;
 

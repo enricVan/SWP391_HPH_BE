@@ -21,7 +21,6 @@ import fu.swp.dorm_mnm.dto.base.StudentDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.model.User;
-import fu.swp.dorm_mnm.repository.base.StudentRepository;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
 import fu.swp.dorm_mnm.service.base.StudentService;
 

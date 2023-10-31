@@ -1,12 +1,14 @@
 package fu.swp.dorm_mnm.dto.base;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import fu.swp.dorm_mnm.model.Manager;
+import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 @Getter
 @Setter
@@ -25,12 +27,16 @@ public class UserDto {
     private String status;
     private String createdAt;
     private String updatedAt;
-    private String studentRollNumber;
     private String roleName;
     private Long roleId;
+    private String studentRollNumber;
     private Long managerId;
     private Long guardId;
     private Long studentId;
+
+    private ManagerDto managerDto;
+    private GuardDto guardDto;
+    private StudentDto studentDto;
 
     public UserDto(User user) {
 

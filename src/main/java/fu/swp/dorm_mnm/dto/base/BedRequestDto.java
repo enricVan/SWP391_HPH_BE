@@ -22,6 +22,7 @@ public class BedRequestDto {
     private String createdAt;
     private String updatedAt;
     private String studentRollNumber;
+    private Long studentId;
     private Long floor;
 
     public BedRequestDto(BedRequest bedRequest) {
@@ -36,6 +37,7 @@ public class BedRequestDto {
         this.createdAt = bedRequest.getCreatedAt() != null ? df.format(bedRequest.getCreatedAt()) : null;
         this.updatedAt = bedRequest.getUpdatedAt() != null ? df.format(bedRequest.getUpdatedAt()) : null;
         this.floor = bedRequest.getBed() != null ? bedRequest.getBed().getRoom().getFloor() : null;
+        this.studentId = bedRequest.getStudent().getStudentId();
         this.bedName = bedRequest.getBed().getBedName();
         this.studentRollNumber = bedRequest.getStudent().getRollNumber();
     }

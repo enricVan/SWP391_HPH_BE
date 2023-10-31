@@ -29,7 +29,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
                "AND (:roomId IS NULL OR r.room_id = :roomId) \n" +
                "AND (:buildingId IS NULL OR b.building_id = :buildingId) \n" +
                "AND (:floor IS NULL OR r.floor = :floor) \n" +
-               "AND (:rollNumber IS NULL OR :rollNumber LIKE '' OR s.roll_number LIKE :rollNumber )", countQuery = "SELECT s.* FROM student s \n"
+               "AND (:rollNumber IS NULL OR :rollNumber LIKE '' OR s.roll_number LIKE :rollNumber )", countQuery = "SELECT COUNT(*) FROM student s \n"
                          +
                          "JOIN `user` u ON u.id = s.user_id \n" +
                          "LEFT JOIN bed be ON be.student_id = s.student_id \n" +

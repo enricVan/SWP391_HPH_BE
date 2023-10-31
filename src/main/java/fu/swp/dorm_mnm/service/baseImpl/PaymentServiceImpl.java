@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.PaymentDto;
+import fu.swp.dorm_mnm.dto.base.StudentDto;
 import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.model.Manager;
@@ -95,7 +96,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         if (payOptional.isPresent() && managerOptional.isPresent()) {
 
-             Payment pay = payOptional.get();
+            Payment pay = payOptional.get();
             if (pay.getExpirationDate().before(sqlNow)) // check expiration date
                 return null;
             pay.setManager(managerOptional.get());
@@ -151,4 +152,24 @@ public class PaymentServiceImpl implements PaymentService {
         }
         return null;
     }
+
+    @Override
+    public PageDto<PaymentDto> getAllPaymentByFilter(String rollNumber, String status, Pageable pageable) {
+        Page<Payment> page = paymentRepository.getAllStudentByFilter(rollNumber, status, pageable);
+
+        List<PaymentDto> paymentDtoList = new ArrayList<>();
+
+        for (Payment payment : page.getContent()) {
+            paymentDtoList.add(new PaymentDto(payment));
+        }
+
+        PageDto<PaymentDto> pageDto = new PageDto<>();
+        pageDto.setData(paymentDtoList);
+        pageDto.setTotalPages(page.getTotalPages());
+        pageDto.setTotalItems(page.getTotalElements());
+        pageDto.setCurrentPage(page.getNumber());
+
+        return pageDto;
+    }
+
 }
