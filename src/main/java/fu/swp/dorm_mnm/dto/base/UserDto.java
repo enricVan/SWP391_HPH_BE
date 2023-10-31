@@ -51,7 +51,7 @@ public class UserDto {
         this.phone = user.getPhone();
         this.address = user.getAddress();
         this.status = user.getStatus();
-        this.setRoleName(user.getRole().getName());
+        this.roleName = user.getRole().getName();
         this.createdAt = df.format(user.getCreatedAt());
         this.updatedAt = df.format(user.getUpdatedAt());
 
