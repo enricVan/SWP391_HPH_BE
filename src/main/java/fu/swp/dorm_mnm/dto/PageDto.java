@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PageDto<T> {
+    
     private int currentPage;
     private Long totalItems;
     private int totalPages;

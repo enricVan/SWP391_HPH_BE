@@ -38,25 +38,21 @@ public class BedRequest {
 
     @JsonIgnore
     @OneToOne(mappedBy = "bedRequest", targetEntity = Payment.class)
-    // @JsonManagedReference
     private Payment payment;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "bed_id")
-    // @JsonManagedReference
     private Bed bed;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
-    // @JsonBackReference
     private Student student;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "semester_id")
-    // @JsonBackReference
     private Semester semester;
 
     @Column(name = "status", length = 20)
@@ -70,5 +66,4 @@ public class BedRequest {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    // Constructors, getters, and setters
 }

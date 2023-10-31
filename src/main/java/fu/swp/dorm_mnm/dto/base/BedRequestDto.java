@@ -24,6 +24,7 @@ public class BedRequestDto {
     private String studentRollNumber;
     private Long studentId;
     private Long floor;
+    
 
     public BedRequestDto(BedRequest bedRequest) {
         String pattern = "dd/MM/yyyy HH:mm:ss";

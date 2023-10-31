@@ -1,5 +1,8 @@
 package fu.swp.dorm_mnm.dto.base;
 
+import java.util.List;
+
+import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.Room;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +23,7 @@ public class RoomDto {
     private String buildingName;
     private String createdAt;
     private String updateAt;
+    private Integer numberOfAvailableBeds;
 
     public RoomDto(Room room) {
         this.id = room.getRoomId();
@@ -32,6 +36,17 @@ public class RoomDto {
         this.buildingName = room.getBuilding() != null ? room.getBuilding().getBuildingName() : null;
         this.roomTypeId = room.getRoomType() != null ? room.getRoomType().getRoomTypeId() : null;
         this.roomTypeName = room.getRoomType() != null ? room.getRoomType().getRoomTypeName() : null;
+
+        Integer numBedLeft = 0;
+        List<Bed> bedLeft = room.getBeds();
+        if (bedLeft != null) {
+            for (Bed b : bedLeft) {
+                if (b.getStatus().equalsIgnoreCase("vacant")) {
+                    numBedLeft++;
+                }
+            }
+        }
+        this.numberOfAvailableBeds = numBedLeft;
     }
 
 }

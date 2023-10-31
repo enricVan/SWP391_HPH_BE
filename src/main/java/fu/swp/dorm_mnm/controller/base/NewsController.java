@@ -14,11 +14,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import fu.swp.dorm_mnm.dto.base.NewsDto;
 import fu.swp.dorm_mnm.model.News;
 import fu.swp.dorm_mnm.service.base.NewsService;
 
@@ -59,22 +61,20 @@ public class NewsController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/")
-    public ResponseEntity<?> uploadImage(@RequestParam MultipartFile file,
-            @RequestParam(required = true) Long managerId) throws IOException {
-        String resp = newsService.createNews(file, managerId);
+    @PostMapping
+    public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file,
+            @RequestBody NewsDto newDto) throws IOException {
+        String resp = newsService.save(file, newDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(resp);
     }
 
-    @GetMapping("/{newsId}")
-    public ResponseEntity<?> downloadImage(@PathVariable Long newsId) {
-        byte[] resp = newsService.downloadImage(newsId);
+    @GetMapping("/file/{newsId}")
+    public ResponseEntity<?> downloadFile(@PathVariable Long newsId) {
+        byte[] resp = newsService.downloadFile(newsId);
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(resp);
     }
-
-
 
 }
