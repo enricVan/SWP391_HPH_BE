@@ -7,6 +7,7 @@ import fu.swp.dorm_mnm.dto.base.BuildingDto;
 import fu.swp.dorm_mnm.model.Building;
 
 public interface BuildingService {
+    
     public List<Building> findAll();
 
     public Optional<Building> findById(Long id);

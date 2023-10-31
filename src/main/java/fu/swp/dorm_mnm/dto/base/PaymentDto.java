@@ -21,6 +21,9 @@ public class PaymentDto {
     private String updatedAt;
     private Long bedRequestId;
     private String status;
+    public String vnp_OrderInfo = "Parrot";
+    public String vnp_OrderType = "200000";
+    public String vnp_TxnRef;
 
     public PaymentDto(Payment payment) {
         String pattern = "dd/MM/yyyy HH:mm:ss";
