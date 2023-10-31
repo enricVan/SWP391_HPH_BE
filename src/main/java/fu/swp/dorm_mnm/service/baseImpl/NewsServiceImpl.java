@@ -1,6 +1,5 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import fu.swp.dorm_mnm.model.Manager;
 import fu.swp.dorm_mnm.model.News;
+import fu.swp.dorm_mnm.repository.base.ManagerRepository;
 import fu.swp.dorm_mnm.repository.base.NewsRepository;
 import fu.swp.dorm_mnm.service.base.NewsService;
 import fu.swp.dorm_mnm.util.ImageUtil;
@@ -21,6 +22,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsRepository newsRepository;
+
+    @Autowired
+    private ManagerRepository managerRepository;
 
     @Override
     public Optional<News> findById(Long id) {
@@ -50,12 +54,14 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public String createNews(MultipartFile file) {
+    public String createNews(MultipartFile file, Long managerId) {
 
         try {
+            Optional<Manager> manager = managerRepository.findById(managerId);
             News news = newsRepository.save(News.builder()
                     .title(file.getOriginalFilename())
                     .category(file.getContentType())
+                    .manager(manager.get())
                     .fileData(ImageUtil.compressImage(file.getBytes())).build());
             if (news != null) {
                 return "file uploaded successfully : " + file.getOriginalFilename();
@@ -66,6 +72,7 @@ public class NewsServiceImpl implements NewsService {
         }
     }
 
+    @Override
     public byte[] downloadImage(Long newsId) {
         Optional<News> news = newsRepository.findById(newsId);
         byte[] fileData = ImageUtil.decompressImage(news.get().getFileData());

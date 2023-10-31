@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,11 +59,20 @@ public class NewsController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // @PostMapping
-    // @PreAuthorize("hasAuthority('news:create')")
-    // public ResponseEntity<String> createNews(MultipartFile file) {
-    //     String resp = newsService.createNews(file);
+    @PostMapping
+    public ResponseEntity<?> uploadImage(@RequestParam MultipartFile file,
+            @RequestParam(required = true) Long managerId) throws IOException {
+        String resp = newsService.createNews(file, managerId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(resp);
+    }
 
-    // }
+    @GetMapping("/{newsId}")
+    public ResponseEntity<?> downloadImage(@PathVariable Long newsId) {
+        byte[] resp = newsService.downloadImage(newsId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(resp);
+    }
 
 }

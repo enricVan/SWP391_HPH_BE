@@ -21,7 +21,6 @@ public class ImageUtil {
         try {
             outputStream.close();
         } catch (Exception ignored) {
-
         }
         return outputStream.toByteArray();
     }

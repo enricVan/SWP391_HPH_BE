@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.PaymentDto;
-import fu.swp.dorm_mnm.dto.base.StudentDto;
 import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.model.Manager;

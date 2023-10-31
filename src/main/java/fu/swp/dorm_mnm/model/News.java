@@ -51,7 +51,7 @@ public class News {
     private String content;
 
     @Lob
-    @Column(name = "file_data", length = 1000)
+    @Column(name = "file_data", length = 100000)
     private byte[] fileData;
 
     @Temporal(TemporalType.TIMESTAMP)

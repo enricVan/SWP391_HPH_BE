@@ -1,10 +1,11 @@
 package fu.swp.dorm_mnm.service.base;
 
-import fu.swp.dorm_mnm.model.News;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Optional;
+import fu.swp.dorm_mnm.model.News;
 
 public interface NewsService {
 
@@ -18,5 +19,7 @@ public interface NewsService {
 
     Page<News> findAllByTitle(String title, int pageNo);
 
-    public String createNews(MultipartFile file);
+    public String createNews(MultipartFile file, Long mangerId);
+
+    public byte[] downloadImage(Long newsId);
 }

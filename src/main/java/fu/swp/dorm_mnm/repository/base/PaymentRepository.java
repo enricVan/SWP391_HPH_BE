@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import fu.swp.dorm_mnm.model.Payment;
-import fu.swp.dorm_mnm.model.Student;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {

@@ -14,12 +14,14 @@ public class BedDto {
     private String status;
     private Long roomId;
     private Long studentId;
+    private String rollNumber;
 
     public BedDto(Bed bed) {
         this.id = bed.getBedId();
         this.bedName = bed.getBedName();
         this.status = bed.getStatus();
         this.roomId = bed.getRoom().getRoomId();
+        this.rollNumber = bed.getStudent() != null ? bed.getStudent().getRollNumber() : null;
         this.studentId = bed.getStudent() != null ? bed.getStudent().getStudentId() : null;
     }
 
