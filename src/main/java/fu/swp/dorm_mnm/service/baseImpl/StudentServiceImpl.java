@@ -78,4 +78,10 @@ public class StudentServiceImpl implements StudentService {
 
         return pageDto;
     }
+
+    @Override
+    public StudentDto save(StudentDto studentDto) {
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
 }

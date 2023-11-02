@@ -1,16 +1,13 @@
 package fu.swp.dorm_mnm.controller.base;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -51,7 +48,6 @@ public class UserController {
         Pageable pageable = PageRequest.of(pageNo, 8);
         PageDto<UserDto> pageDto = userService.getAllUser(roleId, partialName, pageable);
         return new ResponseEntity<>(pageDto, HttpStatus.OK);
-
     }
 
     @PostMapping

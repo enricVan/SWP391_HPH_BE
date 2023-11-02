@@ -14,8 +14,11 @@ import lombok.Setter;
 public class UserDto {
 
     private Long id;
+
     private String username;
-    private String password;
+    private String password; // maybe ko co
+    private Long roleId;
+
     private String fullName;
     private String email;
     private String gender;
@@ -26,8 +29,8 @@ public class UserDto {
     private String createdAt;
     private String updatedAt;
     private String roleName;
-    private Long roleId;
     private String studentRollNumber;
+
     private Long managerId;
     private Long guardId;
     private Long studentId;
@@ -60,6 +63,7 @@ public class UserDto {
         this.updatedAt = df.format(user.getUpdatedAt());
 
         this.studentRollNumber = user.getStudent() != null ? user.getStudent().getRollNumber() : null;
+        
         this.managerId = user.getManager() != null ? user.getManager().getManagerId() : null;
         this.guardId = user.getGuard() != null ? user.getGuard().getGuardId() : null;
         this.studentId = user.getStudent() != null ? user.getStudent().getStudentId() : null;

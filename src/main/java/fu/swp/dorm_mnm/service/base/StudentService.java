@@ -16,6 +16,8 @@ public interface StudentService {
 
     public Student save(Student student);
 
+    public StudentDto save(StudentDto studentDto);
+
     public void remove(Long id);
 
     public Optional<Student> findByUserId(Long id);

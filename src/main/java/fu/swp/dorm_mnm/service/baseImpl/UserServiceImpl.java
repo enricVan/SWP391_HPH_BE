@@ -12,12 +12,20 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fu.swp.dorm_mnm.dto.PageDto;
+import fu.swp.dorm_mnm.dto.base.StudentDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
+import fu.swp.dorm_mnm.model.Guard;
+import fu.swp.dorm_mnm.model.Manager;
 import fu.swp.dorm_mnm.model.Role;
+import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.model.User;
+import fu.swp.dorm_mnm.repository.base.GuardRepository;
+import fu.swp.dorm_mnm.repository.base.ManagerRepository;
 import fu.swp.dorm_mnm.repository.base.RoleRepository;
+import fu.swp.dorm_mnm.repository.base.StudentRepository;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
 import fu.swp.dorm_mnm.service.base.UserService;
 
@@ -29,6 +37,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private ManagerRepository managerRepository;
+
+    @Autowired
+    private GuardRepository guardRepository;
 
     @Override
     public Optional<User> findById(Long id) {
@@ -64,14 +81,18 @@ public class UserServiceImpl implements UserService {
         return udtos;
     }
 
+    @Transactional
     @Override
     public UserDto createUser(UserDto userDto) {
 
         Optional<Role> roleOptional = roleRepository.findById(userDto.getRoleId());
 
-        if (userDto.getUsername().isEmpty() || userDto.getPassword().isEmpty() || !roleOptional.isPresent())
+        if (userDto.getUsername().isEmpty() || !roleOptional.isPresent())
             return null;
         else {
+            if (userDto.getPassword().isEmpty()) {
+                // gen pass -> send mail 
+            }
 
             LocalDateTime now = LocalDateTime.now();
             Timestamp sqlNow = Timestamp.valueOf(now);
@@ -90,9 +111,50 @@ public class UserServiceImpl implements UserService {
             user.setPhone(userDto.getPhone());
             user.setStatus("active");
 
-            return new UserDto(userRepository.save(user));
-        }
+            String roleName = roleOptional.get().getName().toUpperCase();
 
+            if (roleName.equals("ADMIN")) {
+
+                User userDb = userRepository.save(user);
+                return new UserDto(userDb);
+
+            } else if (roleName.equals("STUDENT")) {
+
+                Student s = new Student();
+                StudentDto sdto = userDto.getStudentDto();
+                s.setRollNumber(sdto.getRollNumber());
+                s.setParentName(sdto.getParentName());
+                s.setCreatedAt(sqlNow);
+                s.setUpdatedAt(sqlNow);
+                user.setStudent(s);
+                User userDb = userRepository.save(user);
+                // studentRepository.save(s);
+                return new UserDto(userDb);
+
+            } else if (roleName.equals("MANAGER")) {
+
+                User userDb = userRepository.save(user);
+                Manager m = new Manager();
+                m.setCreatedAt(sqlNow);
+                m.setUpdatedAt(sqlNow);
+                m.setUser(userDb);
+                managerRepository.save(m);
+                return new UserDto(userDb);
+
+            } else if (roleName.equals("GUARD")) {
+
+                User userDb = userRepository.save(user);
+                Guard g = new Guard();
+                g.setCreatedAt(sqlNow);
+                g.setUpdatedAt(sqlNow);
+                g.setUser(userDb);
+                guardRepository.save(g);
+                return new UserDto(userDb);
+
+            } else {
+                return null;
+            }
+        }
     }
 
     @Override

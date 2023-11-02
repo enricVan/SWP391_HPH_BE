@@ -18,7 +18,7 @@ import fu.swp.dorm_mnm.model.News;
 import fu.swp.dorm_mnm.repository.base.ManagerRepository;
 import fu.swp.dorm_mnm.repository.base.NewsRepository;
 import fu.swp.dorm_mnm.service.base.NewsService;
-import fu.swp.dorm_mnm.util.ImageUtil;
+import fu.swp.dorm_mnm.util.FileUtil;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -74,7 +74,7 @@ public class NewsServiceImpl implements NewsService {
                     .createdAt(sqlNow)
                     .updatedAt(sqlNow)
                     .manager(manager.get())
-                    .fileData(ImageUtil.compressImage(file.getBytes())).build());
+                    .fileData(FileUtil.compressImage(file.getBytes())).build());
             if (news != null) {
                 return "file uploaded successfully : " + file.getOriginalFilename();
             }
@@ -87,7 +87,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public byte[] downloadFile(Long newsId) {
         Optional<News> news = newsRepository.findById(newsId);
-        byte[] fileData = ImageUtil.decompressImage(news.get().getFileData());
+        byte[] fileData = FileUtil.decompressImage(news.get().getFileData());
         return fileData;
     }
 

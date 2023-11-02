@@ -23,6 +23,7 @@ public class StudentDto {
     private String buildingName;
     private String roomTypeName;
     private Integer floor;
+    private Long userId;
     private UserDto userDto;
 
     public StudentDto(Student student) {
@@ -40,7 +41,6 @@ public class StudentDto {
             this.buildingName = room.getBuilding().getBuildingName();
             this.roomTypeName = room.getRoomType().getRoomTypeName();
         }
-
         this.userDto = new UserDto(student.getUser());
     }
 
