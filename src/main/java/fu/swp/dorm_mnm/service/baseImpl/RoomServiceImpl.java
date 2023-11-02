@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.RoomDto;
 import fu.swp.dorm_mnm.model.Building;
 import fu.swp.dorm_mnm.model.Room;
@@ -39,8 +42,14 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> findAll() {
-        return roomRepository.findAll();
+    public PageDto<Room> findAll(Pageable pageable) {
+        PageDto<Room> pageDtoRoom = new PageDto<>();
+        Page<Room> page = roomRepository.findAll(pageable);
+        pageDtoRoom.setData(page.getContent());
+        pageDtoRoom.setCurrentPage(page.getNumber());
+        pageDtoRoom.setTotalItems(page.getTotalElements());
+        pageDtoRoom.setTotalPages(page.getTotalPages());
+        return pageDtoRoom;
     }
 
     @Override

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.BedDto;
+import fu.swp.dorm_mnm.dto.base.BedRequestDto;
 import fu.swp.dorm_mnm.dto.base.RoomDto;
 import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.Building;
@@ -131,6 +135,14 @@ public class RoomController {
             return new ResponseEntity<>(resp, HttpStatus.OK);
         } else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/view")
+    @PreAuthorize("hasAuthority('room:read')")
+    public ResponseEntity<PageDto<Room>> getAllRoom(@RequestParam(defaultValue = "0") int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 8);
+        PageDto<Room> pageDto = roomService.findAll(pageable);
+        return new ResponseEntity<>(pageDto, HttpStatus.OK);
     }
 
 }
