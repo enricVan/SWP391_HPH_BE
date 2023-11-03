@@ -2,6 +2,7 @@ package fu.swp.dorm_mnm.service.baseImpl;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.RoomDto;
+import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.Building;
 import fu.swp.dorm_mnm.model.Room;
 import fu.swp.dorm_mnm.model.RoomType;
+import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.base.BuildingRepository;
 import fu.swp.dorm_mnm.repository.base.RoomRepository;
 import fu.swp.dorm_mnm.repository.base.RoomTypeRepository;
@@ -37,7 +40,7 @@ public class RoomServiceImpl implements RoomService {
         RoomType roomType = roomTypeRepository.findById(roomDto.getRoomTypeId()).get();
         Building building = buildingRepository.findById(roomDto.getBuildingId()).get();
         Room room = new Room();
-        
+
         return room;
     }
 
@@ -89,6 +92,25 @@ public class RoomServiceImpl implements RoomService {
         room.setRoomType(roomTypeRepository.findById(rdto.getRoomTypeId()).get());
 
         return new RoomDto(roomRepository.save(room));
+    }
+
+    @Override
+    public PageDto<RoomDto> getRoomDtoByParam(Long roomTypeId, Long buildingId, Integer floor, String status,
+            Pageable pageable) {
+
+        Page<Room> page = roomRepository.getRoomPageByParam(roomTypeId, buildingId, floor, status, pageable);
+
+        List<Room> rooms = page.getContent();
+        List<RoomDto> roomDtos = new ArrayList<>();
+        for (Room r : rooms) {
+            roomDtos.add(new RoomDto(r));
+        }
+        PageDto<RoomDto> pageDto = new PageDto<>();
+        pageDto.setData(roomDtos);
+        pageDto.setCurrentPage(page.getNumber());
+        pageDto.setTotalPages(page.getTotalPages());
+        pageDto.setTotalItems(page.getTotalElements());
+        return pageDto;
     }
 
 }

@@ -88,24 +88,17 @@ public class RoomController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('room:read')")
-    public ResponseEntity<List<RoomDto>> getRoomsByParameters(
+    public ResponseEntity<PageDto<RoomDto>> getRoomsByParameters(
             @RequestParam(required = false) Long buildingId,
             @RequestParam(required = false) Long roomTypeId,
             @RequestParam(required = false) Integer floor,
-            @RequestParam(required = false) String status) {
+            @RequestParam(required = false) String status,
+            @RequestParam(defaultValue = "0") int pageNo) {
 
-        List<Room> roomList = roomService.getRoomsByRoomTypeIdBuildingIdFloorStatus(roomTypeId, buildingId, floor,
-                status);
+        Pageable pageable = PageRequest.of(pageNo, 4);
+        PageDto<RoomDto> page = roomService.getRoomDtoByParam(roomTypeId, buildingId, floor, status, pageable);
 
-        List<RoomDto> roomDtoList = new ArrayList<>();
-
-        for (Room r : roomList) {
-            RoomDto rdto = new RoomDto(r);
-            roomDtoList.add(rdto);
-        }
-
-        return !roomDtoList.isEmpty() ? new ResponseEntity<>(roomDtoList, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
     @PostMapping("/add-rooms")
