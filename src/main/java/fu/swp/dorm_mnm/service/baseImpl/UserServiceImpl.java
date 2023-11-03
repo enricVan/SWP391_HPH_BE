@@ -39,9 +39,6 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
 
     @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
     private ManagerRepository managerRepository;
 
     @Autowired
@@ -91,7 +88,7 @@ public class UserServiceImpl implements UserService {
             return null;
         else {
             if (userDto.getPassword().isEmpty()) {
-                // gen pass -> send mail 
+                // gen pass -> send mail
             }
 
             LocalDateTime now = LocalDateTime.now();

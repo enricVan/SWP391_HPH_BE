@@ -3,7 +3,6 @@ package fu.swp.dorm_mnm.service.base;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import fu.swp.dorm_mnm.dto.PageDto;
@@ -26,4 +25,7 @@ public interface RoomService {
 
     public List<Room> getRoomsByRoomTypeIdBuildingIdFloorStatus(Long roomTypeId, Long buildingId, Integer Floor,
             String status);
+
+    public PageDto<RoomDto> getRoomDtoByParam(Long roomTypeId, Long buildingId, Integer Floor,
+            String status, Pageable pageable);
 }

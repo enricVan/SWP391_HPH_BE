@@ -2,6 +2,8 @@ package fu.swp.dorm_mnm.repository.base;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,4 +32,25 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
         public List<Room> getRoomsByRoomTypeIdBuildingIdFloorStatus(@Param("roomTypeId") Long roomTypeId,
                         @Param("buildingId") Long buildingId, @Param("floor") Integer floor,
                         @Param("status") String status);
+
+        @Query(value = "SELECT r.* FROM room r " +
+                        "JOIN building b ON b.building_id = r.building_id " +
+                        "JOIN room_type rt ON rt.room_type_id = r.room_type_id  " +
+                        "JOIN bed be ON r.room_id = be.room_id " +
+                        "WHERE (:buildingId is NULL or b.building_id = :buildingId) " +
+                        "AND (:roomTypeId is NULL or rt.room_type_id = :roomTypeId) " +
+                        "AND (:floor is NULL or r.floor = :floor) " +
+                        "AND (:status is NULL or :status LIKE '' or be.`status` = :status) " +
+                        "GROUP BY r.room_id;", countQuery = "SELECT COUNT(*) FROM room r " +
+                                        "JOIN building b ON b.building_id = r.building_id " +
+                                        "JOIN room_type rt ON rt.room_type_id = r.room_type_id  " +
+                                        "JOIN bed be ON r.room_id = be.room_id " +
+                                        "WHERE (:buildingId is NULL or b.building_id = :buildingId) " +
+                                        "AND (:roomTypeId is NULL or rt.room_type_id = :roomTypeId) " +
+                                        "AND (:floor is NULL or r.floor = :floor) " +
+                                        "AND (:status is NULL or :status LIKE '' or be.`status` = :status) " +
+                                        "GROUP BY r.room_id;", nativeQuery = true)
+        public Page<Room> getRoomPageByParam(@Param("roomTypeId") Long roomTypeId,
+                        @Param("buildingId") Long buildingId, @Param("floor") Integer floor,
+                        @Param("status") String status, Pageable pageable);
 }
