@@ -95,7 +95,7 @@ public class RoomController {
             @RequestParam(required = false) String status,
             @RequestParam(defaultValue = "0") int pageNo) {
 
-        Pageable pageable = PageRequest.of(pageNo, 4);
+        Pageable pageable = PageRequest.of(pageNo, 6);
         PageDto<RoomDto> page = roomService.getRoomDtoByParam(roomTypeId, buildingId, floor, status, pageable);
 
         return new ResponseEntity<>(page, HttpStatus.OK);
