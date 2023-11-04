@@ -1,5 +1,7 @@
 package fu.swp.dorm_mnm.dto.base;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import fu.swp.dorm_mnm.model.Building;
@@ -19,11 +21,14 @@ public class BuildingDto {
     private List<Integer> floors;
 
     public BuildingDto(Building b) {
+        String pattern = "dd/MM/yyyy HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+
         this.id = b.getBuildingId();
         this.buildingName = b.getBuildingName();
         this.numberFloor = b.getNumberFloor();
-        this.createdAt = b.getCreatedAt().toString();
-        this.updateAt = b.getUpdatedAt().toString();
+        this.createdAt = df.format(b.getCreatedAt());
+        this.updateAt = df.format(b.getUpdatedAt());
     }
 
 }

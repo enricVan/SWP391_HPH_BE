@@ -52,6 +52,19 @@ public class BuildingController {
         return new ResponseEntity<>(buildingRepository.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/admin")
+    @PreAuthorize("hasAuthority('building:read')")
+    public ResponseEntity<List<BuildingDto>> getAllBuildingsForAdmin() {
+        List<Building> buildings = buildingService.findAll();
+        List<BuildingDto> buildingDtos = new ArrayList<>();
+
+        for (Building b:
+             buildings) {
+            buildingDtos.add(new BuildingDto(b));
+        }
+        return new ResponseEntity<>(buildingDtos, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('building:read')")
     public ResponseEntity<BuildingDto> getBuildingById(@PathVariable Long id) {
