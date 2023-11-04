@@ -20,8 +20,8 @@ application:
         expiration: 604800000 # 7 days
 
 mail:
-  username: nguyenquangloi2704@gmail.com
-  password: ceyknqpiwkmudedw
+  username: 10diemswp391@gmail.com
+  password: eupaosqodtocfdzp
   host: smtp.gmail.com
   port: 587
 

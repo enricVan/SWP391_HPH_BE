@@ -6,6 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fu.swp.dorm_mnm.dto.ChangePasswordDto;
+import fu.swp.dorm_mnm.dto.ForgetPasswordDto;
 import fu.swp.dorm_mnm.model.Role;
+import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.base.RoleRepository;
 import fu.swp.dorm_mnm.security.auth.AuthenticationRequest;
 import fu.swp.dorm_mnm.security.auth.AuthenticationResponse;
@@ -30,7 +36,6 @@ public class AuthenticationController {
 
     @Autowired
     private final AuthenticationService authenticationService;
-
 
     @Autowired
     private final RoleRepository roleRepository;
@@ -101,9 +106,9 @@ public class AuthenticationController {
     }
 
     @PutMapping("/change-password")
+    // @PreAuthorize("hasAuthority('change-password')")
     public ResponseEntity<String> changePassword(
             @RequestBody ChangePasswordDto changePasswordDto) {
-        // String response = authenticationService.authenticate(authenticationRequest);
         boolean change = authenticationService.changePassword(changePasswordDto);
         if (!change) {
             return ResponseEntity.badRequest().body("Incorrect Password!");
@@ -111,5 +116,15 @@ public class AuthenticationController {
         return ResponseEntity.ok("Change Password Successfully!");
     }
 
+    @PutMapping("/forget-password")
+    public ResponseEntity<String> forgetPassword(
+            @RequestBody ForgetPasswordDto forgetPasswordDto) {
+        // String response = authenticationService.authenticate(authenticationRequest);
+        boolean change = authenticationService.forgetPassword(forgetPasswordDto);
+        if (!change) {
+            return ResponseEntity.badRequest().body("Incorrect Password!");
+        }
+        return ResponseEntity.ok("Change Password Successfully!");
+    }
 
 }
