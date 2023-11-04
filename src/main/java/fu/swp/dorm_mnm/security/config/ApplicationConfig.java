@@ -7,16 +7,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
 
 @Configuration
 @RequiredArgsConstructor
-public class ApplicationConfig {
+public class ApplicationConfig implements UserDetailsService {
 
   private final UserRepository repository;
 
@@ -42,6 +44,14 @@ public class ApplicationConfig {
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) {
+    User user = repository.findByUsername(username)
+        .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+
+    return user;
   }
 
 }

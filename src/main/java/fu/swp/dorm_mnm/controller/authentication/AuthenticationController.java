@@ -105,17 +105,6 @@ public class AuthenticationController {
         return ResponseEntity.ok().body(registerRequests);
     }
 
-    @PutMapping("/change-password")
-    // @PreAuthorize("hasAuthority('change-password')")
-    public ResponseEntity<String> changePassword(
-            @RequestBody ChangePasswordDto changePasswordDto) {
-        boolean change = authenticationService.changePassword(changePasswordDto);
-        if (!change) {
-            return ResponseEntity.badRequest().body("Incorrect Password!");
-        }
-        return ResponseEntity.ok("Change Password Successfully!");
-    }
-
     @PutMapping("/forget-password")
     public ResponseEntity<String> forgetPassword(
             @RequestBody ForgetPasswordDto forgetPasswordDto) {
