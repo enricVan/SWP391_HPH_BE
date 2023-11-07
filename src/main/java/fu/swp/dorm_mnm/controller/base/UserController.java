@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
@@ -48,14 +51,6 @@ public class UserController {
         Pageable pageable = PageRequest.of(pageNo, 8);
         PageDto<UserDto> pageDto = userService.getAllUser(roleId, partialName, pageable);
         return new ResponseEntity<>(pageDto, HttpStatus.OK);
-    }
-
-    @PostMapping
-    @PreAuthorize("hasAuthority('user:create')")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        UserDto resp = userService.createUser(userDto);
-        return resp != null ? new ResponseEntity<>(resp, HttpStatus.CREATED)
-                : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/userdetails")
@@ -101,4 +96,25 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{userId}/user-pic")
+    @PreAuthorize("hasAuthority('user:read')")
+    public ResponseEntity<?> getUserImage(@PathVariable Long userId) {
+        byte[] resp = userService.getUserImage(userId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(resp);
+        // return ResponseEntity.ok("Hello");
+    }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('user:create')")
+    public ResponseEntity<?> createUser(
+            @RequestPart("userDto") UserDto userDto,
+            @RequestPart("file") MultipartFile userImage) {
+
+        UserDto resp = userService.save(userImage, userDto);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(resp);
+    }
 }

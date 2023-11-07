@@ -39,6 +39,8 @@ public class UserDto {
     private GuardDto guardDto;
     private StudentDto studentDto;
 
+    private String message;
+
     public UserDto(User user) {
 
         String pattern = "dd/MM/yyyy HH:mm:ss";
@@ -63,7 +65,7 @@ public class UserDto {
         this.updatedAt = df.format(user.getUpdatedAt());
 
         this.studentRollNumber = user.getStudent() != null ? user.getStudent().getRollNumber() : null;
-        
+
         this.managerId = user.getManager() != null ? user.getManager().getManagerId() : null;
         this.guardId = user.getGuard() != null ? user.getGuard().getGuardId() : null;
         this.studentId = user.getStudent() != null ? user.getStudent().getStudentId() : null;

@@ -15,20 +15,23 @@ import fu.swp.dorm_mnm.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query(value = "SELECT u.* FROM `user` u " +
-            "JOIN `role` r " +
-            "ON u.role_id = r.role_id " +
-            "WHERE r.role_id= :roleId ", nativeQuery = true)
-    public List<User> getUserByRole(@Param("roleId") Long roleId);
+        @Query(value = "SELECT u.* FROM `user` u " +
+                        "JOIN `role` r " +
+                        "ON u.role_id = r.role_id " +
+                        "WHERE r.role_id= :roleId ", nativeQuery = true)
+        public List<User> getUserByRole(@Param("roleId") Long roleId);
 
-    Optional<User> findByUsername(String username);
+        Optional<User> findByUsername(String username);
 
-    Optional<User> findByEmail(String email);
+        Optional<User> findByEmail(String email);
 
-    Page<User> findByUsernameContaining(String partialUsername, Pageable pageable);
+        Page<User> findByUsernameContaining(String partialUsername, Pageable pageable);
 
-    @Query(value = "SELECT * FROM user \n" + //
-            "WHERE (:roleid is null or role_id = :roleid)\n" + //
-            "AND (:partialname is null or username like concat('%', :partialname, '%'))", nativeQuery = true)
-    Page<User> getAllUser(@Param("roleid")Long roleId, @Param("partialname")String partialUsername, Pageable pageable); 
+        @Query(value = "SELECT * FROM user \n" + //
+                        "WHERE (:roleid is null or role_id = :roleid)\n" + //
+                        "AND (:partialname is null or username like concat('%', :partialname, '%'))", nativeQuery = true)
+        Page<User> getAllUser(@Param("roleid") Long roleId, @Param("partialname") String partialUsername,
+                        Pageable pageable);
+
+        Boolean existsByUsername(String username);
 }

@@ -13,11 +13,9 @@ import org.springframework.stereotype.Service;
 
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.RoomDto;
-import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.Building;
 import fu.swp.dorm_mnm.model.Room;
 import fu.swp.dorm_mnm.model.RoomType;
-import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.base.BuildingRepository;
 import fu.swp.dorm_mnm.repository.base.RoomRepository;
 import fu.swp.dorm_mnm.repository.base.RoomTypeRepository;
