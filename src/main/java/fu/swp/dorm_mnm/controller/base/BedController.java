@@ -25,7 +25,7 @@ import fu.swp.dorm_mnm.service.base.BedService;
 @RestController
 @RequestMapping("/bed")
 public class BedController {
-    
+
     @Autowired
     private BedService bedService;
 

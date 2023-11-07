@@ -1,5 +1,6 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,12 +14,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import fu.swp.dorm_mnm.dto.PageDto;
+import fu.swp.dorm_mnm.dto.base.GuardDto;
+import fu.swp.dorm_mnm.dto.base.ManagerDto;
 import fu.swp.dorm_mnm.dto.base.StudentDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.Guard;
 import fu.swp.dorm_mnm.model.Manager;
+import fu.swp.dorm_mnm.model.News;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.model.User;
@@ -28,6 +33,7 @@ import fu.swp.dorm_mnm.repository.base.RoleRepository;
 import fu.swp.dorm_mnm.repository.base.StudentRepository;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
 import fu.swp.dorm_mnm.service.base.UserService;
+import fu.swp.dorm_mnm.util.FileUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,6 +49,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private GuardRepository guardRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Override
     public Optional<User> findById(Long id) {
@@ -168,6 +177,116 @@ public class UserServiceImpl implements UserService {
         pageDto.setTotalPages(page.getTotalPages());
         pageDto.setTotalItems(page.getTotalElements());
         return pageDto;
+    }
+
+    @Transactional
+    @Override
+    public UserDto save(MultipartFile userImage, UserDto userDto) {
+
+        Boolean isUserExist = userRepository.existsByUsername(userDto.getUsername());
+        Boolean isRoleExist = userDto.getRoleId() != null ? roleRepository.existsById(userDto.getRoleId()) : false;
+
+        UserDto resp = new UserDto();
+
+        if (isUserExist) {
+            resp.setMessage("Username: " + userDto.getUsername() + " existed !");
+            return resp;
+        }
+        if (!isRoleExist) {
+            resp.setMessage("Role: " + userDto.getRoleId() + " not existed !");
+            return resp;
+        }
+
+        if (!isUserExist && isRoleExist) {
+            LocalDateTime now = LocalDateTime.now();
+            Timestamp sqlNow = Timestamp.valueOf(now);
+
+            Role role = roleRepository.findById(userDto.getRoleId()).get();
+
+            User user = new User();
+            user.setCreatedAt(sqlNow);
+            user.setUpdatedAt(sqlNow);
+            user.setUsername(userDto.getUsername());
+            user.setPassword(userDto.getPassword());
+            user.setEmail(userDto.getEmail());
+            user.setRole(role);
+
+            // image
+            try {
+                user.setFileName(userImage.getOriginalFilename());
+                user.setFileType(userImage.getContentType());
+                user.setFileData(fu.swp.dorm_mnm.util.FileUtil.compressImage(userImage.getBytes()));
+            } catch (Exception e) {
+
+            }
+
+            // create student
+            if (role.getName().toUpperCase().equalsIgnoreCase("STUDENT")) {
+
+                StudentDto stdto = userDto.getStudentDto();
+                Student st = new Student();
+                st.setRollNumber(stdto.getRollNumber());
+                st.setCreatedAt(sqlNow);
+                st.setUpdatedAt(sqlNow);
+                st.setParentName(stdto.getParentName());
+                st.setUser(user);
+
+                resp = new UserDto(userRepository.save(user));
+                resp.setStudentDto(new StudentDto(studentRepository.save(st)));
+                resp.setMessage("STUDENT CREATED !");
+                return resp;
+            }
+
+            // create admin
+            if (role.getName().toUpperCase().equalsIgnoreCase("ADMIN")) {
+
+                resp = new UserDto(userRepository.save(user));
+                resp.setMessage("ADMIN CREATED !");
+                return resp;
+            }
+
+            // create manager
+            if (role.getName().toUpperCase().equalsIgnoreCase("MANAGER")) {
+
+                ManagerDto mdto = userDto.getManagerDto();
+                Manager m = new Manager();
+                m.setDescription((mdto.getDescription()));
+                m.setCreatedAt(sqlNow);
+                m.setUpdatedAt(sqlNow);
+                m.setUser(user);
+
+                resp = new UserDto(userRepository.save(user));
+                resp.setManagerDto(new ManagerDto(managerRepository.save(m)));
+                resp.setMessage("MANAGER CREATED !");
+                return resp;
+            }
+
+            // create guard
+            if (role.getName().toUpperCase().equalsIgnoreCase("GUARD")) {
+
+                GuardDto gdto = userDto.getGuardDto();
+                Guard g = new Guard();
+                g.setCreatedAt(sqlNow);
+                g.setUpdatedAt(sqlNow);
+                g.setUser(user);
+
+                resp = new UserDto(userRepository.save(user));
+                resp.setGuardDto(new GuardDto(guardRepository.save(g)));
+                resp.setMessage("GUARD CREATED !");
+                return resp;
+            }
+
+        }
+
+        return null;
+
+    }
+
+    @Override
+    public byte[] getUserImage(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        byte[] fileData = FileUtil.decompressImage(user.get().getFileData());
+        return fileData;
     }
 
 }
