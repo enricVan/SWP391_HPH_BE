@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import fu.swp.dorm_mnm.dto.ForgetPasswordDto;
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.GuardDto;
 import fu.swp.dorm_mnm.dto.base.ManagerDto;
@@ -32,6 +33,7 @@ import fu.swp.dorm_mnm.repository.base.ManagerRepository;
 import fu.swp.dorm_mnm.repository.base.RoleRepository;
 import fu.swp.dorm_mnm.repository.base.StudentRepository;
 import fu.swp.dorm_mnm.repository.base.UserRepository;
+import fu.swp.dorm_mnm.security.service.AuthenticationService;
 import fu.swp.dorm_mnm.service.base.UserService;
 import fu.swp.dorm_mnm.util.FileUtil;
 
@@ -52,6 +54,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @Override
     public Optional<User> findById(Long id) {
@@ -207,8 +212,14 @@ public class UserServiceImpl implements UserService {
             user.setCreatedAt(sqlNow);
             user.setUpdatedAt(sqlNow);
             user.setUsername(userDto.getUsername());
-            user.setPassword(userDto.getPassword());
             user.setEmail(userDto.getEmail());
+            user.setAddress(userDto.getAddress());
+            user.setGender(userDto.getGender());
+            user.setPassword(authenticationService.generate());
+            // user.setDateOfBirth(sqlNow);
+            user.setPhone(userDto.getPhone());
+            user.setStatus("active");
+            user.setFullName(userDto.getFullName());
             user.setRole(role);
 
             // image
@@ -234,14 +245,15 @@ public class UserServiceImpl implements UserService {
                 resp = new UserDto(userRepository.save(user));
                 resp.setStudentDto(new StudentDto(studentRepository.save(st)));
                 resp.setMessage("STUDENT CREATED !");
+                authenticationService.forgetPassword(new ForgetPasswordDto(user.getUsername(), user.getEmail()));
                 return resp;
             }
 
             // create admin
             if (role.getName().toUpperCase().equalsIgnoreCase("ADMIN")) {
-
                 resp = new UserDto(userRepository.save(user));
                 resp.setMessage("ADMIN CREATED !");
+                authenticationService.forgetPassword(new ForgetPasswordDto(user.getUsername(), user.getEmail()));
                 return resp;
             }
 
@@ -258,6 +270,7 @@ public class UserServiceImpl implements UserService {
                 resp = new UserDto(userRepository.save(user));
                 resp.setManagerDto(new ManagerDto(managerRepository.save(m)));
                 resp.setMessage("MANAGER CREATED !");
+                authenticationService.forgetPassword(new ForgetPasswordDto(user.getUsername(), user.getEmail()));
                 return resp;
             }
 
@@ -273,6 +286,7 @@ public class UserServiceImpl implements UserService {
                 resp = new UserDto(userRepository.save(user));
                 resp.setGuardDto(new GuardDto(guardRepository.save(g)));
                 resp.setMessage("GUARD CREATED !");
+                authenticationService.forgetPassword(new ForgetPasswordDto(user.getUsername(), user.getEmail()));
                 return resp;
             }
 
@@ -288,5 +302,7 @@ public class UserServiceImpl implements UserService {
         byte[] fileData = FileUtil.decompressImage(user.get().getFileData());
         return fileData;
     }
+
+
 
 }

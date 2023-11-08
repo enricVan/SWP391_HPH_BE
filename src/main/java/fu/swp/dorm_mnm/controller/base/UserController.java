@@ -96,14 +96,12 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{userId}/user-pic")
-    @PreAuthorize("hasAuthority('user:read')")
+    @GetMapping("/user-pic/{userId}")
     public ResponseEntity<?> getUserImage(@PathVariable Long userId) {
         byte[] resp = userService.getUserImage(userId);
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(resp);
-        // return ResponseEntity.ok("Hello");
     }
 
     @PostMapping
@@ -111,9 +109,7 @@ public class UserController {
     public ResponseEntity<?> createUser(
             @RequestPart("userDto") UserDto userDto,
             @RequestPart("file") MultipartFile userImage) {
-
         UserDto resp = userService.save(userImage, userDto);
-
         return ResponseEntity.status(HttpStatus.OK)
                 .body(resp);
     }

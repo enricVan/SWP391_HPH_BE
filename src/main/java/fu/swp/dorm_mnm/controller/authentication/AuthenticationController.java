@@ -6,20 +6,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fu.swp.dorm_mnm.dto.ChangePasswordDto;
 import fu.swp.dorm_mnm.dto.ForgetPasswordDto;
 import fu.swp.dorm_mnm.model.Role;
-import fu.swp.dorm_mnm.model.User;
 import fu.swp.dorm_mnm.repository.base.RoleRepository;
 import fu.swp.dorm_mnm.security.auth.AuthenticationRequest;
 import fu.swp.dorm_mnm.security.auth.AuthenticationResponse;
