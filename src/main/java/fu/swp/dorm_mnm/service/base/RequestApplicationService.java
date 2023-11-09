@@ -2,6 +2,10 @@ package fu.swp.dorm_mnm.service.base;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+
+import fu.swp.dorm_mnm.dto.PageDto;
+import fu.swp.dorm_mnm.dto.base.RequestApplicationDto;
 import fu.swp.dorm_mnm.model.RequestApplication;
 
 public interface RequestApplicationService {
@@ -13,4 +17,6 @@ public interface RequestApplicationService {
     public RequestApplication save(RequestApplication studentRequest);
 
     public void remove(Long id);
+
+    public PageDto<RequestApplicationDto> findAllReqApp(Long studentId, Long requestApplicationId, Pageable pageable); 
 }
