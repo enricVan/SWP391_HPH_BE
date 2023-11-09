@@ -23,17 +23,14 @@ public class RequestApplication {
     @Column(name = "request_application_id")
     private Long requestApplicationId;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "take_by_manager_id")
     private Manager manager;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "request_application_type_id")
     private RequestApplicationType requestApplicationType;
