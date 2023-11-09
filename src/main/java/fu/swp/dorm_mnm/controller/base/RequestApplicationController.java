@@ -1,6 +1,8 @@
 package fu.swp.dorm_mnm.controller.base;
+import java.util.Date;
 import java.util.Optional;
 
+import fu.swp.dorm_mnm.repository.base.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +29,9 @@ public class RequestApplicationController {
 
     @Autowired
     private RequestApplicationService requestApplicationService;
+
+    @Autowired
+    private ManagerRepository managerRepository;
 
     @PostMapping
     @PreAuthorize("hasAuthority('request-application:create')")
@@ -58,11 +63,14 @@ public class RequestApplicationController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('request-application:update')")
-    public ResponseEntity<RequestApplication> updateBedRequest(@PathVariable Long id,
-            @RequestBody RequestApplication requestApplication) {
-        Optional<RequestApplication> bedRequestOptional = requestApplicationService.findById(id);
-        return bedRequestOptional.map(bedRequest1 -> {
-            requestApplication.setStatus(bedRequest1.getStatus());
+    public ResponseEntity<RequestApplication> updateApplicationRequest(@PathVariable Long id,
+            @RequestBody RequestApplicationDto reqAppDto) {
+        Optional<RequestApplication> requestApplicationOptional = requestApplicationService.findById(id);
+        return requestApplicationOptional.map(requestApplication -> {
+            requestApplication.setStatus(reqAppDto.getStatus());
+            requestApplication.setTextResponse(reqAppDto.getTextResponse());
+            requestApplication.setManager(managerRepository.findById(reqAppDto.getManager().getManagerId()).get());
+            requestApplication.setUpdatedAt(new Date());
             return new ResponseEntity<>(requestApplicationService.save(requestApplication), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
