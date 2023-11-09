@@ -1,8 +1,9 @@
 package fu.swp.dorm_mnm.controller.base;
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fu.swp.dorm_mnm.dto.PageDto;
+import fu.swp.dorm_mnm.dto.base.RequestApplicationDto;
 import fu.swp.dorm_mnm.model.RequestApplication;
 import fu.swp.dorm_mnm.service.base.RequestApplicationService;
 
@@ -33,8 +37,14 @@ public class RequestApplicationController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('request-application:read')")
-    public ResponseEntity<Iterable<RequestApplication>> getAllRequestApplication() {
-        return new ResponseEntity<>(requestApplicationService.findAll(), HttpStatus.OK);
+    public ResponseEntity<PageDto<RequestApplicationDto>> getAllRequestApplication(
+            @RequestParam(required = false) Long studentId,
+            @RequestParam(required = false) Long requestApplicationTypeId,
+            @RequestParam(defaultValue = "0") int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 8);
+        PageDto<RequestApplicationDto> pageDto = requestApplicationService.findAllReqApp(studentId,
+                requestApplicationTypeId, pageable);
+        return new ResponseEntity<>(pageDto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

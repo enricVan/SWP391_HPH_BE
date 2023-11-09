@@ -1,11 +1,19 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import fu.swp.dorm_mnm.dto.PageDto;
+import fu.swp.dorm_mnm.dto.base.BedRequestDto;
+import fu.swp.dorm_mnm.dto.base.RequestApplicationDto;
+import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.model.RequestApplication;
 import fu.swp.dorm_mnm.model.RequestApplicationType;
 import fu.swp.dorm_mnm.model.Student;
@@ -16,7 +24,7 @@ import fu.swp.dorm_mnm.service.base.RequestApplicationService;
 
 @Service
 public class RequestApplicationServiceImpl implements RequestApplicationService {
-    
+
     @Autowired
     private RequestApplicationRepository requestApplicationRepository;
 
@@ -63,5 +71,24 @@ public class RequestApplicationServiceImpl implements RequestApplicationService 
     @Override
     public void remove(Long id) {
         requestApplicationRepository.deleteById(id);
+    }
+
+    @Override
+    public PageDto<RequestApplicationDto> findAllReqApp(Long studentId, Long requestApplicationId, Pageable pageable) {
+        Page<RequestApplication> page = requestApplicationRepository.findAllAppReq(studentId, requestApplicationId,
+                pageable);
+        List<RequestApplication> requestApplications = page.getContent();
+        List<RequestApplicationDto> requestApplicationDtos = new ArrayList<>();
+
+        for (RequestApplication requestApplication : requestApplications) {
+            requestApplicationDtos.add(new RequestApplicationDto(requestApplication));
+        }
+
+        PageDto<RequestApplicationDto> pageDto = new PageDto<>();
+        pageDto.setData(requestApplicationDtos);
+        pageDto.setCurrentPage(page.getNumber());
+        pageDto.setTotalPages(page.getTotalPages());
+        pageDto.setTotalItems(page.getTotalElements());
+        return pageDto;
     }
 }
