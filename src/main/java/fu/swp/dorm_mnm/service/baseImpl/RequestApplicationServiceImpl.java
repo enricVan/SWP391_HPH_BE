@@ -74,8 +74,10 @@ public class RequestApplicationServiceImpl implements RequestApplicationService 
     }
 
     @Override
-    public PageDto<RequestApplicationDto> findAllReqApp(Long studentId, Long requestApplicationId, Pageable pageable) {
+    public PageDto<RequestApplicationDto> findAllReqApp(Long studentId, Long requestApplicationId, String status,
+            Pageable pageable) {
         Page<RequestApplication> page = requestApplicationRepository.findAllAppReq(studentId, requestApplicationId,
+                status,
                 pageable);
         List<RequestApplication> requestApplications = page.getContent();
         List<RequestApplicationDto> requestApplicationDtos = new ArrayList<>();

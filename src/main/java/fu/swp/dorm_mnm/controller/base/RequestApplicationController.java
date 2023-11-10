@@ -40,10 +40,11 @@ public class RequestApplicationController {
     public ResponseEntity<PageDto<RequestApplicationDto>> getAllRequestApplication(
             @RequestParam(required = false) Long studentId,
             @RequestParam(required = false) Long requestApplicationTypeId,
+            @RequestParam(required = false) String status,
             @RequestParam(defaultValue = "0") int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, 8);
         PageDto<RequestApplicationDto> pageDto = requestApplicationService.findAllReqApp(studentId,
-                requestApplicationTypeId, pageable);
+                requestApplicationTypeId, status, pageable);
         return new ResponseEntity<>(pageDto, HttpStatus.OK);
     }
 

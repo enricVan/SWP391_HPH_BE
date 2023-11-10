@@ -18,5 +18,5 @@ public interface RequestApplicationService {
 
     public void remove(Long id);
 
-    public PageDto<RequestApplicationDto> findAllReqApp(Long studentId, Long requestApplicationId, Pageable pageable); 
+    public PageDto<RequestApplicationDto> findAllReqApp(Long studentId, Long requestApplicationId, String status, Pageable pageable); 
 }
