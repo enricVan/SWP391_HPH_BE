@@ -85,7 +85,7 @@ public class RequestApplicationServiceImpl implements RequestApplicationService 
                     RequestApplication existingRequestApp = existingRequestAppOptional.get();
                     existingRequestApp.setUpdatedAt(new Date());
                     existingRequestApp.setStudent(student);
-                    existingRequestApp.setStatus("Pending"); // or set the desired status
+                    existingRequestApp.setStatus(reqApp.getStatus()); // or set the desired status
                     existingRequestApp.setRequestApplicationType(requestApplicationType);
                     existingRequestApp.setRequestContent(reqApp.getRequestContent());
                     return requestApplicationRepository.save(existingRequestApp);
