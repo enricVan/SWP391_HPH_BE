@@ -62,16 +62,37 @@ public class RequestApplicationController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+//    @PutMapping("/{id}")
+//    @PreAuthorize("hasAuthority('request-application:update')")
+//    public ResponseEntity<RequestApplication> updateApplicationRequest(@PathVariable Long id,
+//            @RequestBody RequestApplicationDto reqAppDto) {
+//        Optional<RequestApplication> requestApplicationOptional = requestApplicationService.findById(id);
+//        return requestApplicationOptional.map(requestApplication -> {
+//            requestApplication.setStatus(reqAppDto.getStatus());
+//            requestApplication.setTextResponse(reqAppDto.getTextResponse());
+//            requestApplication.setManager(managerRepository.findById(reqAppDto.getManager().getManagerId()).get());
+//            requestApplication.setUpdatedAt(new Date());
+//            return new ResponseEntity<>(requestApplicationService.save(requestApplication), HttpStatus.OK);
+//        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('request-application:update')")
     public ResponseEntity<RequestApplication> updateApplicationRequest(@PathVariable Long id,
-            @RequestBody RequestApplicationDto reqAppDto) {
+                                                                       @RequestBody RequestApplicationDto reqAppDto) {
         Optional<RequestApplication> requestApplicationOptional = requestApplicationService.findById(id);
         return requestApplicationOptional.map(requestApplication -> {
+            // Set the fields from the DTO
             requestApplication.setStatus(reqAppDto.getStatus());
             requestApplication.setTextResponse(reqAppDto.getTextResponse());
-            requestApplication.setManager(managerRepository.findById(reqAppDto.getManager().getManagerId()).get());
+
+            // Explicitly set the manager field
+            requestApplication.setManager(managerRepository.findById(reqAppDto.getManager().getManagerId()).orElse(null));
+
+            // Set the updated timestamp
             requestApplication.setUpdatedAt(new Date());
+
+            // Save the updated entity
             return new ResponseEntity<>(requestApplicationService.save(requestApplication), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
