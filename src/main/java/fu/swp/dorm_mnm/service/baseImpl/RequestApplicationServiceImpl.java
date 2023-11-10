@@ -44,6 +44,30 @@ public class RequestApplicationServiceImpl implements RequestApplicationService 
         return requestApplicationRepository.findById(id);
     }
 
+//    @Override
+//    public RequestApplication save(RequestApplication reqApp) {
+//        Optional<Student> studentOptional = studentRepository.findById(reqApp.getStudent().getStudentId());
+//        Optional<RequestApplicationType> requestApplicationTypeOptional = requestApplicationTypeRepository
+//                .findById(reqApp.getRequestApplicationType().getRequestApplicationTypeId());
+//
+//        if (studentOptional.isPresent() && requestApplicationTypeOptional.isPresent()) {
+//            Student student = studentOptional.get();
+//            RequestApplicationType requestApplicationType = requestApplicationTypeOptional.get();
+//
+//            RequestApplication requestApplication = new RequestApplication();
+//            requestApplication.setCreatedAt(new Date());
+//            requestApplication.setUpdatedAt(new Date());
+//            requestApplication.setStudent(student);
+//            requestApplication.setStatus("Pending");
+//            requestApplication.setRequestApplicationType(requestApplicationType);
+//            requestApplication.setRequestContent(reqApp.getRequestContent());
+//
+//            return requestApplicationRepository.save(requestApplication);
+//        } else {
+//            return null;
+//        }
+//    }
+
     @Override
     public RequestApplication save(RequestApplication reqApp) {
         Optional<Student> studentOptional = studentRepository.findById(reqApp.getStudent().getStudentId());
@@ -54,19 +78,35 @@ public class RequestApplicationServiceImpl implements RequestApplicationService 
             Student student = studentOptional.get();
             RequestApplicationType requestApplicationType = requestApplicationTypeOptional.get();
 
-            RequestApplication requestApplication = new RequestApplication();
-            requestApplication.setCreatedAt(new Date());
-            requestApplication.setUpdatedAt(new Date());
-            requestApplication.setStudent(student);
-            requestApplication.setStatus("Pending");
-            requestApplication.setRequestApplicationType(requestApplicationType);
-            requestApplication.setRequestContent(reqApp.getRequestContent());
+            // Check if the RequestApplication already exists
+            if (reqApp.getRequestApplicationId() != null) {
+                Optional<RequestApplication> existingRequestAppOptional = requestApplicationRepository.findById(reqApp.getRequestApplicationId());
+                if (existingRequestAppOptional.isPresent()) {
+                    RequestApplication existingRequestApp = existingRequestAppOptional.get();
+                    existingRequestApp.setUpdatedAt(new Date());
+                    existingRequestApp.setStudent(student);
+                    existingRequestApp.setStatus("Pending"); // or set the desired status
+                    existingRequestApp.setRequestApplicationType(requestApplicationType);
+                    existingRequestApp.setRequestContent(reqApp.getRequestContent());
+                    return requestApplicationRepository.save(existingRequestApp);
+                }
+            }
 
-            return requestApplicationRepository.save(requestApplication);
+            // If the RequestApplication does not exist, create a new one
+            RequestApplication newRequestApplication = new RequestApplication();
+            newRequestApplication.setCreatedAt(new Date());
+            newRequestApplication.setUpdatedAt(new Date());
+            newRequestApplication.setStudent(student);
+            newRequestApplication.setStatus("Pending");
+            newRequestApplication.setRequestApplicationType(requestApplicationType);
+            newRequestApplication.setRequestContent(reqApp.getRequestContent());
+
+            return requestApplicationRepository.save(newRequestApplication);
         } else {
             return null;
         }
     }
+
 
     @Override
     public void remove(Long id) {
@@ -75,7 +115,7 @@ public class RequestApplicationServiceImpl implements RequestApplicationService 
 
     @Override
     public PageDto<RequestApplicationDto> findAllReqApp(Long studentId, Long requestApplicationId, String status,
-            Pageable pageable) {
+                                                        Pageable pageable) {
         Page<RequestApplication> page = requestApplicationRepository.findAllAppReq(studentId, requestApplicationId,
                 status,
                 pageable);
