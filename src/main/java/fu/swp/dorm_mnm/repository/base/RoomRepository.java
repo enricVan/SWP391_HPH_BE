@@ -53,4 +53,18 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
         public Page<Room> getRoomPageByParam(@Param("roomTypeId") Long roomTypeId,
                         @Param("buildingId") Long buildingId, @Param("floor") Integer floor,
                         @Param("status") String status, Pageable pageable);
+
+        @Query(value = "select r.* from bed_request br"
+                        + "\ninner join bed b on br.bed_id = b.bed_id"
+                        + "\ninner join room r on b.room_id = r.room_id"
+                        + "\nWHERE br.semester_id = :semester"
+                        + "\nAND br.status = 'approved'"
+                        + "\nAND (:floor is null or r.floor = :floor)"
+                        + "\nAND (:building is null or r.building_id = :building)"
+                        + "\nAND (:roomType is null or r.room_type_id = :roomType);", nativeQuery = true)
+        Page<Room> getAllRoomForManager(@Param("semester") Long semesterId,
+                        @Param("building") Long buildingId,
+                        @Param("roomType") Long roomTypeId,
+                        @Param("floor") Long floor,
+                        Pageable pageable);
 }

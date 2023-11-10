@@ -15,10 +15,12 @@ import org.springframework.stereotype.Service;
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.RoomDto;
 import fu.swp.dorm_mnm.model.Bed;
+import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.model.Building;
 import fu.swp.dorm_mnm.model.Room;
 import fu.swp.dorm_mnm.model.RoomType;
 import fu.swp.dorm_mnm.repository.base.BedRepository;
+import fu.swp.dorm_mnm.repository.base.BedRequestRepository;
 import fu.swp.dorm_mnm.repository.base.BuildingRepository;
 import fu.swp.dorm_mnm.repository.base.RoomRepository;
 import fu.swp.dorm_mnm.repository.base.RoomTypeRepository;
@@ -38,6 +40,9 @@ public class RoomServiceImpl implements RoomService {
 
     @Autowired
     private BedRepository bedRepository;
+
+    @Autowired
+    private BedRequestRepository bedRequestRepository; 
 
     @Override
     public Room createNewRoom(RoomDto roomDto) {
@@ -66,9 +71,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public PageDto<Room> findAll(Pageable pageable) {
+    public PageDto<Room> findAll(Long semesterId, Long buildingId, Long roomTypeId, Long floor, Pageable pageable) {
         PageDto<Room> pageDtoRoom = new PageDto<>();
-        Page<Room> page = roomRepository.findAll(pageable);
+        Page<Room> page = roomRepository.getAllRoomForManager(semesterId, buildingId, roomTypeId, floor, pageable);
         pageDtoRoom.setData(page.getContent());
         pageDtoRoom.setCurrentPage(page.getNumber());
         pageDtoRoom.setTotalItems(page.getTotalElements());
