@@ -49,9 +49,9 @@ public class RoomController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('room:create')")
-    public ResponseEntity<RoomDto> createNewRoom(@RequestBody RoomDto roomDto) {
-        RoomDto resp = roomService.save(roomDto);
-        return new ResponseEntity<>(resp, HttpStatus.CREATED);
+    public ResponseEntity<Room> createNewRoom(@RequestBody RoomDto roomdto) {
+        Room resp = roomService.createNewRoom(roomdto);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -66,8 +66,6 @@ public class RoomController {
     @PreAuthorize("hasAuthority('room:update')")
     public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody RoomDto roomRequest) {
         Optional<Room> roomRequestOptional = roomRepository.findById(id);
-        RoomType roomType = roomTypeRepository.findById(roomRequest.getRoomTypeId()).get();
-        Building building = buildingRepository.findById(roomRequest.getBuildingId()).get();
         Room room = new Room();
 
         return roomRequestOptional.map(roomRequest1 -> {

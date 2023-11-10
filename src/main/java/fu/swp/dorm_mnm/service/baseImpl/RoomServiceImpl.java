@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.service.baseImpl;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Service;
 
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.RoomDto;
+import fu.swp.dorm_mnm.model.Bed;
 import fu.swp.dorm_mnm.model.Building;
 import fu.swp.dorm_mnm.model.Room;
 import fu.swp.dorm_mnm.model.RoomType;
+import fu.swp.dorm_mnm.repository.base.BedRepository;
 import fu.swp.dorm_mnm.repository.base.BuildingRepository;
 import fu.swp.dorm_mnm.repository.base.RoomRepository;
 import fu.swp.dorm_mnm.repository.base.RoomTypeRepository;
@@ -33,13 +36,33 @@ public class RoomServiceImpl implements RoomService {
     @Autowired
     private BuildingRepository buildingRepository;
 
+    @Autowired
+    private BedRepository bedRepository;
+
     @Override
     public Room createNewRoom(RoomDto roomDto) {
         RoomType roomType = roomTypeRepository.findById(roomDto.getRoomTypeId()).get();
-        Building building = buildingRepository.findById(roomDto.getBuildingId()).get();
         Room room = new Room();
+        room.setRoomName(roomDto.getRoomName());
+        room.setRoomType(roomType);
 
-        return room;
+        List<Bed> beds = new ArrayList<>();
+        for (int i = 0; i < roomType.getNumberOfBeds(); i++) {
+            int num = i + 1;
+            Bed bed = new Bed();
+            bed.setBedName(roomDto.getRoomName() + " - Bed " + num);
+            bed.setStatus("vacant");
+            bed.setCreatedAt(new Date());
+            bed.setUpdatedAt(new Date());
+            bedRepository.save(bed);
+            beds.add(bed);
+        }
+        room.setBeds(beds);
+
+        room.setFloor(roomDto.getFloor());
+        room.setCreatedAt(new Date());
+        room.setUpdatedAt(new Date());
+        return roomRepository.save(room);
     }
 
     @Override

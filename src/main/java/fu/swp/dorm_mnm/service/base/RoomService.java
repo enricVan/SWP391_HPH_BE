@@ -11,7 +11,7 @@ import fu.swp.dorm_mnm.model.Room;
 
 public interface RoomService {
 
-    public Room createNewRoom(RoomDto roomDto);
+    public Room createNewRoom(RoomDto roomdto);
 
     public RoomDto save(RoomDto rdto);
 
