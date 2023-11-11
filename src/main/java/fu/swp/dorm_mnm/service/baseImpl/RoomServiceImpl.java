@@ -50,24 +50,24 @@ public class RoomServiceImpl implements RoomService {
         Room room = new Room();
         room.setRoomName(roomDto.getRoomName());
         room.setRoomType(roomType);
-
+        room.setBuilding(buildingRepository.findById(roomDto.getBuildingId()).get());
+        room.setFloor(roomDto.getFloor());
+        room.setCreatedAt(new Date());
+        room.setUpdatedAt(new Date());
+        Room newRoom=roomRepository.save(room);
         List<Bed> beds = new ArrayList<>();
         for (int i = 0; i < roomType.getNumberOfBeds(); i++) {
             int num = i + 1;
             Bed bed = new Bed();
             bed.setBedName(roomDto.getRoomName() + " - Bed " + num);
             bed.setStatus("vacant");
+            bed.setRoom(newRoom);
             bed.setCreatedAt(new Date());
             bed.setUpdatedAt(new Date());
             bedRepository.save(bed);
             beds.add(bed);
         }
-        room.setBeds(beds);
-
-        room.setFloor(roomDto.getFloor());
-        room.setCreatedAt(new Date());
-        room.setUpdatedAt(new Date());
-        return roomRepository.save(room);
+        return newRoom;
     }
 
     @Override

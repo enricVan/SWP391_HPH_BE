@@ -65,6 +65,7 @@ public class RoomTypeController {
         roomType.setUpdatedAt(new Date());
         roomType.setRoomTypeName(roomTypeRequest.getRoomTypeName());
         roomType.setRoomTypeDescription(roomTypeRequest.getRoomTypeDescription());
+        roomType.setPrice(roomTypeRequest.getPrice());
         return new ResponseEntity<>(roomTypeService.save(roomType), HttpStatus.OK);
     }
 
