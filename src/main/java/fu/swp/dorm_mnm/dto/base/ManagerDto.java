@@ -14,12 +14,16 @@ public class ManagerDto {
     private String description;
     private String createdAt;
     private String updatedAt;
+    private Long userId;
+    private UserDto userDto;
 
     public ManagerDto(Manager manager) {
         this.id = manager.getManagerId();
         this.description = manager.getDescription();
         this.createdAt = manager.getCreatedAt().toString();
         this.updatedAt = manager.getUpdatedAt().toString();
+        this.userId=manager.getUser().getId();
+        this.userDto=new UserDto(manager.getUser());
     }
 
 }
