@@ -113,4 +113,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(resp);
     }
+    @PutMapping
+    @PreAuthorize("hasAuthority('user:create')")
+    public ResponseEntity<?> updateUser(
+            @RequestPart("userDto") UserDto userDto,
+            @RequestPart("file") MultipartFile userImage) {
+        UserDto resp = userService.update(userImage, userDto);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(resp);
+    }
 }

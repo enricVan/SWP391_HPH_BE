@@ -28,6 +28,6 @@ public interface UserService {
     public PageDto<UserDto> getAllUser(Long roleId, String partialName, Pageable pageable);
 
     public UserDto save(MultipartFile userImage, UserDto userDto);
-
+    public UserDto update(MultipartFile userImage,UserDto userDto);
     public byte[] getUserImage(Long userId);
 }

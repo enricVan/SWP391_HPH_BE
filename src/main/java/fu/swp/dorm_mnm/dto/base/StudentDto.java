@@ -40,6 +40,7 @@ public class StudentDto {
             this.roomName = room.getRoomName();
             this.buildingName = room.getBuilding().getBuildingName();
             this.roomTypeName = room.getRoomType().getRoomTypeName();
+            this.floor=room.getFloor().intValue();
         }
         this.userDto = new UserDto(student.getUser());
     }
