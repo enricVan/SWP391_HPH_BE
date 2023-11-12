@@ -3,9 +3,7 @@ package fu.swp.dorm_mnm.service.baseImpl;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -216,7 +214,7 @@ public class UserServiceImpl implements UserService {
             user.setAddress(userDto.getAddress());
             user.setGender(userDto.getGender());
             user.setPassword(authenticationService.generate());
-            // user.setDateOfBirth(sqlNow);
+            user.setDateOfBirth(new Date(userDto.getDob()));
             user.setPhone(userDto.getPhone());
             user.setStatus("active");
             user.setFullName(userDto.getFullName());
@@ -233,8 +231,12 @@ public class UserServiceImpl implements UserService {
 
             // create student
             if (role.getName().toUpperCase().equalsIgnoreCase("STUDENT")) {
-
                 StudentDto stdto = userDto.getStudentDto();
+                Boolean isRollNumberExist=studentRepository.existsByRollNumber(stdto.getRollNumber());
+                if(isRollNumberExist){
+                    resp.setMessage("Roll Number "+stdto.getRollNumber()+ " Already Exist !");
+                    return resp;
+                }
                 Student st = new Student();
                 st.setRollNumber(stdto.getRollNumber());
                 st.setCreatedAt(sqlNow);
@@ -294,6 +296,77 @@ public class UserServiceImpl implements UserService {
 
         return null;
 
+    }
+
+    @Override
+    public UserDto update(MultipartFile userImage, UserDto userDto) {
+        UserDto resp=new UserDto();
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp sqlNow = Timestamp.valueOf(now);
+
+        Role role = roleRepository.findById(userDto.getRoleId()).get();
+
+        User user = userRepository.findById(userDto.getId()).get();
+        user.setUpdatedAt(sqlNow);
+        user.setEmail(userDto.getEmail());
+        user.setAddress(userDto.getAddress());
+        user.setGender(userDto.getGender());
+        user.setDateOfBirth(new Date(userDto.getDob()));
+        // user.setDateOfBirth(sqlNow);
+        user.setPhone(userDto.getPhone());
+        user.setFullName(userDto.getFullName());
+
+        // image
+        try {
+            user.setFileName(userImage.getOriginalFilename());
+            user.setFileType(userImage.getContentType());
+            user.setFileData(fu.swp.dorm_mnm.util.FileUtil.compressImage(userImage.getBytes()));
+        } catch (Exception e) {
+        }
+
+        // update student
+        StudentDto stdto = userDto.getStudentDto();
+        ManagerDto mdto = userDto.getManagerDto();
+        if (role.getName().toUpperCase().equalsIgnoreCase("STUDENT")&&stdto!=null) {
+            Student st = studentRepository.findById(userDto.getStudentId()).get();
+            Boolean isRollNumberExist=studentRepository.existsByRollNumber(stdto.getRollNumber());
+            if(isRollNumberExist&& !st.getRollNumber().equals(stdto.getRollNumber())){
+                resp.setMessage("Roll Number "+stdto.getRollNumber()+ " Already Exist !");
+                return resp;
+            }
+
+            st.setRollNumber(stdto.getRollNumber());
+            st.setUpdatedAt(sqlNow);
+            st.setParentName(stdto.getParentName());
+            st.setUser(user);
+            resp = new UserDto(userRepository.save(user));
+            resp.setStudentDto(new StudentDto(studentRepository.save(st)));
+            resp.setMessage("STUDENT UPDATED !");
+            return resp;
+        }
+        // update admin
+        if (role.getName().toUpperCase().equalsIgnoreCase("ADMIN")) {
+            resp = new UserDto(userRepository.save(user));
+            resp.setMessage("ADMIN CREATED !");
+            authenticationService.forgetPassword(new ForgetPasswordDto(user.getUsername(), user.getEmail()));
+            return resp;
+        }
+
+        // update manager
+        if (role.getName().toUpperCase().equalsIgnoreCase("MANAGER")&&mdto!=null) {
+            Manager m = managerRepository.findById(userDto.getManagerId()).get();
+            m.setDescription((mdto.getDescription()));
+            m.setUpdatedAt(sqlNow);
+            m.setUser(user);
+
+            resp = new UserDto(userRepository.save(user));
+            resp.setManagerDto(new ManagerDto(managerRepository.save(m)));
+            resp.setMessage("MANAGER UPDATED !");
+            return resp;
+        }
+        resp=new UserDto(userRepository.save(user));
+        resp.setMessage("USER UPDATED !");
+        return resp;
     }
 
     @Override

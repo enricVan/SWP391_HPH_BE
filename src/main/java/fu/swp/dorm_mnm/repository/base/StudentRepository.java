@@ -47,5 +47,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
                @Param("floor") Integer floor,
                @Param("bedId") Long bedId,
                Pageable pageable);
-
+     Boolean existsByRollNumber(String rollNumber);
 }
