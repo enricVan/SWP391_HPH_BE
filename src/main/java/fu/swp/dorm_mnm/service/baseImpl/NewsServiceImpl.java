@@ -93,10 +93,13 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public void createNews(String filename, byte[] data, Long managerId) {
+    public void createNews(String filename, byte[] data, Long managerId, String category, String content, String title) {
         News news = new News();
         news.setFileName(filename);
         news.setFileData(data);
+        news.setCategory(category);
+        news.setContent(content);
+        news.setTitle(title);
 
         news.setCreatedAt(new Date());
         news.setUpdatedAt(new Date());

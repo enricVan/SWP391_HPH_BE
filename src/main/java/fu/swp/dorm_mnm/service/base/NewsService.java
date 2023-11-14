@@ -24,5 +24,5 @@ public interface NewsService {
 
     public byte[] downloadFile(Long newsId);
 
-    public void createNews(String filename, byte[] data, Long managerId);
+    public void createNews(String filename, byte[] data, Long managerId, String category, String content, String title);
 }

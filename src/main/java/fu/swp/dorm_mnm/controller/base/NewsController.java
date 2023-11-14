@@ -44,12 +44,11 @@ public class NewsController {
                 page = newsService.findAllByTitle(title, pageNo);
             }
 
-            for (News news:
-                 page.getContent()) {
+            for (News news : page.getContent()) {
                 newsDtos.add(new NewsDto(news));
             }
             Map<String, Object> response = new HashMap<>();
-//            response.put("content", page.getContent());
+            // response.put("content", page.getContent());
             response.put("content", newsDtos);
             response.put("currentPage", page.getNumber());
             response.put("totalItems", page.getTotalElements());
@@ -69,11 +68,16 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("manager") Long manager) throws IOException {
+    public ResponseEntity<String> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("managerId") Long manager,
+            @RequestParam("category") String category,
+            @RequestParam("content") String content,
+            @RequestParam("title") String title) throws IOException {
         String filename = file.getOriginalFilename();
         byte[] fileData = file.getBytes();
 
-        newsService.createNews(filename, fileData, manager);
+        newsService.createNews(filename, fileData, manager, category, content, title);
         return ResponseEntity.status(HttpStatus.OK)
                 .body("PDF File uploaded and saved successfully.");
     }
@@ -87,7 +91,7 @@ public class NewsController {
     }
 
     @DeleteMapping("{newsId}")
-    public ResponseEntity<String> deleteFile(@PathVariable Long newsId){
+    public ResponseEntity<String> deleteFile(@PathVariable Long newsId) {
         newsService.remove(newsId);
         return ResponseEntity.ok("Delete successfully!");
     }
