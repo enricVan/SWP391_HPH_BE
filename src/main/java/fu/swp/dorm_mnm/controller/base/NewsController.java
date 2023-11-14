@@ -1,9 +1,7 @@
 package fu.swp.dorm_mnm.controller.base;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,15 +33,23 @@ public class NewsController {
     @PreAuthorize("hasAuthority('news:read')")
     public ResponseEntity<Map<String, Object>> getNewsPage(@RequestParam(required = false) String title,
             @RequestParam(value = "page", defaultValue = "0") int pageNo) {
+        List<NewsDto> newsDtos = new ArrayList<>();
         try {
+
             Page<News> page;
             if (title == null) {
                 page = newsService.findAll(pageNo);
             } else {
                 page = newsService.findAllByTitle(title, pageNo);
             }
+
+            for (News news:
+                 page.getContent()) {
+                newsDtos.add(new NewsDto(news));
+            }
             Map<String, Object> response = new HashMap<>();
-            response.put("content", page.getContent());
+//            response.put("content", page.getContent());
+            response.put("content", newsDtos);
             response.put("currentPage", page.getNumber());
             response.put("totalItems", page.getTotalElements());
             response.put("totalPages", page.getTotalPages());

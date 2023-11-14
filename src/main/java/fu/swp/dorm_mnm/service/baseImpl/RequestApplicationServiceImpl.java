@@ -44,30 +44,6 @@ public class RequestApplicationServiceImpl implements RequestApplicationService 
         return requestApplicationRepository.findById(id);
     }
 
-//    @Override
-//    public RequestApplication save(RequestApplication reqApp) {
-//        Optional<Student> studentOptional = studentRepository.findById(reqApp.getStudent().getStudentId());
-//        Optional<RequestApplicationType> requestApplicationTypeOptional = requestApplicationTypeRepository
-//                .findById(reqApp.getRequestApplicationType().getRequestApplicationTypeId());
-//
-//        if (studentOptional.isPresent() && requestApplicationTypeOptional.isPresent()) {
-//            Student student = studentOptional.get();
-//            RequestApplicationType requestApplicationType = requestApplicationTypeOptional.get();
-//
-//            RequestApplication requestApplication = new RequestApplication();
-//            requestApplication.setCreatedAt(new Date());
-//            requestApplication.setUpdatedAt(new Date());
-//            requestApplication.setStudent(student);
-//            requestApplication.setStatus("Pending");
-//            requestApplication.setRequestApplicationType(requestApplicationType);
-//            requestApplication.setRequestContent(reqApp.getRequestContent());
-//
-//            return requestApplicationRepository.save(requestApplication);
-//        } else {
-//            return null;
-//        }
-//    }
-
     @Override
     public RequestApplication save(RequestApplication reqApp) {
         Optional<Student> studentOptional = studentRepository.findById(reqApp.getStudent().getStudentId());

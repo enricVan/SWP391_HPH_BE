@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,14 +23,17 @@ public class NewsDto {
     private String updatedAt;
 
     public NewsDto(News news) {
+        String pattern = "dd/MM/yyyy HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+
         this.newsId = news.getNewsId();
         this.managerId = news.getManager().getManagerId();
         this.category = news.getCategory();
         this.title = news.getTitle();
         this.content = news.getContent();
         this.fileName = news.getFileName();
-        this.createdAt = news.getCreatedAt().toString();
-        this.updatedAt = news.getCreatedAt().toString();
+        this.createdAt = df.format(news.getCreatedAt());
+        this.updatedAt = df.format(news.getUpdatedAt());
     }
 
 }
