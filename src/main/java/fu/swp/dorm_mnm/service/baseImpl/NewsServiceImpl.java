@@ -91,4 +91,17 @@ public class NewsServiceImpl implements NewsService {
         return fileData;
     }
 
+    @Override
+    public void createNews(String filename, byte[] data, Long managerId) {
+        News news = new News();
+        news.setFileName(filename);
+        news.setFileData(data);
+
+        Manager manager = new Manager();
+        manager.setManagerId(managerId);
+
+        news.setManager(manager);
+        newsRepository.save(news);
+    }
+
 }

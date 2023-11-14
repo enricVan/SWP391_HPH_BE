@@ -62,11 +62,13 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file,
-            @RequestBody NewsDto newDto) throws IOException {
-        String resp = newsService.save(file, newDto);
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("manager") Long manager) throws IOException {
+        String filename = file.getOriginalFilename();
+        byte[] fileData = file.getBytes();
+
+        newsService.createNews(filename, fileData, manager);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(resp);
+                .body("PDF File uploaded and saved successfully.");
     }
 
     @GetMapping("/file/{newsId}")
