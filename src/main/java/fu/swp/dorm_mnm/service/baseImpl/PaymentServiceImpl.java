@@ -153,8 +153,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PageDto<PaymentDto> getAllPaymentByFilter(String rollNumber, String status, Pageable pageable) {
-        Page<Payment> page = paymentRepository.getAllStudentByFilter(rollNumber, status, pageable);
+    public PageDto<PaymentDto> getAllPaymentByFilter(String rollNumber, String status1, String status2, Pageable pageable) {
+        Page<Payment> page = paymentRepository.getAllStudentByFilter(rollNumber, status1, status2, pageable);
 
         List<PaymentDto> paymentDtoList = new ArrayList<>();
 
