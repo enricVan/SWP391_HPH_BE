@@ -90,7 +90,7 @@ public class NewsController {
                 .body(resp);
     }
 
-    @DeleteMapping("{newsId}")
+    @DeleteMapping("/{newsId}")
     public ResponseEntity<String> deleteFile(@PathVariable Long newsId) {
         newsService.remove(newsId);
         return ResponseEntity.ok("Delete successfully!");
