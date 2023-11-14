@@ -88,7 +88,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public byte[] downloadFile(Long newsId) {
         Optional<News> news = newsRepository.findById(newsId);
-        byte[] fileData = FileUtil.decompressImage(news.get().getFileData());
+        byte[] fileData = news.get().getFileData();
         return fileData;
     }
 
