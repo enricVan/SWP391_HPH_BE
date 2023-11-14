@@ -2,6 +2,7 @@ package fu.swp.dorm_mnm.service.baseImpl;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,9 @@ public class NewsServiceImpl implements NewsService {
         News news = new News();
         news.setFileName(filename);
         news.setFileData(data);
+
+        news.setCreatedAt(new Date());
+        news.setUpdatedAt(new Date());
 
         Manager manager = new Manager();
         manager.setManagerId(managerId);
