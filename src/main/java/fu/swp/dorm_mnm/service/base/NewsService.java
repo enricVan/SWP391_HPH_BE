@@ -23,4 +23,6 @@ public interface NewsService {
     public String save(MultipartFile file, NewsDto newsDto);
 
     public byte[] downloadFile(Long newsId);
+
+    public void createNews(String filename, byte[] data, Long managerId);
 }

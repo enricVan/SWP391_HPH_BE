@@ -35,4 +35,6 @@ public interface BedRequestRepository extends JpaRepository<BedRequest, Long> {
                         @Param("studentRollNumber") String studentRollNumber,
                         @Param("semesterId") Long semesterId, Pageable pageable);
 
+                        
+
 }
