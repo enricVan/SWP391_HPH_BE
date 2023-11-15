@@ -25,14 +25,17 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     @Query(value = "SELECT p.* FROM payment p \n" +
             "JOIN student s ON s.student_id = p.student_id \n" +
             "WHERE (:rollNumber IS NULL OR :rollNumber = '' OR s.roll_number LIKE :rollNumber) \n" +
-            "AND (:status IS NULL OR :status = '' OR p.`status` LIKE :status);", countQuery = "SELECT COUNT(*) FROM payment p \n"
-                    +
-                    "JOIN student s ON s.student_id = p.student_id \n" +
-                    "WHERE (:rollNumber IS NULL OR :rollNumber = '' OR s.roll_number LIKE :rollNumber) \n" +
-                    "AND (:status IS NULL OR :status = '' OR p.`status` LIKE :status)", nativeQuery = true)
+            "AND ((:status1 IS NULL OR :status1 = '' OR p.`status` LIKE :status1) " +
+            "OR (:status2 IS NULL OR :status2 = '' OR p.`status` LIKE :status2));", countQuery = "SELECT COUNT(*) FROM payment p \n"
+            +
+            "JOIN student s ON s.student_id = p.student_id \n" +
+            "WHERE (:rollNumber IS NULL OR :rollNumber = '' OR s.roll_number LIKE :rollNumber) \n" +
+            "AND ((:status1 IS NULL OR :status1 = '' OR p.`status` LIKE :status1) " +
+            "OR (:status2 IS NULL OR :status2 = '' OR p.`status` LIKE :status2));", nativeQuery = true)
     Page<Payment> getAllStudentByFilter(
             @Param("rollNumber") String rollNumber,
-            @Param("status") String status,
+            @Param("status1") String status1,
+            @Param("status2") String status2,
             Pageable pageable);
 
 }

@@ -11,9 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import fu.swp.dorm_mnm.dto.PageDto;
-import fu.swp.dorm_mnm.dto.base.BedRequestDto;
 import fu.swp.dorm_mnm.dto.base.RequestApplicationDto;
-import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.model.RequestApplication;
 import fu.swp.dorm_mnm.model.RequestApplicationType;
 import fu.swp.dorm_mnm.model.Student;

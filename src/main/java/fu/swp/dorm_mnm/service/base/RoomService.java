@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 import fu.swp.dorm_mnm.dto.PageDto;
 import fu.swp.dorm_mnm.dto.base.RoomDto;
-import fu.swp.dorm_mnm.model.BedRequest;
 import fu.swp.dorm_mnm.model.Room;
 
 public interface RoomService {

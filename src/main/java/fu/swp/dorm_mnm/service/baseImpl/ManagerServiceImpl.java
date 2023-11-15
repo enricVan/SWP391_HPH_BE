@@ -1,18 +1,18 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
-import fu.swp.dorm_mnm.dto.PageDto;
-import fu.swp.dorm_mnm.dto.base.ManagerDto;
-import fu.swp.dorm_mnm.model.Manager;
-import fu.swp.dorm_mnm.repository.base.ManagerRepository;
-import fu.swp.dorm_mnm.service.base.ManagerService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import fu.swp.dorm_mnm.dto.PageDto;
+import fu.swp.dorm_mnm.dto.base.ManagerDto;
+import fu.swp.dorm_mnm.model.Manager;
+import fu.swp.dorm_mnm.repository.base.ManagerRepository;
+import fu.swp.dorm_mnm.service.base.ManagerService;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {

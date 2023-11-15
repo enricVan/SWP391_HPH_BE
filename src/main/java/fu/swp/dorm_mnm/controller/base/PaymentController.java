@@ -48,12 +48,13 @@ public class PaymentController {
     @PreAuthorize("hasAuthority('bed-request:read')")
     public ResponseEntity<PageDto<PaymentDto>> getAllPaymentByFilter(
             @RequestParam(required = false) String rollNumber,
-            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String status1,
+            @RequestParam(required = false) String status2,
             @RequestParam(defaultValue = "0") int pageNo) {
 
         Pageable pageable = PageRequest.of(pageNo, 8, Sort.by("created_at"));
 
-        PageDto<PaymentDto> resp = paymentService.getAllPaymentByFilter(rollNumber, status, pageable);
+        PageDto<PaymentDto> resp = paymentService.getAllPaymentByFilter(rollNumber, status1, status2, pageable);
 
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }

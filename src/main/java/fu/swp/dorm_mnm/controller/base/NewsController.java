@@ -79,7 +79,7 @@ public class NewsController {
 
         newsService.createNews(filename, fileData, manager, category, content, title);
         return ResponseEntity.status(HttpStatus.OK)
-                .body("PDF File uploaded and saved successfully.");
+                .body("PDF File uploaded done.\nAdd a News successfully");
     }
 
     @GetMapping("/file/{newsId}")

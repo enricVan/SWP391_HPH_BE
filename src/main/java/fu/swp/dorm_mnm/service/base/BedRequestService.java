@@ -26,6 +26,8 @@ public interface BedRequestService {
 
     public void scanForExpiredPayment();
 
+    public void deleteExpiredPayment();
+
     public PageDto<BedRequestDto> getAllBedRequest(String studentRollNumber, String status, Long semesterId,
             Pageable pageable);
 }

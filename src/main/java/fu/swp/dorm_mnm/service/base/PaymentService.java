@@ -24,6 +24,6 @@ public interface PaymentService {
 
     public Payment unCheckPaymentBedRequest(Long id, Long managerId);
 
-    public PageDto<PaymentDto> getAllPaymentByFilter(String rollNumber, String status, Pageable pageable);
+    public PageDto<PaymentDto> getAllPaymentByFilter(String rollNumber, String status1, String status2, Pageable pageable);
 
 }
