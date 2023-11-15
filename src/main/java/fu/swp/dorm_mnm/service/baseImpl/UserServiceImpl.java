@@ -1,9 +1,11 @@
 package fu.swp.dorm_mnm.service.baseImpl;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +24,6 @@ import fu.swp.dorm_mnm.dto.base.StudentDto;
 import fu.swp.dorm_mnm.dto.base.UserDto;
 import fu.swp.dorm_mnm.model.Guard;
 import fu.swp.dorm_mnm.model.Manager;
-import fu.swp.dorm_mnm.model.News;
 import fu.swp.dorm_mnm.model.Role;
 import fu.swp.dorm_mnm.model.Student;
 import fu.swp.dorm_mnm.model.User;

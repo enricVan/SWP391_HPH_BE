@@ -224,6 +224,25 @@ public class BedRequestServiceImpl implements BedRequestService {
         }
     }
 
+    @Transactional
+    @Override
+    @Scheduled(fixedDelay = 300000) // 5 min
+    public void deleteExpiredPayment() {
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp sqlNow = Timestamp.valueOf(now);
+
+        List<Payment> pays = paymentRepository.findAllExpiredPayment(sqlNow);
+        if (!pays.isEmpty()) {
+
+            for (Payment p : pays) {
+                // remove all expired payment
+                BedRequest breq = p.getBedRequest();
+                paymentRepository.deleteById(p.getPaymentId());
+                bedRequestRepository.deleteById(breq.getBedRequestId());
+            }
+        }
+    }
+
     @Override
     public PageDto<BedRequestDto> getAllBedRequest(String studentRollNumber, String status, Long semesterId,
             Pageable pageable) {
