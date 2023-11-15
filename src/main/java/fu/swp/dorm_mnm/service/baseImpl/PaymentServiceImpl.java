@@ -132,7 +132,7 @@ public class PaymentServiceImpl implements PaymentService {
         if (payOptional.isPresent() && payOptional.isPresent()) {
 
             Payment pay = payOptional.get();
-            if (pay.getExpirationDate().after(sqlNow)) // check expiration date
+            if (pay.getExpirationDate().before(sqlNow)) // check expiration date
                 return null;
             pay.setManager(managerOptional.get());
             pay.setStatus("not paid");
