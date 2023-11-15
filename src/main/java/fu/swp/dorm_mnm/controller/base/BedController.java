@@ -8,14 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fu.swp.dorm_mnm.dto.base.BedDto;
 import fu.swp.dorm_mnm.exception.ResourceNotFoundException;
@@ -58,6 +51,12 @@ public class BedController {
 
         bedService.save(bed);
         return ResponseEntity.ok(bed);
+    }
+    @PutMapping("/{bedId}/move-student")
+    @PreAuthorize("hasAuthority('bed:update')")
+    public ResponseEntity<BedDto> updateStatus(@PathVariable Long bedId, @RequestParam(required = false) String rollNumber) {
+        BedDto bedDto=bedService.updateBedOccupation(bedId,rollNumber);
+        return ResponseEntity.ok(bedDto);
     }
 
     @DeleteMapping("/{id}")

@@ -15,6 +15,7 @@ public class BedDto {
     private Long roomId;
     private Long studentId;
     private String rollNumber;
+    private String message;
 
     public BedDto(Bed bed) {
         this.id = bed.getBedId();
