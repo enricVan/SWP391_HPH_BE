@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,11 +30,15 @@ public class StudentDto {
     private UserDto userDto;
 
     public StudentDto(Student student) {
+
+        String pattern = "dd/MM/yyyy HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+
         this.id = student.getStudentId();
         this.parentName = student.getParentName();
         this.rollNumber = student.getRollNumber();
-        this.createdAt = student.getCreatedAt().toString();
-        this.updateAt = student.getUpdatedAt().toString();
+        this.createdAt = df.format(student.getCreatedAt());
+        this.updateAt = df.format(student.getUpdatedAt());
 
         Bed bed = student.getBed();
         if (bed != null) {
