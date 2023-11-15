@@ -25,7 +25,7 @@ public interface UserService {
 
     public UserDto createUser(UserDto userDto);
 
-    public PageDto<UserDto> getAllUser(Long roleId, String partialName, Pageable pageable);
+    public PageDto<UserDto> getAllUser(Long roleId, String partialName, String status, Pageable pageable);
 
     public UserDto save(MultipartFile userImage, UserDto userDto);
     public UserDto update(MultipartFile userImage,UserDto userDto);

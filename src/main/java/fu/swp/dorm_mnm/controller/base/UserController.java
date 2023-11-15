@@ -47,9 +47,10 @@ public class UserController {
     public ResponseEntity<PageDto<UserDto>> getAllUser(
             @RequestParam(required = false) String partialName,
             @RequestParam(required = false) Long roleId,
+            @RequestParam(required = false) String status,
             @RequestParam(defaultValue = "0") int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, 8);
-        PageDto<UserDto> pageDto = userService.getAllUser(roleId, partialName, pageable);
+        PageDto<UserDto> pageDto = userService.getAllUser(roleId, partialName, status, pageable);
         return new ResponseEntity<>(pageDto, HttpStatus.OK);
     }
 
@@ -113,6 +114,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(resp);
     }
+
     @PutMapping
     @PreAuthorize("hasAuthority('user:create')")
     public ResponseEntity<?> updateUser(

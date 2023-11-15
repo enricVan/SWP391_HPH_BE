@@ -16,17 +16,21 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/manager")
 public class ManagementController {
+
     @Autowired
     private ManagerService managerService;
+    
     @Autowired
     private ManagerRepository managerRepository;
+
     @GetMapping
     @PreAuthorize("hasAuthority('manager:read')")
     public ResponseEntity<PageDto<ManagerDto>> get(@RequestParam(defaultValue = "0") int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, 8);
-        PageDto<ManagerDto> resp=managerService.findAll(pageable);
+        PageDto<ManagerDto> resp = managerService.findAll(pageable);
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
+
     @GetMapping("/{managerId}")
     @PreAuthorize("hasAuthority('manager:read')")
     public ResponseEntity<ManagerDto> getManagerById(@PathVariable Long managerId) {

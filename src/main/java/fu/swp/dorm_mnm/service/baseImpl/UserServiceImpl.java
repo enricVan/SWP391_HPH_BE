@@ -168,8 +168,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageDto<UserDto> getAllUser(Long roleId, String partialName, Pageable pageable) {
-        Page<User> page = userRepository.getAllUser(roleId, partialName, pageable);
+    public PageDto<UserDto> getAllUser(Long roleId, String partialName, String status, Pageable pageable) {
+        Page<User> page = userRepository.getAllUser(roleId, partialName, status, pageable);
         List<User> users = page.getContent();
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : users) {
@@ -233,9 +233,9 @@ public class UserServiceImpl implements UserService {
             // create student
             if (role.getName().toUpperCase().equalsIgnoreCase("STUDENT")) {
                 StudentDto stdto = userDto.getStudentDto();
-                Boolean isRollNumberExist=studentRepository.existsByRollNumber(stdto.getRollNumber());
-                if(isRollNumberExist){
-                    resp.setMessage("Roll Number "+stdto.getRollNumber()+ " Already Exist !");
+                Boolean isRollNumberExist = studentRepository.existsByRollNumber(stdto.getRollNumber());
+                if (isRollNumberExist) {
+                    resp.setMessage("Roll Number " + stdto.getRollNumber() + " Already Exist !");
                     return resp;
                 }
                 Student st = new Student();
@@ -301,7 +301,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(MultipartFile userImage, UserDto userDto) {
-        UserDto resp=new UserDto();
+        UserDto resp = new UserDto();
         LocalDateTime now = LocalDateTime.now();
         Timestamp sqlNow = Timestamp.valueOf(now);
 
@@ -328,11 +328,11 @@ public class UserServiceImpl implements UserService {
         // update student
         StudentDto stdto = userDto.getStudentDto();
         ManagerDto mdto = userDto.getManagerDto();
-        if (role.getName().toUpperCase().equalsIgnoreCase("STUDENT")&&stdto!=null) {
+        if (role.getName().toUpperCase().equalsIgnoreCase("STUDENT") && stdto != null) {
             Student st = studentRepository.findById(userDto.getStudentId()).get();
-            Boolean isRollNumberExist=studentRepository.existsByRollNumber(stdto.getRollNumber());
-            if(isRollNumberExist&& !st.getRollNumber().equals(stdto.getRollNumber())){
-                resp.setMessage("Roll Number "+stdto.getRollNumber()+ " Already Exist !");
+            Boolean isRollNumberExist = studentRepository.existsByRollNumber(stdto.getRollNumber());
+            if (isRollNumberExist && !st.getRollNumber().equals(stdto.getRollNumber())) {
+                resp.setMessage("Roll Number " + stdto.getRollNumber() + " Already Exist !");
                 return resp;
             }
 
@@ -354,7 +354,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // update manager
-        if (role.getName().toUpperCase().equalsIgnoreCase("MANAGER")&&mdto!=null) {
+        if (role.getName().toUpperCase().equalsIgnoreCase("MANAGER") && mdto != null) {
             Manager m = managerRepository.findById(userDto.getManagerId()).get();
             m.setDescription((mdto.getDescription()));
             m.setUpdatedAt(sqlNow);
@@ -365,7 +365,7 @@ public class UserServiceImpl implements UserService {
             resp.setMessage("MANAGER UPDATED !");
             return resp;
         }
-        resp=new UserDto(userRepository.save(user));
+        resp = new UserDto(userRepository.save(user));
         resp.setMessage("USER UPDATED !");
         return resp;
     }
@@ -376,7 +376,5 @@ public class UserServiceImpl implements UserService {
         byte[] fileData = FileUtil.decompressImage(user.get().getFileData());
         return fileData;
     }
-
-
 
 }
