@@ -15,13 +15,13 @@ spec:
     spec:
       containers:
         - name: backend-container-02
-          image: quachuoiscontainer/hph_be:latest
+          image: quachuoiscontainer/hph_be:tag03
           ports:
-            - containerPort: 80
+            - containerPort: 8888
           resources:
+            limits: 
+              cpu: "1"           # Limit to 1 CPU
+              memory: "512Mi"    # Limit to 512 MiB of memory
             requests:
-              memory: "500Mi"
-              cpu: "500m"
-            limits:
-              memory: "1500Mi"
-              cpu: "1000m"
+              cpu: "0.5"         # Request 0.5 CPU
+              memory: "256Mi"    # Request 256 MiB of memory

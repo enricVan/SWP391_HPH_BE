@@ -222,11 +222,12 @@ public class BedRequestServiceImpl implements BedRequestService {
                 bedRepository.save(bed);
             }
         }
+        deleteExpiredPayment();
     }
 
     @Transactional
     @Override
-    @Scheduled(fixedDelay = 300000) // 5 min
+    @Scheduled(fixedDelay = 60000) // 1 min
     public void deleteExpiredPayment() {
         LocalDateTime now = LocalDateTime.now();
         Timestamp sqlNow = Timestamp.valueOf(now);

@@ -65,7 +65,7 @@ public class AuthenticationService {
     private static final String LOWER_CASE = UPPER_CASE.toLowerCase();
     private static final String NUMBERS = "0123456789";
     private static final String SPECIAL_CHARS = "!@#$%^&*()_+";
-    private static final int PASSWORD_LENGTH = 10;
+    private static final int PASSWORD_LENGTH = 16;
     private final SecureRandom random = new SecureRandom();
 
     public AuthenticationResponse register(RegisterRequest request) {
