@@ -6,6 +6,7 @@ import fu.swp.dorm_mnm.repository.base.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,7 +48,7 @@ public class RequestApplicationController {
             @RequestParam(required = false) Long requestApplicationTypeId,
             @RequestParam(required = false) String status,
             @RequestParam(defaultValue = "0") int pageNo) {
-        Pageable pageable = PageRequest.of(pageNo, 8);
+        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by("created_at"));
         PageDto<RequestApplicationDto> pageDto = requestApplicationService.findAllReqApp(studentId,
                 requestApplicationTypeId, status, pageable);
         return new ResponseEntity<>(pageDto, HttpStatus.OK);

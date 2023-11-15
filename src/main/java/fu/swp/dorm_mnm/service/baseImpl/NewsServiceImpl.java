@@ -47,13 +47,13 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public Page<News> findAll(int pageNo) {
-        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by(Sort.Direction.ASC, "createdAt"));
+        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by(Sort.Direction.DESC, "createdAt"));
         return newsRepository.findAll(pageable);
     }
 
     @Override
     public Page<News> findAllByTitle(String title, int pageNo) {
-        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by(Sort.Direction.ASC, "createdAt"));
+        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by(Sort.Direction.DESC, "createdAt"));
         return newsRepository.findByTitleContaining(title, pageable);
     }
 

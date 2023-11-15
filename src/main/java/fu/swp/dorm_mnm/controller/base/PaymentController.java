@@ -3,6 +3,7 @@ package fu.swp.dorm_mnm.controller.base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,7 +51,7 @@ public class PaymentController {
             @RequestParam(required = false) String status,
             @RequestParam(defaultValue = "0") int pageNo) {
 
-        Pageable pageable = PageRequest.of(pageNo, 8);
+        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by("created_at"));
 
         PageDto<PaymentDto> resp = paymentService.getAllPaymentByFilter(rollNumber, status, pageable);
 
