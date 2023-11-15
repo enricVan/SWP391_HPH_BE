@@ -138,7 +138,7 @@ public class PaymentServiceImpl implements PaymentService {
             pay.setStatus("not paid");
 
             BedRequest breq = pay.getBedRequest();
-            breq.setStatus("reject");
+            breq.setStatus("rejected");
 
             Bed bed = breq.getBed();
             bed.setStatus("vacant");
