@@ -48,7 +48,7 @@ public class RequestApplicationController {
             @RequestParam(required = false) Long requestApplicationTypeId,
             @RequestParam(required = false) String status,
             @RequestParam(defaultValue = "0") int pageNo) {
-        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by("created_at"));
+        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by("created_at").descending());
         PageDto<RequestApplicationDto> pageDto = requestApplicationService.findAllReqApp(studentId,
                 requestApplicationTypeId, status, pageable);
         return new ResponseEntity<>(pageDto, HttpStatus.OK);

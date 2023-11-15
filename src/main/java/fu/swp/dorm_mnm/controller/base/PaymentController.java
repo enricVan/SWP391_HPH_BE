@@ -52,7 +52,7 @@ public class PaymentController {
             @RequestParam(required = false) String status2,
             @RequestParam(defaultValue = "0") int pageNo) {
 
-        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by("created_at"));
+        Pageable pageable = PageRequest.of(pageNo, 8, Sort.by("created_at").descending());
 
         PageDto<PaymentDto> resp = paymentService.getAllPaymentByFilter(rollNumber, status1, status2, pageable);
 
