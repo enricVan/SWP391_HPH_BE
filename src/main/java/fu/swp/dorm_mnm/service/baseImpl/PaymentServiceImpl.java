@@ -142,6 +142,7 @@ public class PaymentServiceImpl implements PaymentService {
 
             Bed bed = breq.getBed();
             bed.setStatus("vacant");
+            bed.setStudent(null);
 
             paymentRepository.save(pay);
             bedRequestRepository.save(breq);

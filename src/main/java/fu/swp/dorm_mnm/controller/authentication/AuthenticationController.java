@@ -85,9 +85,13 @@ public class AuthenticationController {
     public ResponseEntity<List<RegisterRequest>> addUser() {
         List<RegisterRequest> registerRequests = new ArrayList<>();
         RegisterRequest registerRequestAdmin = new RegisterRequest("admin", "admin", "ADMIN");
+        RegisterRequest registerRequestAdmin1 = new RegisterRequest("admin1", "admin", "ADMIN");
+        RegisterRequest registerRequestAdmin2 = new RegisterRequest("admin2", "admin", "ADMIN");
         RegisterRequest registerRequestStudent = new RegisterRequest("student", "student", "STUDENT");
         RegisterRequest registerRequestManager = new RegisterRequest("manager", "manager", "MANAGER");
         RegisterRequest registerRequestGuard = new RegisterRequest("guard", "guard", "GUARD");
+        authenticationService.register(registerRequestAdmin1);
+        authenticationService.register(registerRequestAdmin1);
         authenticationService.register(registerRequestAdmin);
         authenticationService.register(registerRequestStudent);
         authenticationService.register(registerRequestManager);
